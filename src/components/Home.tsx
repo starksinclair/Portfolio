@@ -8,6 +8,7 @@ import { Works } from "./Works";
 import { Resume } from "./Resume";
 import { Footer } from "./Footer";
 import { Contact } from "./Contact";
+import { Analytics } from "@vercel/analytics/react";
 import { FaBars } from "react-icons/fa";
 // import video from "../assets/Online_Freelancing_Explained(720p).mp4";
 
@@ -38,6 +39,7 @@ const Home: React.FC<HomeProps> = ({ name }) => {
   }, []);
   return (
     <>
+      <Analytics />
       <header className="header" id="home">
         <nav className="navbar">
           {/* <div className="logo">

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRef } from "react";
 import { gsap } from "gsap";
 import Home from "./components/Home";
+import { Analytics } from "@vercel/analytics/react";
 
 import "./App.css";
 
@@ -56,6 +57,7 @@ function App() {
 
   return (
     <>
+      <Analytics />
       <main>
         <div className="card" ref={cardRef}>
           <h1>Welcome</h1>
