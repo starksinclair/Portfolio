@@ -1,0 +1,78 @@
+.works {
+  margin-top: 5rem;
+}
+.works-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: auto;
+}
+
+.work-card {
+  margin-top: 5rem;
+  background-color: #fff;
+  width: 600px;
+  height: 470px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.work-card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transform: scale(1.1);
+  transition: ease-in-out 0.3s;
+}
+
+.work-card a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.thumbnail {
+  width: 600px;
+  height: 300px;
+  aspect-ratio: 2/3;
+  border-radius: 10px 10px 0 0;
+}
+
+.work-card h2 {
+  font-size: 1.5rem;
+  margin: 10px;
+  color: #333;
+}
+
+.work-card p {
+  font-size: 1.1rem;
+  color: #666;
+  margin: 0 10px 10px;
+}
+
+@media (max-width: 768px) {
+  .works {
+    margin-top: 2rem;
+  }
+  .works-content {
+    flex-direction: column;
+    padding: 0;
+    margin-top: 2rem;
+  }
+  .work-card {
+    width: 350px;
+    height: 420px;
+    margin-top: 1rem;
+  }
+  .thumbnail {
+    width: 350px;
+    height: 200px;
+  }
+  .work-card h2 {
+    font-size: 1.2rem;
+  }
+  .work-card p {
+    font-size: 1rem;
+  }
+}

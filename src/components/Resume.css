@@ -1,0 +1,21 @@
+.resume-container {
+  margin-top: 5rem;
+  display: grid;
+  place-content: center;
+}
+.resume-img {
+  margin-top: 5rem;
+  width: 55rem;
+  /* height: 100%; */
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease-in-out;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 768px) {
+  .resume-img {
+    width: 100%;
+  }
+}
