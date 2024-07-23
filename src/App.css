@@ -16,6 +16,9 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+label {
+  margin: 1rem 0;
+}
 
 .card {
   width: 350px;

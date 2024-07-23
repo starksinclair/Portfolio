@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useRef } from "react";
 import { gsap } from "gsap";
 import Home from "./components/Home";
+
 import "./App.css";
 
 function App() {
@@ -55,44 +56,50 @@ function App() {
 
   return (
     <>
-      <div className="card" ref={cardRef}>
-        <h1>Welcome</h1>
-        <p>Please enter your name to continue</p>
-        <form action="#" onSubmit={handler}>
-          <div className="input-group">
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Your Name"
-              required
-              autoFocus
-              autoComplete="on"
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <button type="submit" className="btn">
-            Login
-          </button>
-        </form>
-      </div>
+      <main>
+        <div className="card" ref={cardRef}>
+          <h1>Welcome</h1>
+          {/* <p>Please enter your name to continue</p> */}
 
-      <div className="relative" ref={animatedContentRef}>
-        <div id="intro-slider" className="slider">
-          <h1 className="text" id="title-1">
-            Software Engineer
-          </h1>
-          <h1 className="text" id="title-2">
-            Web Developer
-          </h1>
-          <h1 className="text" id="title-3">
-            Freelancer
-          </h1>
+          <form action="#" onSubmit={handler}>
+            <div className="input-group">
+              <label htmlFor="name" className="sr-only">
+                Please enter your name to continue
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Your Name"
+                required
+                autoFocus
+                autoComplete="on"
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <button type="submit" className="btn">
+              Login
+            </button>
+          </form>
         </div>
-        <div className="welcome-message">
-          <Home name={name} />
+
+        <div className="relative" ref={animatedContentRef}>
+          <div id="intro-slider" className="slider">
+            <h1 className="text" id="title-1">
+              Software Engineer
+            </h1>
+            <h1 className="text" id="title-2">
+              Web Developer
+            </h1>
+            <h1 className="text" id="title-3">
+              Freelancer
+            </h1>
+          </div>
+          <div className="welcome-message">
+            <Home name={name} />
+          </div>
         </div>
-      </div>
+      </main>
     </>
   );
 }
