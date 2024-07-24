@@ -15,7 +15,7 @@ export const Resume: React.FC<ResumeProps> = ({ id }) => {
             <a href={Resume_Img} download>
               <img src={Resume_Img} alt="Resume" className="resume-img" />
             </a>
-            <div className="resume">
+            <div className="resumes">
               <a href={Resume_file} download>
                 Download Resume
               </a>

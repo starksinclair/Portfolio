@@ -11,7 +11,7 @@ function App() {
   const cardRef = useRef<HTMLDivElement>(null);
   const animatedContentRef = useRef<HTMLDivElement>(null);
 
-  const handler = (event: any) => {
+  const handler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     document.body.classList.toggle("customBodyStyle");
@@ -24,12 +24,12 @@ function App() {
 
     // Animation using gsap
 
-    let ctx = gsap.context(() => {
+    const ctx = gsap.context(() => {
       const t1 = gsap.timeline();
       t1.from("#intro-slider", {
         xPercent: "-100",
         duration: 1.9,
-        delay: 0.9,
+        delay: 0.3,
       })
         .from(["#title-1", "#title-2", "#title-3"], {
           opacity: 0,
@@ -39,7 +39,7 @@ function App() {
         .to(["#title-1", "#title-2", "#title-3"], {
           opacity: 0,
           y: "-=30",
-          delay: 0.3,
+          delay: 0.1,
           stagger: 0.5,
         })
         .to("#intro-slider", {

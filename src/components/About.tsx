@@ -1,6 +1,6 @@
 // import React from 'react'
 import "./About.css";
-import Profile_pic from "../assets/profile_pic.jpg";
+import Profile_pic from "../assets/profile_pic1.jpg";
 
 interface AboutProps {
   id: string;

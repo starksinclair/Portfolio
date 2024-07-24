@@ -41,12 +41,12 @@
   }
   .profile_pic {
     width: 100%;
-    height: 30rem;
+    height: 20rem;
   }
   .img {
     width: 100%;
     aspect-ratio: 2/3;
-    object-fit: contain;
+    object-fit: fill;
     object-position: center;
     height: 100%;
   }

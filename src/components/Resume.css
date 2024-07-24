@@ -13,6 +13,24 @@
   transition: box-shadow 0.3s ease-in-out;
   margin-bottom: 3rem;
 }
+.resumes {
+  margin-inline: auto;
+  display: grid;
+  place-items: center;
+}
+.resumes a {
+  border: 1px solid aqua;
+  padding: 1rem 2rem;
+  font-size: clamp(0.8rem, 2vw, 1.5rem);
+  color: #f7fafc;
+  border-radius: 15px;
+  text-decoration: none;
+  transition: background-color 0.3s ease-in-out;
+}
+.resumes a:hover {
+  background-color: aqua;
+  color: #121212;
+}
 
 @media (max-width: 768px) {
   .resume-img {
