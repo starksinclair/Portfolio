@@ -1,6 +1,6 @@
 import "./Resume.css";
-import Resume_Img from "../assets/works/resume.png";
-import Resume_file from "../assets/files/sinclair_nzenwata_resume.pdf";
+import Resume_Img from "../assets/works/sinclair-resume.png";
+import Resume_file from "../assets/files/sinclair-nzenwata-resume.pdf";
 
 interface ResumeProps {
   id: string;
