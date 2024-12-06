@@ -1,6 +1,6 @@
 import "./Resume.css";
 import Resume_Img from "../assets/works/sinclair-resume.png";
-import Resume_file from "../assets/files/sinclair-nzenwata-resume.pdf";
+import Resume_file from "../assets/files/sinclair_nzenwata_resume 2.pdf";
 
 interface ResumeProps {
   id: string;
@@ -16,7 +16,7 @@ export const Resume: React.FC<ResumeProps> = ({ id }) => {
               <img src={Resume_Img} alt="Resume" className="resume-img" />
             </a>
             <div className="resumes">
-              <a href={Resume_file} download>
+              <a href={Resume_file} download={"sinclair-nzenwata-resume"}>
                 Download Resume
               </a>
             </div>

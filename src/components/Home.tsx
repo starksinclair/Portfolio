@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 import Gif from "../assets/Sin1Optimized.gif";
-import resume_Img from "../assets/files/sinclair_nzenwata_resume.pdf";
+import resume_Img from "../assets/files/sinclair_nzenwata_resume 2.pdf";
 import { About } from "./About";
 import { Skills } from "./Skills";
 import { Works } from "./Works";
