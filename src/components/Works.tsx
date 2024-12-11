@@ -7,6 +7,7 @@ import Poma from "../assets/works/poma.png";
 import Pantry from "../assets/works/pantry_vision.png";
 import AllCenturry from "../assets/works/all_century_voting.png";
 import OrientationMap from "../assets/works/orientation_map.png";
+import CS200 from "../assets/works/CS200.png";
 import { Snackbar, Alert } from "@mui/material";
 import { useState } from "react";
 
@@ -30,6 +31,13 @@ export const Works: React.FC<WorksProps> = ({ id }) => {
       description:
         "Explore Monster Evolution Through Media: This interactive timeline, created for my English 104 class, traces the portrayal of monsters in popular culture from their earliest appearances. See how these mythical creatures have been depicted over time and how media representations have evolved. (Responsive web design)",
       link: "https://eng104monster.netlify.app",
+    },
+    {
+      id: "project2",
+      title: "CS200 DIGITAL PRIVACY MUSEUM",
+      thumbnail: CS200,
+      description: "Digital Privacy Explorer is an interactive web-based project designed to educate users about the concept of digital fingerprints. The project introduces users to the concept of a 'digital fingerprint,' how it is created, how it is used for tracking, privacy laws and which data is being collected during account creation.",
+      link: "https://starksinclair.github.io/cs200_final_project/",
     },
     {
       id: "project2",

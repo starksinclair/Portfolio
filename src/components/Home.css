@@ -39,6 +39,7 @@
   gap: 2rem;
   z-index: 9999;
   list-style: none;
+  transition: all 0.3s ease;
 }
 /* .nav-item {
 } */
@@ -232,5 +233,25 @@
     height: max-content;
     position: relative;
     top: 5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-link-container {
+    display: none;
+  }
+
+  .nav-link-container.show-nav {
+    display: flex;
+  }
+
+  .nav-link-container.hide-nav {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .nav-link-container {
+    display: flex !important; /* Always show on desktop */
   }
 }

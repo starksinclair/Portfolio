@@ -11,6 +11,7 @@ import { Contact } from "./Contact";
 import { Analytics } from "@vercel/analytics/react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { socials } from "./socials/Social";
+import { Writing } from "./Writing";
 
 interface HomeProps {
   name: string;
@@ -20,10 +21,28 @@ const nav_link = ["Home", "About", "Skills", "Projects", "Resume", "Contact"];
 
 const Home: React.FC<HomeProps> = ({ name }) => {
   const [showNav, setShowNav] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const handleNav = () => {
-    setShowNav(!showNav);
-  };
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    
+    const handleMediaQueryChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      setIsMobile(e.matches);
+      if (!e.matches) {
+        setShowNav(true); // Always show nav on desktop
+      } else {
+        setShowNav(false); // Hide nav on mobile by default
+      }
+    };
+
+    handleMediaQueryChange(mediaQuery);
+
+    mediaQuery.addListener(handleMediaQueryChange);
+
+    return () => {
+      mediaQuery.removeListener(handleMediaQueryChange);
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,22 +77,24 @@ const Home: React.FC<HomeProps> = ({ name }) => {
       <Analytics />
       <header className="header" id="home">
         <nav className="navbar">
-          <ul className={`nav-link-container ${showNav ? "show-nav" : ""}`}>
+          <ul className={`nav-link-container ${isMobile ? (showNav ? "show-nav" : "hide-nav") : ""}`}>
             {nav_link.map((link, index) => (
               <li className="nav-item" key={index}>
                 <a
                   href={`#${link.toLowerCase()}`}
                   className="nav-link"
-                  onClick={() => setShowNav(false)}
+                  onClick={() => isMobile && setShowNav(false)}
                 >
                   {link}
                 </a>
               </li>
             ))}
           </ul>
-          <div className="nav-icon" onClick={handleNav}>
-            {showNav ? <FaTimes /> : <FaBars />}
-          </div>
+          {isMobile && (
+            <div className="nav-icon" onClick={() => setShowNav(!showNav)}>
+              {showNav ? <FaTimes /> : <FaBars />}
+            </div>
+          )}
         </nav>
         <div className="banner-container">
           <div className="banner-content">
@@ -108,6 +129,7 @@ const Home: React.FC<HomeProps> = ({ name }) => {
       <About id="about" />
       <Skills id="skills" />
       <Works id="projects" />
+      <Writing id="writing"/>
       <Resume id="resume" />
       <Contact id="contact" />
       <Footer />
