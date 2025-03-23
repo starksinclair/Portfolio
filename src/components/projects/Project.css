@@ -3,6 +3,7 @@
     padding: 4rem 2rem;
     max-width: 100rem;
     width: 100%;
+    overflow: hidden;
     margin-inline: auto;
   }
   
@@ -28,7 +29,7 @@
   
   .skills-column h2 {
     font-size: 1.8rem;
-    color: #ffffff;
+    color:#fbbf24;
   }
   
   .skills-column p {
@@ -61,7 +62,7 @@
   }
   
   /* Responsive Grid: 2 Columns for Medium Screens, 1 Column for Small Screens */
-  @media (max-width: 1024px) {
+  @media (max-width: 1480px) {
     .skills-grid {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -70,6 +71,16 @@
   @media (max-width: 768px) {
     .skills-grid {
       grid-template-columns: repeat(1, 1fr);
+    }
+    .skills-projects {
+      padding: 2rem 1rem;
+      max-width: max-content;
+    }
+    .skills-column h2 {
+      font-size: 1.2rem;
+    }
+    .skills-column p {
+      font-size: 0.9rem;
     }
   }
   

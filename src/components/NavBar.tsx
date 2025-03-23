@@ -19,7 +19,7 @@ const NavBar: React.FC = () => {
     };
   }, []);
   return (
-    <nav className={`navbar ${scrolled ? "fixed-mobile-nav" : ""}`}>
+    <nav className={`navbar-wrapper ${scrolled ? "fixed-mobile-nav" : ""}`}>
       <ul
         className={`nav-link-container ${
           (showNav ? "show-nav" : "hide-nav")
