@@ -1,16 +1,16 @@
 import "./Footer.css";
-// import { FaGithub, FaLinkedin, FaTwitter, FaWhatsapp } from "react-icons/fa";
-import Logo from "../assets/favicon.ico";
+// import Logo from "../assets/favicon.ico";
 import { socials } from "./socials/Social";
 
 export const Footer = () => {
+  const year = new Date().getFullYear();
   return (
     <>
       <footer className="footer">
         <div className="footer-container">
           <div className="footer-content">
-            <img src={Logo} alt="logo" />
-            <p>&copy; Sinclair Nzenwata 2024</p>
+            {/* <img src={Logo} alt="logo" /> */}
+            <p>&copy; Sinclair Nzenwata {year}</p>
           </div>
           <div className="socials">
             {socials.map((social, index) => (

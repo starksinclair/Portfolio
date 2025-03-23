@@ -1,6 +1,7 @@
 .footer {
-  background-color: #008080;
-  height: 3rem;
+  background: linear-gradient(135deg, #1f2937, #2d3748);
+  /* height: 3rem; */
+  padding-block: 1rem;
   margin-top: 5rem;
 }
 .footer-container {
@@ -15,6 +16,11 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
+
+  p {
+    margin: 0;
+    color: #fff;
+  }
 }
 .socials {
   display: flex;

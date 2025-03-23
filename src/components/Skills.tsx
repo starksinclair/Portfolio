@@ -8,7 +8,7 @@ export const Skills: React.FC<SkillsProps> = ({ id }) => {
     {
       category: "FRONTEND DEVELOPMENT",
       description:
-        "I have experience in building websites using HTML, CSS, JavaScript and Typescript. I have also worked with React, and I am currently learning Svelte.js.",
+        "I have experience in building websites using HTML, CSS, JavaScript and Typescript. I have also worked with React, and I am currently deeping my knowledge in this field.",
     },
     {
       category: "BACKEND DEVELOPMENT",

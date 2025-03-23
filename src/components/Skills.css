@@ -9,12 +9,15 @@
 
 .skills-card {
   margin-top: 5rem;
-  background-color: #008080;
-  width: 500px;
+  background-color: #f59e0b;
+  width: 400px;
+  height: 200px;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  transition:
+    transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
 }
 
 .skills-card:hover {
@@ -25,13 +28,13 @@
 .skills-card h2 {
   font-size: 1.5rem;
   margin-bottom: 10px;
-  color: #fff;
+  color: #1f2937;
 }
 
 .skills-card p {
   font-size: 1rem;
   /* color: #666; */
-  color: #fff;
+  color:  #1f2937;
   line-height: 1.6;
 }
 
