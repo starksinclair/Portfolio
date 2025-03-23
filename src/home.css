@@ -1837,17 +1837,17 @@ ol.wp-block-latest-comments {
   margin-left: 0;
 }
 :where(
-    .wp-block-latest-comments:not(
-        [style*="line-height"] .wp-block-latest-comments__comment
-      )
-  ) {
+  .wp-block-latest-comments:not(
+      [style*="line-height"] .wp-block-latest-comments__comment
+    )
+) {
   line-height: 1.1;
 }
 :where(
-    .wp-block-latest-comments:not(
-        [style*="line-height"] .wp-block-latest-comments__comment-excerpt p
-      )
-  ) {
+  .wp-block-latest-comments:not(
+      [style*="line-height"] .wp-block-latest-comments__comment-excerpt p
+    )
+) {
   line-height: 1.8;
 }
 .has-dates :where(.wp-block-latest-comments:not([style*="line-height"])),
@@ -2346,41 +2346,41 @@ button.wp-block-navigation-item__content {
   gap: inherit;
 }
 :where(
-    .wp-block-navigation.has-background
-      .wp-block-navigation-item
-      a:not(.wp-element-button)
-  ),
+  .wp-block-navigation.has-background
+    .wp-block-navigation-item
+    a:not(.wp-element-button)
+),
 :where(
-    .wp-block-navigation.has-background
-      .wp-block-navigation-submenu
-      a:not(.wp-element-button)
-  ) {
+  .wp-block-navigation.has-background
+    .wp-block-navigation-submenu
+    a:not(.wp-element-button)
+) {
   padding: 0.5em 1em;
 }
 :where(
-    .wp-block-navigation
-      .wp-block-navigation__submenu-container
-      .wp-block-navigation-item
-      a:not(.wp-element-button)
-  ),
+  .wp-block-navigation
+    .wp-block-navigation__submenu-container
+    .wp-block-navigation-item
+    a:not(.wp-element-button)
+),
 :where(
-    .wp-block-navigation
-      .wp-block-navigation__submenu-container
-      .wp-block-navigation-submenu
-      a:not(.wp-element-button)
-  ),
+  .wp-block-navigation
+    .wp-block-navigation__submenu-container
+    .wp-block-navigation-submenu
+    a:not(.wp-element-button)
+),
 :where(
-    .wp-block-navigation
-      .wp-block-navigation__submenu-container
-      .wp-block-navigation-submenu
-      button.wp-block-navigation-item__content
-  ),
+  .wp-block-navigation
+    .wp-block-navigation__submenu-container
+    .wp-block-navigation-submenu
+    button.wp-block-navigation-item__content
+),
 :where(
-    .wp-block-navigation
-      .wp-block-navigation__submenu-container
-      .wp-block-pages-list__item
-      button.wp-block-navigation-item__content
-  ) {
+  .wp-block-navigation
+    .wp-block-navigation__submenu-container
+    .wp-block-pages-list__item
+    button.wp-block-navigation-item__content
+) {
   padding: 0.5em 1em;
 }
 .wp-block-navigation.items-justified-right

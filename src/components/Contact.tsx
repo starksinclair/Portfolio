@@ -6,10 +6,7 @@ interface ContactProps {
   id: string;
 }
 export const Contact: React.FC<ContactProps> = ({ id }) => {
-  // Define the component as a function component
-
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
-    // Define the type of event as React.FormEvent<HTMLFormElement>
     e.preventDefault();
 
     emailjs
@@ -17,8 +14,8 @@ export const Contact: React.FC<ContactProps> = ({ id }) => {
         "service_nbqu8z5",
         "template_rlu2k5c",
         e.currentTarget,
-        "CPqj8tXgHxo2XUrio"
-      ) // Use e.currentTarget instead of e.target
+        "CPqj8tXgHxo2XUrio",
+      ) 
       .then(
         (result) => {
           console.log("SUCCESS!", result.text);
@@ -27,9 +24,9 @@ export const Contact: React.FC<ContactProps> = ({ id }) => {
         (error) => {
           console.log("FAILED...", error.text);
           alert("Failed to send message. Please try again later.");
-        }
+        },
       );
-    e.currentTarget.reset(); // Use e.currentTarget.reset() to reset the form
+    e.currentTarget.reset();
   };
 
   return (
@@ -37,8 +34,6 @@ export const Contact: React.FC<ContactProps> = ({ id }) => {
       <div className="contact-container" id={id}>
         <h1 className="text">CONTACT ME</h1>
         <div className="contact-text">
-          <h2>Get in touch</h2>
-          <br />
           <p>
             I am available for freelance work. Connect with me via email or
             social media.

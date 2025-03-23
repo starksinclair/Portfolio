@@ -2,21 +2,20 @@
   margin-top: 5rem;
   display: grid;
   place-content: center;
-  p{
+  p {
     width: 80%;
     margin-inline: auto;
     font-size: 20px;
   }
 }
-.resume-content{
+.resume-content {
   max-width: 60rem;
   width: 100%;
   margin-inline: auto;
 }
 .resume-img {
-  margin-top: 5rem;
+  margin-top: 2rem;
   width: 100%;
-  /* height: 100%; */
   object-fit: cover;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -29,7 +28,7 @@
   place-items: center;
 }
 .resumes a {
-  border: 1px solid aqua;
+  border: 1px solid #fbbf24;
   padding: 1rem 2rem;
   font-size: clamp(0.8rem, 2vw, 1.5rem);
   color: #f7fafc;
@@ -38,8 +37,8 @@
   transition: background-color 0.3s ease-in-out;
 }
 .resumes a:hover {
-  background-color: aqua;
-  color: #121212;
+  background-color: #fbbf24;
+  color:#1f2937;
 }
 
 @media (max-width: 768px) {

@@ -1,107 +1,43 @@
-import { useState } from "react";
-import { useRef } from "react";
-import { gsap } from "gsap";
 import Home from "./components/Home";
 import { Analytics } from "@vercel/analytics/react";
 
+
 import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { WorkDetail } from "./components/work-details/WorkDetail";
+import { Works } from "./components/Works";
+import { Footer } from "./components/Footer";
+import { useEffect } from "react";
 
 function App() {
-  const [name, setName] = useState("");
-  const cardRef = useRef<HTMLDivElement>(null);
-  const animatedContentRef = useRef<HTMLDivElement>(null);
-
-  const handler = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    document.body.classList.toggle("customBodyStyle");
-
-    // Hide the card and display the animated content
-    if (cardRef.current && animatedContentRef.current) {
-      cardRef.current.style.display = "none";
-      animatedContentRef.current.style.display = "block";
-    }
-
-    // Animation using gsap
-
-    const ctx = gsap.context(() => {
-      const t1 = gsap.timeline();
-      t1.from("#intro-slider", {
-        xPercent: "-100",
-        duration: 1.9,
-        delay: 0.3,
-      })
-        .from(["#title-1", "#title-2", "#title-3"], {
-          opacity: 0,
-          y: "+=30",
-          stagger: 0.5,
-        })
-        .to(["#title-1", "#title-2", "#title-3"], {
-          opacity: 0,
-          y: "-=30",
-          delay: 0.1,
-          stagger: 0.5,
-        })
-        .to("#intro-slider", {
-          xPercent: "-100",
-          duration: 1.3,
-        })
-        .from("#welcome", {
-          opacity: 0,
-          duration: 0.1,
-        });
-    }, animatedContentRef);
-
-    return () => ctx.revert();
-  };
-
+  const location = window.location.pathname
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [location]);
   return (
     <>
       <Analytics />
-      <main>
-        <div className="card" ref={cardRef}>
-          <h1>Welcome</h1>
-          {/* <p>Please enter your name to continue</p> */}
-
-          <form action="#" onSubmit={handler}>
-            <div className="input-group">
-              <label htmlFor="name" className="sr-only">
-                Please enter your name to continue
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Your Name"
-                required
-                autoFocus
-                autoComplete="on"
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-            <button type="submit" className="btn">
-              Login
-            </button>
-          </form>
-        </div>
-
-        <div className="relative" ref={animatedContentRef}>
-          <div id="intro-slider" className="slider">
-            <h1 className="text" id="title-1">
-              Software Engineer
-            </h1>
-            <h1 className="text" id="title-2">
-              Web Developer
-            </h1>
-            <h1 className="text" id="title-3">
-              Freelancer
-            </h1>
-          </div>
-          <div className="welcome-message">
-            <Home name={name} />
-          </div>
-        </div>
-      </main>
+      {/* <main> */}
+      {/* <div className="welcome-message">
+            <Home />
+          </div> */}
+      <BrowserRouter>
+        {/* <div className="app-container">
+        <nav>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/portfolio">Portfolio</Link></li>
+          </ul>
+        </nav> */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/portfolio" element={<Works id="" />} />
+          <Route path="/works/:workId" element={<WorkDetail />} />
+        </Routes>
+        <Footer />
+        {/* </div> */}
+      </BrowserRouter>
+      {/* </main> */}
     </>
   );
 }

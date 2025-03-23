@@ -1,5 +1,8 @@
 .about {
-  margin-top: 8rem;
+  margin-top: 5rem;
+  max-width: 100rem;
+  width: 100%;
+  margin-inline: auto;
 }
 
 .text {
@@ -10,7 +13,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5rem;
+  padding:  5rem;
   gap: 3rem;
 }
 .img {
@@ -38,22 +41,23 @@
     justify-content: flex-start;
     padding: 0;
     margin-top: 2rem;
+    gap: 1rem;
   }
   .profile_pic {
     width: 100%;
-    padding-inline: 1rem;
+    padding-inline: 0;
     /* height: 20rem; */
   }
   .img {
     width: 100%;
     aspect-ratio: 16/9;
-    object-fit: fill;
+    object-fit: contain;
     object-position: center;
     height: 100%;
   }
   .about-text {
     width: 100%;
-    padding: 1rem;
+    padding: 2rem;
     h2 {
       font-size: 1.5rem;
     }

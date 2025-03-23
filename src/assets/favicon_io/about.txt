@@ -1,6 +1,6 @@
 This favicon was generated using the following font:
 
-- Font Title: Poppins
-- Font Author: Copyright 2020 The Poppins Project Authors (https://github.com/itfoundry/Poppins)
-- Font Source: https://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf
-- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
+- Font Title: Metamorphous
+- Font Author: undefined
+- Font Source: https://fonts.gstatic.com/s/metamorphous/v20/Wnz8HA03aAXcC39ZEX5y1330PCCthTsmaQ.ttf
+- Font License: undefined)
