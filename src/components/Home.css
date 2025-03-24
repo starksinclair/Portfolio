@@ -77,9 +77,11 @@
 @media (max-width: 768px) {
   .header {
     display: block;
+    height: auto;
   }
   .banner-container {
     height: 100vh;
+    /* margin-top: 6rem; */
     display: flex;
     flex-direction: column;
     justify-content: center;

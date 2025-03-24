@@ -1,6 +1,7 @@
 
-  .navbar {
+  .navbar-wrapper {
     position: relative;
+    /* overflow: hidden; */
   }
   .nav-link-container {
     display: flex;
@@ -111,7 +112,7 @@
       .nav-links {
         font-size: 1.3rem;
       }
-      .navbar {
+      .navbar-wrapper {
         position: fixed;
         top: 0;
         left: 0;
