@@ -20,7 +20,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
-console.log("Firebase initialized"), data;
 
 export async function uploadPortfolio() {
   for (const project of data) {

@@ -46,7 +46,6 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({
         })) as Work[];
         setWorks(data);
       } catch (err) {
-        console.error("Error fetching portfolio:", err);
         setError("Failed to load portfolio data.");
       } finally {
         setLoading(false);
@@ -55,7 +54,6 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({
 
     fetchWorks();
   }, []);
-  console.log("Fetched works:", works);
 
   return (
     <PortfolioContext.Provider value={{ works, loading, error }}>
