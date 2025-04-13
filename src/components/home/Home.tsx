@@ -1,27 +1,21 @@
 import React from "react";
 import "./Home.css";
-import Gif from "../assets/Sin1Optimized.gif";
-import resume_Img from "../assets/files/sinclair-nzenwata-resume3.pdf";
-import { About } from "./About";
-// import { Skills } from "./Skills";
-// import { Works } from "./Works";
-import { Resume } from "./Resume";
-import { Contact } from "./Contact";
+import Gif from "../../assets/Sin1Optimized.gif";
+import resume_Img from "../../assets/files/sinclair-nzenwata-resume3.pdf";
+import { About } from "../about/About";
+import { Resume } from "../resume/Resume";
+import { Contact } from "../contact/Contact";
 import { Analytics } from "@vercel/analytics/react";
-import { Project } from "./projects/Project";
-import { socials } from "./socials/Social";
-// import { Writing } from "./Writing";
-import NavBar from "./NavBar";
+import { Project } from "../projects/Project";
+import { socials } from "../socials/Social";
+import NavBar from "../navbar/NavBar";
 
 const Home: React.FC = () => {
-
-  
-
   return (
     <>
       <Analytics />
       <header className="header" id="home">
-        <NavBar  />
+        <NavBar />
         <div className="banner-container">
           <div className="banner-content">
             <p className="owner-name">
@@ -55,9 +49,6 @@ const Home: React.FC = () => {
       </header>
       <About id="about" />
       <Project id="skills & projects" />
-      {/* <Skills id="skills" /> */}
-      {/* <Works id="projects" /> */}
-      {/* <Writing id="writing" /> */}
       <Resume id="resume" />
       <Contact id="contact" />
     </>

@@ -1,6 +1,6 @@
-import "./Resume.css";
-import Memo_File from "../assets/docs/ENG231 - Memo.pdf";
-import Memo_Img from "../assets/docs/preview_memo.png";
+import "../resume/Resume.css";
+import Memo_File from "../../assets/docs/ENG231 - Memo.pdf";
+import Memo_Img from "../../assets/docs/preview_memo.png";
 
 interface WritingProps {
   id: string;

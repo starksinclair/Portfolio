@@ -1,6 +1,5 @@
 import "./Footer.css";
-// import Logo from "../assets/favicon.ico";
-import { socials } from "./socials/Social";
+import { socials } from "../socials/Social";
 
 export const Footer = () => {
   const year = new Date().getFullYear();
@@ -9,7 +8,6 @@ export const Footer = () => {
       <footer className="footer">
         <div className="footer-container">
           <div className="footer-content">
-            {/* <img src={Logo} alt="logo" /> */}
             <p>&copy; Sinclair Nzenwata {year}</p>
           </div>
           <div className="socials">
