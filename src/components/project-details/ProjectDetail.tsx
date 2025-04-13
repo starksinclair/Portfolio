@@ -1,5 +1,5 @@
 import { Link, useLocation, useParams } from "react-router-dom";
-import "./WorkDetail.css";
+import "./ProjectDetail.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Carousel from "react-bootstrap/Carousel";
@@ -51,18 +51,34 @@ export const WorkDetail = () => {
         )}
         <h3>Technologies Used:</h3>
         <ul>{work?.technologies.map((tech) => <li key={tech}>{tech}</li>)}</ul>
-        <h3>Challenges:</h3>
+        <h3>User Stories</h3>
         <ul>
-          {work?.challenges.map((challenge) => (
-            <li key={challenge}>{challenge}</li>
-          ))}
+          {work?.userStories?.length === 0 && (
+            <li>No user stories available for this project.</li>
+          )}
+          {work?.userStories?.map((story) => <li key={story}>{story}</li>)}
         </ul>
-        <h3>Solutions:</h3>
-        <ul>
-          {work?.solutions.map((solution) => (
-            <li key={solution}>{solution}</li>
+        <h3>Development Journey:</h3>
+        <div className="timeline">
+          {work.challenges.map((challenge, index) => (
+            <div className="timeline-item fade-in" key={`journey-${index}`}>
+              <div className="timeline-icon challenge">🚧</div>
+              <div className="timeline-content">
+                <h4>Challenge {index + 1}</h4>
+                <p>{challenge}</p>
+              </div>
+              {work.solutions[index] && (
+                <>
+                  <div className="timeline-icon solution">✅</div>
+                  <div className="timeline-content">
+                    <h4>Solution {index + 1}</h4>
+                    <p>{work.solutions[index]}</p>
+                  </div>
+                </>
+              )}
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
       <div className="other-projects">
         <h2>Other Projects</h2>
