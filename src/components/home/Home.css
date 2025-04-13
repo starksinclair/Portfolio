@@ -7,7 +7,7 @@
   background-image:
     linear-gradient(to left, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),
     linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),
-    url("../assets/bac.jpeg");
+    url("../../assets/bac.jpeg");
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
@@ -67,7 +67,7 @@
 }
 .resume a:hover {
   background-color: #fbbf24;
-  color:#1f2937;
+  color: #1f2937;
 }
 
 .user {
@@ -96,5 +96,3 @@
     top: 5rem;
   }
 }
-
-
