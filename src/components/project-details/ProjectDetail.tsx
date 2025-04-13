@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { usePortfolio } from "../../context/usePortfolio";
 import Loading from "../loading/Loading";
 
-export const WorkDetail = () => {
+export const ProjectDetail = () => {
   const { workId } = useParams();
   const location = useLocation();
   const { works, error, loading } = usePortfolio();
