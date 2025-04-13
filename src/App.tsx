@@ -2,7 +2,7 @@ import Home from "./components/home/Home";
 import { Analytics } from "@vercel/analytics/react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { WorkDetail } from "./components/project-details/ProjectDetail";
+import { ProjectDetail } from "./components/project-details/ProjectDetail";
 import { Works } from "./components/works/Works";
 import { Footer } from "./components/footer/Footer";
 import { useEffect } from "react";
@@ -19,7 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/portfolio" element={<Works id="" />} />
-          <Route path="/works/:workId" element={<WorkDetail />} />
+          <Route path="/works/:workId" element={<ProjectDetail />} />
         </Routes>
         <Footer />
       </BrowserRouter>

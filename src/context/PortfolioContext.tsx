@@ -10,6 +10,7 @@ type Work = {
   status: string;
   externalLink?: string;
   technologies: string[];
+  userStories: string[];
   challenges: string[];
   solutions: string[];
   thumbnail: string;
