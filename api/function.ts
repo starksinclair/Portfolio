@@ -16,13 +16,13 @@ const db = getFirestore();
 
 export default async function handler(res: VercelResponse) {
   try {
-    const querySnapshot = await db.collection("portfolio").get();
-    const data = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    console.log("Fetched data from Firebase:", data);
-    res.status(200).json(data);
+    // const querySnapshot = await db.collection("portfolio").get();
+    // const data = querySnapshot.docs.map((doc) => ({
+    //   id: doc.id,
+    //   ...doc.data(),
+    // }));
+    console.log("Fetched data from Firebase:");
+    res.status(200).send("Fetched data from Firebase successfully");
   } catch (error) {
     console.error("Error fetching data from Firebase:", error);
     res.status(500).json({ error: "Failed to fetch data" });
