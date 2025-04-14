@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../utils/firebase";
+// import { collection, getDocs } from "firebase/firestore";
+// import { db } from "../utils/firebase";
 
 type Work = {
   id: string;
