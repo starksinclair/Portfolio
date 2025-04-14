@@ -49,31 +49,46 @@
 //     res.status(500).json({ error: error });
 //   }
 // }
+
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import { initializeApp, getApps, cert } from "firebase-admin/app";
+import admin from "firebase-admin";
+// import { getApps, initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 
-const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.FIREBASE_APP_ID,
-  measurementId: process.env.FIREBASE_MEASUREMENT_ID,
-};
+let firebaseAdminInitialized = false;
 
-if (!getApps().length) {
+function initializeFirebaseAdmin() {
+  if (firebaseAdminInitialized) {
+    return;
+  }
+
   try {
-    const serviceAccount = JSON.parse(
-      process.env.FIREBASE_SERVICE_ACCOUNT_CONFIG || "{}"
-    );
-    initializeApp({
-      credential: cert(serviceAccount),
-    });
+    if (process.env.FIREBASE_SERVICE_ACCOUNT_CONFIG) {
+      try {
+        const serviceAccount = JSON.parse(
+          process.env.FIREBASE_SERVICE_ACCOUNT_CONFIG
+        );
+        admin.initializeApp({
+          credential: admin.credential.cert(serviceAccount),
+        });
+      } catch (error) {
+        console.error("Error parsing FIREBASE_SERVICE_ACCOUNT_CONFIG:", error);
+        console.log(
+          "FIREBASE_SERVICE_ACCOUNT_CONFIG content:",
+          process.env.FIREBASE_SERVICE_ACCOUNT_CONFIG
+        ); // VERY IMPORTANT
+        throw new Error("Invalid FIREBASE_SERVICE_ACCOUNT_CONFIG");
+      }
+    } else {
+      admin.initializeApp({
+        credential: admin.credential.applicationDefault(), // For GCP environments
+      });
+    }
+    firebaseAdminInitialized = true;
   } catch (error) {
-    initializeApp(firebaseConfig);
-    console.error("Error initializing Firebase with service account:", error);
+    // if (!error.message?.includes('Firebase App named "[DEFAULT]" already exists')) {
+    console.error("Firebase Admin Initialization Error:", error);
+    // }
   }
 }
 
@@ -83,14 +98,15 @@ export default async function handler(
   _req: VercelRequest,
   res: VercelResponse
 ) {
+  initializeFirebaseAdmin();
+
   try {
     const snapshot = await db.collection("portfolio").get();
     const data = snapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
-    console.log("Fetched data from Firebase:", data);
-    res.send(data);
+    res.status(200).json(data);
   } catch (error) {
     console.error("Error fetching data from Firebase:", error);
     res.status(500).json({ error: error });
