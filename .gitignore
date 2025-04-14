@@ -25,3 +25,6 @@ dist-ssr
 
 .env
 my-portfolio-website-1ca26-e4c33685f75e.json
+.env.local
+.vercel
+.env*.local

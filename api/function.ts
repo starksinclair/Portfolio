@@ -3,9 +3,7 @@ import admin from "firebase-admin";
 import { getApps, initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 
-// Initialize Firebase Admin SDK
 const initializeFirebaseAdmin = () => {
-  // Check if any Firebase apps are already initialized
   if (getApps().length === 0) {
     try {
       if (process.env.FIREBASE_SERVICE_ACCOUNT_CONFIG) {
@@ -25,7 +23,7 @@ const initializeFirebaseAdmin = () => {
         }
       } else {
         initializeApp({
-          credential: admin.credential.applicationDefault(), // For GCP environments
+          credential: admin.credential.applicationDefault(),
         });
       }
     } catch (error) {
@@ -39,13 +37,8 @@ export default async function handler(
   res: VercelResponse
 ) {
   try {
-    // Initialize Firebase Admin SDK
     initializeFirebaseAdmin();
-
-    // Get Firestore instance
     const db = getFirestore();
-
-    // Fetch data from Firestore
     const snapshot = await db.collection("portfolio").get();
     const data = snapshot.docs.map((doc) => ({
       id: doc.id,
