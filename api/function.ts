@@ -1,5 +1,5 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import data from "../src/utils/cobinedData.json";
+import data from "../src/utils/cobinedData.json" assert { type: "json" };
 // import { initializeApp } from "firebase/app";
 // import { getFirestore, collection, getDocs } from "firebase/firestore";
 // import { initializeApp, cert, getApps } from "firebase-admin/app";
