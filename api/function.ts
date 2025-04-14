@@ -47,6 +47,6 @@ export default async function handler(
     res.send(data);
   } catch (error) {
     console.error("Error fetching data from Firebase:", error);
-    res.status(500).json({ error: "Failed to fetch data" });
+    res.status(500).json({ error: error });
   }
 }
