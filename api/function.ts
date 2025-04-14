@@ -1,4 +1,4 @@
-import { VercelResponse } from "@vercel/node";
+import { VercelRequest, VercelResponse } from "@vercel/node";
 // import { initializeApp } from "firebase/app";
 // import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { initializeApp, cert, getApps } from "firebase-admin/app";
@@ -28,7 +28,7 @@ const db = getFirestore();
 // const app = initializeApp(firebaseConfig);
 // const db = getFirestore(app);
 
-export default async function handler(res: VercelResponse) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     // const querySnapshot = await getDocs(collection(db, "portfolio"));
     // const data = querySnapshot.docs.map((doc) => ({
