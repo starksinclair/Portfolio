@@ -44,7 +44,7 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({
         //   id: doc.id,
         //   ...doc.data(),
         // })) as Work[];
-        const res = await fetch("/api/portfolio");
+        const res = await fetch("/api/function");
         if (!res.ok) throw new Error("Network response was not ok");
         const data = await res.json();
         setWorks(data);
