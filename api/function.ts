@@ -21,7 +21,7 @@ if (!getApps().length) {
     credential: cert({
       project_id: "my-portfolio-website-1ca26",
       client_email: "e4c33685f75e301773a51db6d0574d492c71af3e",
-      private_key: pp.replace(/\\n/g, "\n"),
+      private_key: pp,
     } as object),
   });
 }
