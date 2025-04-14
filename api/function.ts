@@ -1,8 +1,9 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
+import data from "../src/utils/cobinedData.json";
 // import { initializeApp } from "firebase/app";
 // import { getFirestore, collection, getDocs } from "firebase/firestore";
-import { initializeApp, cert, getApps } from "firebase-admin/app";
-import { getFirestore } from "firebase-admin/firestore";
+// import { initializeApp, cert, getApps } from "firebase-admin/app";
+// import { getFirestore } from "firebase-admin/firestore";
 
 // const firebaseConfig = {
 //   apiKey: process.env.FIREBASE_API_KEY,
@@ -14,16 +15,16 @@ import { getFirestore } from "firebase-admin/firestore";
 //   measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 // };
 
-if (!getApps().length) {
-  initializeApp({
-    credential: cert({
-      project_id: process.env.FIREBASE_PROJECT_ID,
-      client_email: process.env.FIREBASE_CLIENT_EMAIL,
-      private_key: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
-    } as object),
-  });
-}
-const db = getFirestore();
+// if (!getApps().length) {
+//   initializeApp({
+//     credential: cert({
+//       project_id: process.env.FIREBASE_PROJECT_ID,
+//       client_email: process.env.FIREBASE_CLIENT_EMAIL,
+//       private_key: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+//     } as object),
+//   });
+// }
+// const db = getFirestore();
 
 // const app = initializeApp(firebaseConfig);
 // const db = getFirestore(app);
@@ -38,12 +39,12 @@ export default async function handler(
     //   id: doc.id,
     //   ...doc.data(),
     // }));
-    const snapshot = await db.collection("portfolio").get();
-    const data = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    console.log("Fetched data from Firebase:", data);
+    // const snapshot = await db.collection("portfolio").get();
+    // const data = snapshot.docs.map((doc) => ({
+    //   id: doc.id,
+    //   ...doc.data(),
+    // }));
+    console.log("Fetched data from Firebase:");
     res.send(data);
   } catch (error) {
     console.error("Error fetching data from Firebase:", error);
