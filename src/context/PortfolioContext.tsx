@@ -1,7 +1,6 @@
-// src/context/PortfolioContext.tsx
 import React, { createContext, useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../utils/firebase";
+// import { collection, getDocs } from "firebase/firestore";
+// import { db } from "../utils/firebase";
 
 type Work = {
   id: string;
@@ -40,11 +39,14 @@ export const PortfolioProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     const fetchWorks = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "portfolio"));
-        const data = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        })) as Work[];
+        // const querySnapshot = await getDocs(collection(db, "portfolio"));
+        // const data = querySnapshot.docs.map((doc) => ({
+        //   id: doc.id,
+        //   ...doc.data(),
+        // })) as Work[];
+        const res = await fetch("/api/function");
+        if (!res.ok) throw new Error("Network response was not ok");
+        const data = await res.json();
         setWorks(data);
       } catch (err) {
         setError("Failed to load portfolio data.");
