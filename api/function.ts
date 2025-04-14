@@ -77,6 +77,7 @@ function initializeFirebaseAdmin() {
           "FIREBASE_SERVICE_ACCOUNT_CONFIG content:",
           process.env.FIREBASE_SERVICE_ACCOUNT_CONFIG
         ); // VERY IMPORTANT
+        console.error(process.env.FIREBASE_SERVICE_ACCOUNT_CONFIG);
         throw new Error("Invalid FIREBASE_SERVICE_ACCOUNT_CONFIG");
       }
     } else {
