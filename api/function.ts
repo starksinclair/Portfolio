@@ -53,13 +53,13 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import admin from "firebase-admin";
 // import { getApps, initializeApp } from "firebase-admin/app";
-import { getFirestore } from "firebase-admin/firestore";
+// import { getFirestore } from "firebase-admin/firestore";
 
-let firebaseAdminInitialized = false;
+let firebaseAdminInitialized = false; // Flag to track initialization
 
 function initializeFirebaseAdmin() {
   if (firebaseAdminInitialized) {
-    return;
+    return; // Already initialized, don't do it again
   }
 
   try {
@@ -76,33 +76,30 @@ function initializeFirebaseAdmin() {
         console.log(
           "FIREBASE_SERVICE_ACCOUNT_CONFIG content:",
           process.env.FIREBASE_SERVICE_ACCOUNT_CONFIG
-        ); // VERY IMPORTANT
-        console.error(process.env.FIREBASE_SERVICE_ACCOUNT_CONFIG);
+        ); // CRITICAL DEBUGGING
         throw new Error("Invalid FIREBASE_SERVICE_ACCOUNT_CONFIG");
       }
     } else {
       admin.initializeApp({
-        credential: admin.credential.applicationDefault(), // For GCP environments
+        credential: admin.credential.applicationDefault(), // For GCP environments (unlikely on Vercel)
       });
     }
-    firebaseAdminInitialized = true;
+    firebaseAdminInitialized = true; // Set the flag to true
   } catch (error) {
-    // if (!error.message?.includes('Firebase App named "[DEFAULT]" already exists')) {
+    // if (!error.message.includes('Firebase App named "[DEFAULT]" already exists')) {
     console.error("Firebase Admin Initialization Error:", error);
     // }
   }
 }
 
-const db = getFirestore();
-
 export default async function handler(
   _req: VercelRequest,
   res: VercelResponse
 ) {
-  initializeFirebaseAdmin();
+  initializeFirebaseAdmin(); // ENSURE THIS IS CALLED FIRST!
 
   try {
-    const snapshot = await db.collection("portfolio").get();
+    const snapshot = await admin.firestore().collection("portfolio").get(); // Use admin.firestore()
     const data = snapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
