@@ -3,7 +3,7 @@ import { VercelRequest, VercelResponse } from "@vercel/node";
 // import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { initializeApp, cert, getApps } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
-import ss from "../src/my-portfolio-website-1ca26-e4c33685f75e.json";
+
 // const firebaseConfig = {
 //   apiKey: process.env.FIREBASE_API_KEY,
 //   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -16,7 +16,11 @@ import ss from "../src/my-portfolio-website-1ca26-e4c33685f75e.json";
 
 if (!getApps().length) {
   initializeApp({
-    credential: cert(ss as object),
+    credential: cert({
+      project_id: process.env.FIREBASE_PROJECT_ID,
+      client_email: process.env.FIREBASE_CLIENT_EMAIL,
+      private_key: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+    } as object),
   });
 }
 const db = getFirestore();
