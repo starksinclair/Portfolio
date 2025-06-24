@@ -1,7 +1,7 @@
 import React from "react";
 import "./Home.css";
 import Gif from "../../assets/Sin1Optimized.gif";
-import resume_Img from "../../assets/files/sinclair-nzenwata-resume3.pdf";
+import resume_Img from "../../assets/files/sinclair-nzenwata-resume-4.pdf";
 import { About } from "../about/About";
 import { Resume } from "../resume/Resume";
 import { Contact } from "../contact/Contact";
