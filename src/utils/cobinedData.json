@@ -370,5 +370,82 @@
       "As a user, I want to transfer money between accounts at different banks.",
       "As a user, I want to view my transaction history."
     ]
+  },
+  {
+    "id": "adminmoderation",
+    "title": "Admin Moderation System",
+    "category": "FULL STACK DEVELOPMENT",
+    "challenges": [
+      "Integrating secure Single Sign-On (SSO) with Duo for admin authentication.",
+      "Designing a flexible, auditable moderation workflow for multiple content types (users, listings, services).",
+      "Ensuring real-time updates and filtering for admin actions and reports.",
+      "Maintaining a clear audit trail of all moderation activities.",
+      "Learning the AdonisJS framework and Edge templating system quickly to deliver production-ready features."
+    ],
+    "description": "Naahia Admin Moderation System: I architected and implemented a secure, full-featured admin dashboard for content moderation. The system supports reviewing, resolving, and dismissing user-generated reports, with a complete audit trail of all admin actions. Access is protected by Duo SSO, ensuring only authorized admins can perform moderation tasks. The dashboard features real-time filtering, analytics, and a modern, responsive UI.",
+    "externalLink": null,
+    "link": "/works/adminmoderation",
+    "solutions": [
+      "Read and watched alot of videos on the OIDC protcols and deep dive into a lot of Github repos trying to figure out how to use the npm package for implementing OIDC in a node app. ",
+      "Designed a normalized database schema for tracking reports, admin actions, and audit logs.",
+      "Implemented real-time filtering and analytics for moderation actions using Edge and Tailwind CSS.",
+      "Created a robust notification system to inform users of report status changes.",
+      "Developed a responsive, user-friendly interface for efficient moderation workflows."
+    ],
+    "status": "Finished",
+    "technologies": [
+      "AdonisJS",
+      "Node.js",
+      "Duo SSO",
+      "Tailwind CSS",
+      "Edge Templates",
+      "MySQL",
+      "SendGrid Email API"
+    ],
+    "thumbnail": "https://i.ibb.co/9mMzCXX5/moderation.png",
+    "userStories": [
+      "As an admin, I want to securely log in with SSO so that only authorized users can access moderation tools.",
+      "As an admin, I want to view, filter, and act on user reports in real-time.",
+      "As an admin, I want every moderation action to be tracked for audit and transparency.",
+      "As a user, I want to be notified when my report is reviewed, resolved, or dismissed."
+    ]
+  },
+  {
+    "id": "healthconnect",
+    "title": "HealthConnect: Multi-Agent Medical QA System",
+    "category": "FULL STACK DEVELOPMENT",
+    "challenges": [
+      "Understanding the Model Context Protocol (MCP) and its integration",
+      "Learning and using Python FastAPI for the backend",
+      "Parsing and handling PubMed search results in XML"
+    ],
+    "description": "HealthConnect is a web application that delivers accurate, reliable, and medically validated answers to user questions by leveraging a multi-agent Large Language Model (LLM) system. It integrates with Model Context Protocol (MCP) servers to perform comprehensive web and medical literature searches, ensuring responses are grounded in up-to-date and trustworthy information. The system features a FastAPI backend, real-time web and PubMed search, and a modern, responsive UI. Each user query is refined, researched, and validated by specialized LLM agents, ensuring trustworthy and well-formatted answers.",
+    "externalLink": "https://multi-llm-agent-system.onrender.com",
+    "link": "/works/healthconnect",
+    "solutions": [
+      "I solved this by reading the official documentation and watching YouTube tutorials to grasp how MCP orchestrates multi-agent workflows.",
+      "I addressed this by studying FastAPI docs and following video guides to implement robust API endpoints.",
+      "I researched how other projects parse PubMed XML data and watched relevant tutorials to implement reliable data extraction."
+    ],
+    "status": "Finished",
+    "technologies": [
+      "Python",
+      "FastAPI",
+      "Model Context Protocol (MCP)",
+      "OpenAI API",
+      "Google Gemini API",
+      "DeepSeek API",
+      "SerpAPI",
+      "PubMed/NCBI E-utilities",
+      "Tailwind CSS",
+      "Docker"
+    ],
+    "thumbnail": "https://i.ibb.co/ZRH3bbgJ/healthconnect.png",
+    "userStories": [
+      "As a user, I want to ask medical questions and receive accurate, up-to-date answers sourced from reputable literature and web search.",
+      "As a user, I want the system to clearly indicate that information is for educational purposes and not medical advice.",
+      "As a developer, I want the backend to be modular and extensible, supporting new LLM agents and search tools.",
+      "As a user, I want the interface to be responsive and easy to use on any device."
+    ]
   }
 ]
