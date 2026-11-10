@@ -116,7 +116,7 @@ export const mentions: Mention[] = [
     date: "2026-03-23",
     url: "https://buildingindiana.com/stories/techpoint-cummins-partner-to-provide-students-with-ai-work-based-learning-experience,76193",
     description:
-      "TechPoint selected 100 students from more than 200 applicants and placed them in cross-university teams to work on enterprise AI problems written with Cummins. My team of five, drawn from Purdue and Ball State, built Prescriptive Maintenance Dispatcher: a multi-agent work order system that reads machine data, diagnostics and service documentation so a field engineer knows what is wrong before arriving. We presented to Cummins judging panels in Columbus, Indiana on 6 March 2026 and took second in the Enter the Matrix track.",
+      "TechPoint selected 100 students from more than 200 applicants and placed them in cross-university teams to work on enterprise AI problems written with Cummins. My team of five, drawn from Purdue and Ball State, built Marco, presented as Prescriptive Maintenance Dispatcher: a multi-agent work order system that reads machine data, diagnostics and service documentation so a field engineer knows what is wrong before arriving. We presented to Cummins judging panels in Columbus, Indiana on 6 March 2026 and took second in the Enter the Matrix track.",
     quote:
       "Team 10 took second place with Prescriptive Maintenance Dispatcher, a multi-agent work order intelligence system built to help field engineers diagnose issues earlier, arrive better prepared, and reduce costly repeat service trips.",
     quoteAttribution: "Building Indiana, 23 March 2026",

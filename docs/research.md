@@ -185,6 +185,43 @@ identity signal a researcher can give a search engine, and both are free to crea
 Filling either field puts it straight into `Person.sameAs` on every page; nothing else needs
 changing.
 
+## 6b. The knowledge base (10 November 2026)
+
+`sinclair_portfolio_knowledge_base.md`, supplied by Sinclair: an inventory compiled by ChatGPT from
+prior conversations and older CV snapshots. It is a content source, not a record of fact; it marks
+its own uncertain items `VERIFY` and says so in its instructions.
+
+Used from it, because `src/data/cv.ts` (self-authored, November 2026) independently corroborates
+each one: Naahia, GatsToGo and Afrilibrum as ventures; the Campus Energy Dashboard; the two studies
+of AI coding agents; Play-by-Play Admin; the Ball State Parking App. The hero introduction in §1 and
+the one-paragraph bio in §11 are now `profile.summary` and `profile.bio`.
+
+Confirmed directly by Sinclair, 10 November 2026:
+
+- The "Interactive Parking Boundary Map Editor" is the **Ball State Parking App**; the editor is its
+  staff admin dashboard, not a separate product.
+- **Marco** is the name of the project his team built for the Cummins Xtern Challenge, presented as
+  Prescriptive Maintenance Dispatcher.
+- Naahia is at `naahia.com`, GatsToGo at `gatstogo.com`, Afrilibrum at `afrilibrum.com`.
+
+**Not used**, and why:
+
+| Item | Reason |
+|---|---|
+| Graduation December 2026 | The CV says May 2027 and the site follows the CV. The knowledge base flags the conflict itself. |
+| Digital Corps "15 projects, 18,000+ users" | No stated method of attribution. The site describes the work instead of counting it. |
+| GitHub `github.com/sinclairnzenwata` | Wrong. The real account is `starksinclair`, verified against the repositories in §7. |
+| Portfolio at `sinclairnzenwata.site` | Superseded; the site is `.com`. |
+| Shingul | Concept and prototype only, with pricing "discussed but not finalized". Nothing to show. |
+| Jack Beyerl Fund, $549 | Award year unverified, and it is not in the November CV. |
+| Xtern "$3,000 team prize" | Used, because the CV states it. The *Building Indiana* article is the source for the placing only. |
+| Bike sharing, CS 421 | Coursework, and the project index already carries enough of it. |
+| Wells Fargo | Explicitly never worked there. Recorded so it is never inferred. |
+| Teacher Scholar Program | Explicitly not received. Never to be listed. |
+
+The knowledge base also reports a 4.0 GPA, scholarship amounts and anticipated honours. Those were
+already on the site from the CV and were not changed.
+
 ## 7. Repositories reviewed for the project index
 
 Public repos on [github.com/starksinclair](https://github.com/starksinclair), newest activity first.

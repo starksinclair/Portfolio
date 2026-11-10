@@ -72,7 +72,7 @@ export const projects: Project[] = [
     status: "in-progress",
     category: "Platforms & operational systems",
     role: "Architect and sole developer",
-    context: "SportyKore",
+    context: "GatsToGo",
     summary:
       "A multi-tenant platform for LPG gas plants: each plant gets a white-labelled customer site, plus owner, staff and admin terminals that run the plant.",
     description:
@@ -111,6 +111,207 @@ export const projects: Project[] = [
     ],
     repoUrl: "https://github.com/starksinclair/gatstogo",
     featured: true,
+  },
+  {
+    slug: "naahia",
+    title: "Naahia",
+    year: "2025 to present",
+    status: "in-progress",
+    category: "Platforms & operational systems",
+    role: "Co-founder, mobile and backend developer",
+    context: "Naahia",
+    summary:
+      "A marketplace where students offer help and request services, now expanding toward a public marketplace in Nigeria.",
+    description:
+      "Naahia started from a problem every student recognises: the person who can cut your hair, fix your laptop or drive you to the airport is three doors down, and you find them by scrolling Instagram or Snapchat. Naahia is the marketplace where students offer help, request services and build community. I co-founded it with a fellow Ball State student, build the mobile app and the backend, and we are extending it past campus toward a public marketplace in Nigeria with identity verification. The moderation side of it is its own project, listed separately as the Admin Moderation System.",
+    technologies: [
+      "React Native",
+      "Expo",
+      "AdonisJS",
+      "Node.js",
+      "MySQL",
+      "Duo SSO",
+      "OpenID Connect",
+    ],
+    userStories: [
+      "As a student, I want to list a service I can provide so that people nearby can find and book it.",
+      "As a student, I want to request a service and see who can do it, without searching social media.",
+      "As a user in Nigeria, I want to know the person I am dealing with is verified.",
+      "As an administrator, I want reports and account actions to be logged and reviewable.",
+    ],
+    challenges: [
+      "Moving from a closed campus audience, where a university login is identity enough, to a public marketplace where it is not.",
+      "Building a mobile app and a backend as a two-person team, one of whom was learning to code.",
+      "Keeping administrator access genuinely restricted rather than password-protected.",
+    ],
+    solutions: [
+      "Designed identity verification into the expansion rather than bolting it on, since trust is the product in a marketplace between strangers.",
+      "Taught my co-founder to code and guided the architecture, so the work could be split rather than bottlenecked.",
+      "Put administrator access behind Duo single sign-on and OpenID Connect, with audit logging on every action.",
+    ],
+    liveUrl: "https://naahia.com",
+    featured: true,
+  },
+  {
+    slug: "afrilibrum",
+    title: "Afrilibrum Institute Academy",
+    year: "2026 to present",
+    status: "in-progress",
+    category: "Applications & interfaces",
+    role: "Founder and volunteer developer",
+    context: "Afrilibrum Institute Academy",
+    summary:
+      "A nonprofit education initiative and mobile-first learning platform for African learners.",
+    description:
+      "Afrilibrum is a nonprofit education initiative with a mobile-first learning platform behind it, built for African learners who have the ability and not the access. Alongside the platform we run webinars across Nigeria on leadership, business and marketing, so that students meet people doing the work and meet each other. The platform is in development; 20+ students are on the launch waitlist.",
+    technologies: ["React Native", "Expo", "Node.js", "PostgreSQL"],
+    userStories: [
+      "As a learner, I want course material that works on the phone I already have, on the data I can afford.",
+      "As a learner, I want to attend sessions with people working in the field I am trying to enter.",
+      "As an organiser, I want to run a webinar series and keep the people who attend connected afterwards.",
+    ],
+    challenges: [
+      "Mobile-first is a constraint, not a style choice: the audience is on phones, often on metered data.",
+      "A nonprofit has no engineering budget, so the stack has to be maintainable by one volunteer developer.",
+    ],
+    solutions: [
+      "Built for the phone first and kept payloads small rather than shipping a desktop app that happens to resize.",
+      "Ran the webinar programme in parallel with development, so the initiative delivers value before the platform launches.",
+    ],
+    liveUrl: "https://afrilibrum.com",
+    featured: false,
+  },
+  {
+    slug: "bsu-parking-app",
+    title: "Ball State Parking App",
+    year: "2026",
+    status: "shipped",
+    category: "Applications & interfaces",
+    role: "Developer of the staff map editor",
+    context: "Ball State Digital Corps",
+    summary:
+      "A campus parking app covering 90+ lots and garages, with a staff dashboard for redrawing lot boundaries as campus changes.",
+    description:
+      "The Ball State Parking App maps every campus lot and garage so a driver can see where they are allowed to park. I built the editor behind it: the staff admin dashboard used to rename lots and redraw lot polygons as campus parking changes, which is constant. The hard part is not drawing a polygon, it is reassigning a boundary to a different parking record without destroying geometry someone already drew, and keeping unassigned lots visibly unassigned instead of silently empty. The app covers 90+ lots and garages and has 20+ downloads since launching as a new campus initiative.",
+    technologies: [
+      "Google Apps Script",
+      "Google Maps",
+      "Google Sheets",
+      "JavaScript",
+      "clasp",
+    ],
+    userStories: [
+      "As a driver, I want to see which lots I am permitted to park in before I drive there.",
+      "As parking staff, I want to redraw a lot boundary when the campus changes, without redrawing the ones next to it.",
+      "As parking staff, I want to reassign an existing boundary to a different record and keep the geometry.",
+      "As parking staff, I want lots with no boundary yet to be obviously missing rather than invisible.",
+    ],
+    challenges: [
+      "Reassigning a boundary between parking records while preserving the existing polygon, rather than deleting and redrawing it.",
+      "Keeping assigned, unassigned and missing states correct as staff edit, so the map never quietly loses a lot.",
+      "Working inside Google Apps Script, where the usual local tooling does not apply.",
+    ],
+    solutions: [
+      "Separated the geometry from the record it belongs to, so a reassignment moves a reference instead of rewriting a shape.",
+      "Made missing boundaries a visible state in the editor rather than an absence, so an incomplete map looks incomplete.",
+      "Used clasp to develop locally against the Apps Script project instead of editing in the browser.",
+    ],
+    featured: false,
+  },
+  {
+    slug: "marco",
+    title: "Marco",
+    year: "2026",
+    status: "shipped",
+    category: "AI & agent systems",
+    role: "Team member and presenter",
+    context: "TechPoint Xtern Challenge with Cummins",
+    summary:
+      "A multi-agent work order system for field engineers, built in a cross-university team; second place in the Enter the Matrix track.",
+    description:
+      "Marco, presented as Prescriptive Maintenance Dispatcher, is a multi-agent work order intelligence system for field service. A technician arriving at a failed machine is often diagnosing it for the first time on site, which is how a repeat visit happens. Marco combines machine data, diagnostics and service documentation so the problem is identified earlier and the engineer arrives with the right parts and the right expectation. TechPoint selected 100 students from more than 200 applicants and placed them in cross-university teams; mine was five people from Purdue and Ball State. We presented to Cummins judging panels in Columbus, Indiana on 6 March 2026 and took second place in the Enter the Matrix track, with a $3,000 team prize.",
+    technologies: ["Python", "Multi-agent systems", "LLM APIs", "Retrieval"],
+    userStories: [
+      "As a field engineer, I want to know what is likely wrong before I arrive, so I bring the right parts.",
+      "As a service manager, I want fewer repeat visits for the same fault.",
+      "As a reviewer, I want to see why the system reached a recommendation rather than take it on trust.",
+    ],
+    challenges: [
+      "Agentic systems are easy to demo and hard to make accountable; a wrong dispatch costs a real trip.",
+      "Working as five people from two universities, remotely, over several weeks before a single presentation day.",
+    ],
+    solutions: [
+      "Kept a human in the loop on the dispatch decision rather than automating the recommendation end to end.",
+      "Combined machine data with the service documentation that already exists, so the reasoning could be traced back to a source.",
+    ],
+    featured: true,
+  },
+  {
+    slug: "campus-energy-dashboard",
+    title: "Campus Energy Dashboard",
+    year: "2025 to 2026",
+    status: "shipped",
+    category: "AI & agent systems",
+    role: "Undergraduate data science researcher",
+    context: "The Data Mine, Ball State cohort",
+    summary:
+      "Energy forecasting and natural-language querying across 128 campus meters, in production for authorized users.",
+    description:
+      "Ball State spends real money on energy and the data to reason about it sat in a form nobody could ask questions of. With The Data Mine cohort I connected the team's forecasting model to a FastAPI backend and a React dashboard, then built an MCP server and a local Ollama interface so the data can be queried in plain language: meter search, usage summaries, demand attribution, seasonal profiles. It is live for authorized users and covers 128 campus meters with hourly data from July 2022 to July 2026. Faculty mentor: Dr. Drew Lazar. Presented at three university events in 2026.",
+    technologies: [
+      "Python",
+      "FastAPI",
+      "pandas",
+      "NeuralProphet",
+      "React",
+      "Model Context Protocol",
+      "Ollama",
+      "Google Cloud Run",
+      "Cloudflare",
+    ],
+    userStories: [
+      "As a facilities decision-maker, I want to see which buildings drive demand and when.",
+      "As an analyst, I want to ask a question in plain language instead of writing a query against a meter table.",
+      "As a researcher, I want forecasts I can compare against what actually happened.",
+    ],
+    challenges: [
+      "A pandas and NeuralProphet dependency conflict that blocked the forecasting pipeline outright.",
+      "Deploying a research dashboard as something authorized staff can actually use, rather than a notebook.",
+      "Making natural-language querying useful over meter data without inventing numbers.",
+    ],
+    solutions: [
+      "Resolved the dependency conflict and pinned the pipeline so it builds reproducibly.",
+      "Split the deployment: dashboard on Cloudflare, backend API and MCP server on separate Google Cloud Run services, access restricted to authorized users.",
+      "Exposed the data through typed MCP tools (meter search, usage summaries, demand attribution, seasonal analysis) so answers come from queries rather than from a model's recollection.",
+    ],
+    featured: true,
+  },
+  {
+    slug: "play-by-play",
+    title: "Play-by-Play Admin",
+    year: "2026",
+    status: "shipped",
+    category: "Applications & interfaces",
+    role: "Student developer",
+    context: "Junior-year capstone, Ball State",
+    summary:
+      "Game management, scheduling, status tracking and audit logging for a gaming system's administration platform.",
+    description:
+      "A junior-year capstone: the administration platform behind a gaming system, where matches move from scheduled to live to completed and someone has to be able to see and correct what happened. I contributed game management, scheduling, status tracking and the audit log. Course instructor: Dr. Huseyin Ergin. Presented at the Ball State Student Symposium in April 2026.",
+    technologies: ["JavaScript", "Relational database", "REST APIs"],
+    userStories: [
+      "As an administrator, I want to schedule a game and move it through its states without editing the database.",
+      "As an administrator, I want every correction recorded, so a disputed result has a history.",
+    ],
+    challenges: [
+      "State transitions that look simple on a whiteboard and are not: a live match can be corrected after the fact.",
+      "Delivering a defined scope inside a team capstone on a fixed deadline.",
+    ],
+    solutions: [
+      "Modelled match state explicitly rather than inferring it from timestamps.",
+      "Added an audit log so an after-the-fact correction is visible as a correction.",
+    ],
+    featured: false,
   },
   {
     slug: "accessibility-docs",

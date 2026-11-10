@@ -189,7 +189,7 @@ function staticRoutes(): RouteSeo[] {
       path: "/research",
       title: "Research",
       description:
-        "Peer-reviewed work on ordinal time series forecasting in Forecasting (MDPI), and an in-progress CS 499 study on enforcing accessibility at authoring time.",
+        "Peer-reviewed work on ordinal time series forecasting in Forecasting (MDPI), a CS 499 study on enforcing document accessibility at authoring time, two studies of how AI coding agents handle ambiguity and context, and the Ball State campus energy dashboard.",
       ogType: "website",
       crumbs: [home, { name: "Research", path: "/research" }],
       changefreq: "monthly",

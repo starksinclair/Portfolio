@@ -32,11 +32,20 @@ export const profile = {
   },
   nationality: "Nigerian",
   /**
-   * Two sentences, no adjective inflation. Per BRAND.md §7 every claim here is
-   * traceable to docs/research.md or to a public repository.
+   * The lead on the overview page and the meta description for `/`. Sinclair's
+   * own wording, from the hero introduction in his knowledge base. Per BRAND.md
+   * §7 every claim here is traceable to docs/research.md or to a public
+   * repository.
    */
   summary:
-    "I am a computer science senior at Ball State University who builds software and publishes research on the same problems. I work on AI systems that have to survive contact with real users, and on the data and infrastructure underneath them.",
+    "I'm Sinclair Nzenwata, a computer science student and software developer building useful web and mobile products. My work spans accessible scholarly documents, data forecasting, AI-assisted software engineering, and platforms that help communities solve practical problems.",
+  /**
+   * The same person in the third person, for `Person.description` in the
+   * schema.org graph. A machine-readable bio is written about him, not by him,
+   * so the voice differs from `summary` on purpose; the facts do not.
+   */
+  bio:
+    "Sinclair Nzenwata is a computer science student at Ball State University and a software developer interested in building technology that addresses practical problems. His work includes research on accessible scholarly PDFs, ordinal time-series forecasting, and how AI coding agents handle incomplete software requirements. Through Digital Corps and applied research projects, he has worked on web applications, data tools and user-facing software. He also develops entrepreneurial products focused on student services, grassroots sports, and the operations of LPG businesses in Nigeria.",
   longBio: [
     "I am a computer science senior at Ball State University, where I also work on the Digital Corps development team. I came to programming through frontend web design during the pandemic and ended up somewhere more interesting: the point where a model's output has to become a system someone actually relies on.",
     "Most of what I build falls into two halves that keep informing each other. One half is applied: multi-tenant platforms, authentication and SSO, database architecture, payment paths, and the unglamorous work of making a write path correct. The other half is research: a peer-reviewed paper on ordinal time series forecasting, and a current CS 499 study on whether enforcing accessibility as a structural rule at authoring time produces more conformant documents than checking them afterwards.",
@@ -110,6 +119,46 @@ export const positions: Position[] = [
       "Built a grassroots football platform for Nigeria: competition management, fixtures, standings, player statistics and live match coverage.",
       "Partnerships with 4 competitions covering 50+ teams, including the Imo Super League finals, with 20+ more competitions on the launch waitlist.",
       "Lead a team of roughly 10 across four ventures, coordinating technical direction, task assignment and onboarding.",
+    ],
+  },
+  {
+    role: "Co-Founder",
+    organization: "Naahia",
+    organizationUrl: "https://naahia.com",
+    location: "Remote",
+    startDate: "2025-09",
+    period: "Sept 2025 to present",
+    highlights: [
+      "Co-founded with a fellow Ball State student: a marketplace where students offer help and request services, now expanding from campus toward a public marketplace in Nigeria with identity verification.",
+      "Build the mobile and backend features in React Native / Expo and AdonisJS.",
+      "Built the moderation dashboard for user reports, account and listing actions and audit logging, with administrator access behind Duo single sign-on and OpenID Connect.",
+      "Taught my co-founder to code and guided development of the platform. Pre-launch.",
+    ],
+  },
+  {
+    role: "Founder",
+    organization: "GatsToGo",
+    organizationUrl: "https://gatstogo.com",
+    location: "Remote",
+    startDate: "2026-01",
+    period: "2026 to present",
+    highlights: [
+      "Operations software for LPG gas filling plants in Nigeria: customers buy cooking gas without creating an account, staff record fills and cash sales, owners manage pumps, staff, hours and reviews.",
+      "Architected a multi-tenant platform, each plant on its own subdomain, in Go with Postgres row-level security.",
+      "First pilot planned at a family-owned plant currently under construction.",
+    ],
+  },
+  {
+    role: "Founder and Volunteer Developer",
+    organization: "Afrilibrum Institute Academy",
+    organizationUrl: "https://afrilibrum.com",
+    location: "Remote",
+    startDate: "2026-01",
+    period: "2026 to present",
+    highlights: [
+      "Nonprofit education initiative and mobile-first learning platform for African learners.",
+      "Run webinars across Nigeria on leadership, business and marketing, so students can connect and network.",
+      "20+ students on the launch waitlist.",
     ],
   },
   {

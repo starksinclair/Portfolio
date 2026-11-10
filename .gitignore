@@ -34,3 +34,7 @@ scripts/fonts/
 
 # Per-machine Claude Code settings; launch.json is shared and is committed
 .claude/settings.local.json
+
+# Private source material: compiled notes with unverified claims, award amounts
+# and editorial VERIFY flags. Kept locally, never in a public repository.
+sinclair_portfolio_knowledge_base.md

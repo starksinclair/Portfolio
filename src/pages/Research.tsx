@@ -3,13 +3,15 @@ import { FiExternalLink } from "react-icons/fi";
 import { Page, Section } from "../components/Page";
 import { Pager } from "../components/Pager";
 import { publications } from "../data/press";
+import { researchEntries } from "../data/cv";
+import { CvEntry } from "../components/CvEntry";
 import { profile } from "../data/profile";
 import { formatDate } from "../lib/format";
 import { adjacent } from "../nav";
 
 const toc = [
   { id: "published", label: "Published" },
-  { id: "in-progress", label: "In progress" },
+  { id: "studies", label: "Research and immersive learning" },
 ];
 
 export function Research() {
@@ -24,7 +26,7 @@ export function Research() {
     <Page
       eyebrow="Work"
       title="Research"
-      description="One peer-reviewed paper on ordinal time series forecasting, and one study in progress on whether accessibility is better enforced than checked."
+      description="One peer-reviewed paper on ordinal time series forecasting, and four studies in accessible documents, AI coding agents and campus energy."
       path="/research"
       toc={toc}
       crumbs={crumbs}
@@ -149,48 +151,39 @@ export function Research() {
         })}
       </Section>
 
-      <Section id="in-progress" title="In progress">
-        <article>
-          <h3 style={{ marginBottom: "var(--space-sm)" }}>
-            Enforcing accessibility at authoring time
-          </h3>
-          <dl className="meta-table">
-            <div>
-              <dt>Course</dt>
-              <dd>CS 499, Ball State University</dd>
-            </div>
-            <div>
-              <dt>Status</dt>
-              <dd>Prototypes built, collecting data</dd>
-            </div>
-            <div>
-              <dt>Question</dt>
-              <dd>
-                Does enforcing alt text, heading structure and reading order as
-                structural rules at authoring time produce scholarly documents with
-                higher WCAG 2.2 Level AA conformance than documents written in
-                Microsoft Word and exported as PDF?
-              </dd>
-            </div>
-          </dl>
-          <div className="prose" style={{ marginTop: "var(--space-lg)" }}>
-            <p>
-              Two tools over one shared rules engine: a Google Docs add-on that audits
-              a finished document, and a browser editor that refuses to save while any
-              error-severity rule fails. Both convert to the same document model and run
-              identical checks, so any difference in the results is the timing of the
-              constraint rather than the constraint itself.
-            </p>
-          </div>
-          <div className="button-row" style={{ marginTop: "var(--space-lg)" }}>
-            <Link className="button button--primary" to="/projects/accessibility-docs">
-              The Accessibility Docs prototype
-            </Link>
-            <Link className="button button--secondary" to="/writing/block-the-save">
-              My write-up on enforcing accessibility
-            </Link>
-          </div>
-        </article>
+      <Section id="studies" title="Research and immersive learning">
+        <ul className="entry-list">
+          {researchEntries.map((entry) => (
+            <CvEntry key={entry.title} entry={entry} heading>
+              {entry.title === "Accessible Scholarly Documents" && (
+                <div className="button-row" style={{ marginTop: "var(--space-lg)" }}>
+                  <Link
+                    className="button button--primary"
+                    to="/projects/accessibility-docs"
+                  >
+                    The Accessibility Docs prototype
+                  </Link>
+                  <Link
+                    className="button button--secondary"
+                    to="/writing/block-the-save"
+                  >
+                    My write-up on enforcing accessibility
+                  </Link>
+                </div>
+              )}
+              {entry.title === "Campus Energy Dashboard" && (
+                <div className="button-row" style={{ marginTop: "var(--space-lg)" }}>
+                  <Link
+                    className="button button--secondary"
+                    to="/projects/campus-energy-dashboard"
+                  >
+                    The Campus Energy Dashboard
+                  </Link>
+                </div>
+              )}
+            </CvEntry>
+          ))}
+        </ul>
       </Section>
 
       <Pager

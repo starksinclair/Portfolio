@@ -110,7 +110,7 @@ export function personNode() {
     additionalName: profile.additionalName,
     url: SITE_URL,
     jobTitle: profile.jobTitle,
-    description: profile.summary,
+    description: profile.bio,
     disambiguatingDescription: profile.headline,
     email: `mailto:${profile.email}`,
     image: `${SITE_URL}/profile.jpg`,
