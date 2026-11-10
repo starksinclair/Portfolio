@@ -3,6 +3,11 @@
 Personal site for Sinclair Nzenwata, built as a documentation site: sidebar navigation, stable URLs,
 text-first pages, no marketing hero.
 
+Node **26.x** (LTS, "Lithium"). Declared in `.nvmrc` and in `engines.node`, which is also what
+Vercel reads: `engines` overrides whatever the project's dashboard setting says, so the build runs
+on the same major version as a local checkout. With nvm or fnm, `nvm use` in this directory picks
+it up.
+
 ```bash
 npm install
 npm run dev      # http://localhost:5173
