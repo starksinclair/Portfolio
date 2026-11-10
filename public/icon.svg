@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Sinclair Nzenwata">
+  <title>Sinclair Nzenwata</title>
+  <rect width="32" height="32" rx="6.4" fill="#66023C"/>
+  <g fill="#FCF9FA">
+    <rect x="6" y="3.6" width="20" height="1.8"/>
+    <rect x="14.9" y="5.4" width="2.2" height="7.2"/>
+    <polygon points="11.3,12.6 20.7,12.6 20.7,21.5 16,28.4 11.3,21.5"/>
+  </g>
+</svg>

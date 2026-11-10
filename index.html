@@ -2,64 +2,106 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="./src/assets/favicon_io/favicon.ico"
-    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Sinclair Nzenwata - Software Engineer, Web Developer, Freelancer
-    </title>
+
+    <!--seo:start-->
+    <title>Sinclair Nzenwata, Software Engineer &amp; Researcher</title>
     <meta
       name="description"
-      content="Sinclair Nzenwata's portfolio showcasing web development projects, skills, and professional experience."
-    />
-    <meta
-      name="keywords"
-      content="Sinclair Nzenwata, sinclair, nzenwata, Web Developer, Frontend Developer, Portfolio, Projects"
+      content="Sinclair Nzenwata is a computer science senior at Ball State University who builds software and publishes research on the same problems: AI systems, data infrastructure, and the engineering underneath them."
     />
     <meta name="author" content="Sinclair Nzenwata" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://www.sinclairnzenwata.com/" />
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://sinclairnzenwata.com/" />
+    <!-- Open Graph -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Sinclair Nzenwata" />
+    <meta property="og:url" content="https://www.sinclairnzenwata.com/" />
     <meta
       property="og:title"
-      content="Sinclair Nzenwata | Web Developer Portfolio"
+      content="Sinclair Nzenwata, Software Engineer &amp; Researcher"
     />
     <meta
       property="og:description"
-      content="Explore Sinclair Nzenwata's web development projects, skills, and professional experience."
+      content="Building at the intersection of AI research and real-world engineering."
+    />
+    <meta property="og:image" content="https://www.sinclairnzenwata.com/og-image.png" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- X / Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@nzenwata_" />
+    <meta name="twitter:creator" content="@nzenwata_" />
+    <meta
+      name="twitter:title"
+      content="Sinclair Nzenwata, Software Engineer &amp; Researcher"
     />
     <meta
-      property="og:image"
-      content="https://sinclairnzenwata.com/path-to-your-og-image.jpg"
+      name="twitter:description"
+      content="Building at the intersection of AI research and real-world engineering."
+    />
+    <meta name="twitter:image" content="https://www.sinclairnzenwata.com/og-image.png" />
+
+    <!--
+      In a production build the `prerender-routes` plugin in vite.config.ts
+      replaces everything between the seo markers with the current route's own
+      title, description, Open Graph tags and schema.org graph, and emits one
+      HTML file per route. Crawlers do not run JavaScript, so this is what makes
+      a shared link preview the page it points at rather than the home page.
+      The block below is the fallback for any URL without a prerendered file.
+    -->
+    <!--seo:end-->
+
+    <!-- Icons -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#66023c" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#100c0d" media="(prefers-color-scheme: dark)" />
+
+    <!--
+      Type per BRAND.md §5: Inter for UI, Newsreader for prose, JetBrains Mono for
+      code and metadata. Weights are subset to what the site actually uses.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap"
     />
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://sinclairnzenwata.com/" />
-    <meta
-      property="twitter:title"
-      content="Sinclair Nzenwata | Web Developer Portfolio"
-    />
-    <meta
-      property="twitter:description"
-      content="Explore Sinclair Nzenwata's web development projects, skills, and professional experience."
-    />
-    <meta
-      property="twitter:image"
-      content="https://sinclairnzenwata.com/path-to-your-twitter-image.jpg"
-    />
+    <!--
+      Applies the saved theme before first paint, so a reader who chose dark does
+      not get a flash of light. Wrapped because storage throws in private mode.
+    -->
+    <script>
+      try {
+        var t = localStorage.getItem("snz-theme");
+        if (t === "light" || t === "dark")
+          document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    </script>
 
-    <!-- Additional SEO tags -->
-    <meta name="robots" content="index, follow" />
-    <meta name="googlebot" content="index, follow" />
-    <link rel="canonical" href="https://sinclairnzenwata.com/" />
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <div style="padding: 2rem; font-family: system-ui, sans-serif; max-width: 42rem">
+        <h1 style="font-size: 1.5rem">Sinclair Nzenwata</h1>
+        <p>
+          Software engineer and researcher, Ball State University. This site needs
+          JavaScript to render. You can reach me at
+          <a href="mailto:nzenwatasinclair@gmail.com">nzenwatasinclair@gmail.com</a>, or
+          see
+          <a href="https://github.com/starksinclair">github.com/starksinclair</a> and
+          <a href="https://www.linkedin.com/in/sinclair-nzenwata"
+            >linkedin.com/in/sinclair-nzenwata</a
+          >.
+        </p>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
