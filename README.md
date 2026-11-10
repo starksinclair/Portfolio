@@ -1,30 +1,173 @@
-# React + TypeScript + Vite
+# sinclairnzenwata.com
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal site for Sinclair Nzenwata, built as a documentation site: sidebar navigation, stable URLs,
+text-first pages, no marketing hero.
 
-Currently, two official plugins are available:
+Node **26.x** (LTS, "Lithium"). Declared in `.nvmrc` and in `engines.node`, which is also what
+Vercel reads: `engines` overrides whatever the project's dashboard setting says, so the build runs
+on the same major version as a local checkout. With nvm or fnm, `nvm use` in this directory picks
+it up.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # typecheck, bundle, emit sitemap.xml + robots.txt
+npm run preview
+npm run lint
+npm run format
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
-    project: ["./tsconfig.json", "./tsconfig.node.json"],
-    tsconfigRootDir: __dirname,
-  },
-};
+npm run cv:pdf   # regenerate public/sinclair-nzenwata-cv.pdf from src/data/cv.ts
+npm run cv:check # assert the generated PDF is still tagged and readable
+npm run icons    # redraw the mark: public/icon.svg, favicon.ico, the PNGs
+npm run seo:check # assert the built site still meets Google's fundamentals
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## How it is put together
+
+| | |
+|---|---|
+| Framework | React 18 + TypeScript + Vite, routed with React Router |
+| Runtime dependencies | Six. No UI kit, no CSS framework, no animation library |
+| Content | Local typed modules under `src/data`: no database, no API |
+| Styling | Plain CSS with custom properties in `src/styles` |
+| Hosting | Vercel |
+
+### Content lives in `src/data`
+
+| File | Holds |
+|---|---|
+| `profile.ts` | Identity, employment, education, skills, activities |
+| `projects.ts` | The project index, 22 entries |
+| `posts.ts` | Blog posts, as typed blocks rather than markdown |
+| `press.ts` | External coverage and the peer-reviewed publication |
+
+Adding a project or a post means appending one typed entry. Slugs are public URLs and appear in the
+sitemap and in schema.org `@id` values, so keep them stable once published.
+
+### No Firebase
+
+The site used to read its projects from a Firestore `portfolio` collection through a
+`/api/function` serverless route. Both are gone, along with `firebase`, `firebase-admin`,
+`@vercel/node` and `dotenv`. The data was already duplicated locally, so the fetch bought nothing
+but a loading state and a failure mode. `src/data/projects.ts` is now the single source of truth and
+the content is part of the build.
+
+### Structured data
+
+`src/lib/schema.ts` builds one linked schema.org graph per page. The rules it follows:
+
+- Every node has a stable `@id`, and nodes reference each other by `@id` instead of being described
+  twice. `Person.subjectOf` and `Article.about` are genuine inverses of each other.
+- Correct types only. Organisations are `Organization`, the university is `CollegeOrUniversity`,
+  the journal article is `ScholarlyArticle` with its DOI as a `PropertyValue` identifier,
+  repositories are `SoftwareSourceCode` with a `WebApplication` under `targetProduct` when there is
+  a live deployment.
+- Nothing is asserted that is not true: no `SearchAction` (the site has no search), no ratings, no
+  images that do not exist.
+- No dangling references: any node referenced by `@id` travels in the same graph.
+
+The build fails if any page's graph references an `@id` it does not contain. That guard lives in
+the `prerender-routes` plugin, because a dangling edge is invisible in the rendered page.
+
+### Crawlers and social previews
+
+Social and search crawlers do not execute JavaScript. In a single-page app every URL serves the same
+`index.html`, so without intervention sharing `/writing/block-the-save` previews the home page.
+
+`src/lib/routes.ts` is the route table: for every URL it defines the title, description, Open Graph
+type and schema.org graph. At build time `vite.config.ts` walks that table and emits **one real HTML
+file per route** (36 of them) with those tags in the head. The body and script tag are untouched, so
+the app still boots and takes over. This only changes what a non-rendering client sees. Vercel
+checks the filesystem before applying rewrites and `cleanUrls` maps `/about` to `about.html`, so
+they are served automatically.
+
+`Page.tsx` reads the *same* table at runtime. That matters: a crawler that doesn't run JS reads the
+prerendered tags, one that does reads whatever the app sets afterwards, and if those disagree the
+preview depends on which crawler fetched it.
+
+The preview card is `public/og-image.png` (1200×630), generated by `scripts/make-og-image.py`.
+It is typographic, set in the brand faces, with no gradients. Regenerate it after running
+`scripts/fetch-og-fonts.sh` (the TTFs are not committed). Its dimensions are declared to crawlers in
+`src/lib/og.ts`; keep the two in step.
+
+Because the config imports the real site modules, `sitemap.xml`, `robots.txt`, the per-route HTML
+and the JSON-LD are all generated from the same source as the app and cannot drift from it.
+
+## The CV
+
+`src/data/cv.ts` is the CV. The `/cv` page renders it, the schema.org `DigitalDocument` node
+describes it, and `scripts/make-cv-pdf.mjs` writes `public/sinclair-nzenwata-cv.pdf` from it. Edit
+the data and regenerate; never edit the PDF, because a hand-edited PDF loses its tags.
+
+The PDF is generated rather than exported for one reason: tags. Word on macOS prints through Quartz,
+which produces a PDF with no structure tree at all, and an untagged PDF is an image of a document as
+far as a screen reader is concerned. There are no headings to jump between, no lists, no reading
+order and no title, so the reader announces the file name instead.
+
+So `scripts/lib/pdf.mjs` writes the tags itself: every text run sits in a marked-content sequence
+whose MCID a structure element claims, the elements form an H1/H2/H3, L/LI/LBody tree, the number
+tree maps each page back to its elements, running footers are artifacts, fonts are subset and
+embedded with a ToUnicode map, and the catalogue declares `/Marked true`, `/Lang` and
+`/DisplayDocTitle`. `scripts/lib/ttf.mjs` is the font reader and subsetter it needs. Neither pulls
+in a dependency.
+
+`npm run cv:check` asserts those properties and fails on a regression. It is not Acrobat's checker
+and it does not claim PDF/UA conformance; it checks what this generator is responsible for.
+
+## Search and Google Scholar
+
+Everything a crawler needs is in the HTML it is served, not assembled by
+JavaScript afterwards. `vite.config.ts` writes one real file per route with that
+route's title, description, canonical, Open Graph tags and schema.org graph
+baked in, plus `sitemap.xml` and `robots.txt`, all from the route table in
+[`src/lib/routes.ts`](src/lib/routes.ts).
+
+Two vocabularies, because search engines and Google Scholar read different
+things:
+
+- **schema.org JSON-LD**, one linked graph per page. The paper is a
+  `ScholarlyArticle` carrying its DOI, ISSN, author keywords, and every address
+  it lives at (journal page, PDF, preprint, Scholar record) under `sameAs`, so
+  none of them looks like a separate work.
+- **`citation_*` meta tags** on `/research`, the Highwire Press convention that
+  Google Scholar's crawler actually parses. One `citation_author` per author, in
+  order; the URLs point at MDPI, because this page lists the paper, it does not
+  host it.
+
+There is deliberately **no `<meta name="keywords">`**. Google has not used it for
+over a decade, and `npm run seo:check` fails if one reappears. Research terms
+belong in the prose and headings instead, which is where `/research` carries
+them.
+
+`npm run seo:check` reads `dist/` and asserts fifteen properties: unique titles
+and descriptions, canonicals that match their own URL, complete Open Graph,
+JSON-LD that parses into a non-empty graph, a sitemap that matches the built
+pages exactly, internal links that resolve, the Scholar citation tags, and alt
+text on every image. It exits non-zero, so it can gate a deploy.
+
+## The mark
+
+The favicon and app icons are a plumb bob: a datum bar, a thread, a weight hanging still beneath
+it. The reasoning is in [`BRAND.md`](BRAND.md) section 8.2; briefly, it is the one instrument that
+finds its answer by balancing, it belongs to construction rather than to software identity, and it
+survives being 16 pixels wide.
+
+The geometry is defined once in [`scripts/make-icons.py`](scripts/make-icons.py), on a 32-unit grid,
+and every output is drawn from those numbers: `icon.svg`, `favicon.ico` at 16/32/48, the 180px Apple
+touch icon, and the 192/512 maskable PNGs. The 16px frame is drawn on the pixel grid instead of
+being downsampled, because a 1.8-unit datum bar scales to two thirds of a pixel and renders as haze.
+
+No SVG rasteriser is involved; the PNGs are drawn with Pillow. Do not hand-edit an icon file: change
+the geometry and run `npm run icons`.
+
+## Design
+
+[`BRAND.md`](BRAND.md) is the design language: theme statement, palette with contrast ratios,
+type, layout and voice. `src/styles/tokens.css` is its implementation. Change the guideline first.
+
+The anchor colour is Tyrian purple `#66023C`; every ramp, neutrals included, is generated at that
+OKLCH hue. All foreground/background pairs pass WCAG 2.1 AA for text, and status is never carried by
+colour alone.
+
+[`docs/research.md`](docs/research.md) records the public sources behind everything the site claims
+about Sinclair, and what was deliberately left out.

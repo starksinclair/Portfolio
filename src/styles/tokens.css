@@ -1,0 +1,183 @@
+/**
+ * Design tokens: the implementation of BRAND.md.
+ *
+ * Every ramp is generated at OKLCH hue 353.6, the hue of Tyrian purple #66023C,
+ * so the neutrals are faintly plum rather than dead grey. Hex values are the
+ * sRGB conversions; the OKLCH source values are recorded in BRAND.md §4.
+ *
+ * Do not add a colour here that is not in BRAND.md. Change the guideline first.
+ */
+
+:root {
+  /* ── brand ramp ──────────────────────────────────────────────────── */
+  --tyrian-50: #fef4f7;
+  --tyrian-100: #fee5ee;
+  --tyrian-200: #fbc6db;
+  --tyrian-300: #f09ec0;
+  --tyrian-400: #d9719f;
+  --tyrian-500: #bd447f;
+  --tyrian-600: #9e1b62;
+  --tyrian-700: #7f014b;
+  --tyrian-800: #5c0035;
+  --tyrian-900: #400124;
+  --tyrian-950: #280215;
+  /* The historical dye value. Wordmark and exported assets only. */
+  --tyrian-anchor: #66023c;
+
+  /* ── neutral ramp ────────────────────────────────────────────────── */
+  --ink-50: #fcf9fa;
+  --ink-100: #f5f1f2;
+  --ink-200: #e9e4e5;
+  --ink-300: #d5cfd1;
+  --ink-400: #b0a8ab;
+  --ink-500: #8c8387;
+  --ink-600: #6c6366;
+  --ink-700: #50484b;
+  --ink-800: #352e31;
+  --ink-900: #1f1a1c;
+  --ink-950: #100c0d;
+
+  /* ── semantic ────────────────────────────────────────────────────── */
+  --success-fg: #176d23;
+  --success-bg: #e5f6e5;
+  --warning-fg: #854c00;
+  --warning-bg: #fceedc;
+  --danger-fg: #98342e;
+  --danger-bg: #ffeae6;
+  --info-fg: #005da3;
+  --info-bg: #e3f2ff;
+
+  /* ── type ────────────────────────────────────────────────────────── */
+  --font-ui: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-prose: "Newsreader", "Iowan Old Style", Charter, Georgia, serif;
+  --font-mono: "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --text-xs: 0.6875rem; /* 11 */
+  --text-sm: 0.8125rem; /* 13 */
+  --text-base: 1rem; /* 16 */
+  --text-prose: 1.0625rem; /* 17 */
+  --text-md: 1.1875rem; /* 19 */
+  --text-lg: 1.4375rem; /* 23 */
+  --text-xl: 1.75rem; /* 28 */
+  --text-2xl: 2.0625rem; /* 33 */
+
+  --leading-tight: 1.15;
+  --leading-heading: 1.3;
+  --leading-base: 1.6;
+  --leading-prose: 1.65;
+
+  /* ── space, 4px base ─────────────────────────────────────────────── */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+
+  /* ── form ────────────────────────────────────────────────────────── */
+  --radius-control: 2px;
+  --radius-card: 4px;
+  --border-hairline: 1px;
+
+  --measure: 68ch;
+  --sidebar-width: 17rem;
+  --toc-width: 13rem;
+  --container-max: 85rem;
+
+  --duration: 120ms;
+  --ease: ease-out;
+
+  /* ── light-mode roles ────────────────────────────────────────────── */
+  --bg: var(--ink-50);
+  --bg-raised: #ffffff;
+  --bg-sunken: var(--ink-100);
+  --bg-code: var(--ink-100);
+  --text: var(--ink-900);
+  /* Both muted levels carry body and label text, so both clear 4.5:1 against
+     every light surface, including --bg-sunken: 7.91:1 and 5.19:1. */
+  --text-muted: var(--ink-700);
+  --text-faint: var(--ink-600);
+  --rule: var(--ink-200);
+  --rule-strong: var(--ink-300);
+  --link: var(--tyrian-700);
+  --link-hover: var(--tyrian-600);
+  --link-visited: var(--tyrian-800);
+  --focus: var(--tyrian-600);
+  --accent: var(--tyrian-700);
+  --accent-soft: var(--tyrian-50);
+  --action-bg: var(--tyrian-800);
+  --action-text: #ffffff;
+  --action-bg-hover: var(--tyrian-700);
+  --wordmark: var(--tyrian-anchor);
+  --selection-bg: var(--tyrian-100);
+  --shadow-none: none;
+}
+
+/* Dark mode: by system preference, unless an explicit light theme is set. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: var(--ink-950);
+    --bg-raised: var(--ink-900);
+    --bg-sunken: #0a0708;
+    --bg-code: #0a0708;
+    --text: var(--ink-200);
+    --text-muted: var(--ink-400);
+    --text-faint: var(--ink-500);
+    --rule: var(--ink-800);
+    --rule-strong: var(--ink-700);
+    --link: var(--tyrian-300);
+    --link-hover: var(--tyrian-200);
+    --link-visited: var(--tyrian-400);
+    --focus: var(--tyrian-300);
+    --accent: var(--tyrian-300);
+    --accent-soft: var(--tyrian-950);
+    --action-bg: var(--tyrian-300);
+    --action-text: var(--tyrian-950);
+    --action-bg-hover: var(--tyrian-200);
+    --wordmark: var(--tyrian-300);
+    --selection-bg: var(--tyrian-900);
+
+    --success-fg: #92d094;
+    --success-bg: #0d270f;
+    --warning-fg: #e5b46e;
+    --warning-bg: #2f1c00;
+    --danger-fg: #faa399;
+    --danger-bg: #361512;
+    --info-fg: #89c3ff;
+    --info-bg: #082239;
+  }
+}
+
+/* Explicit dark, chosen by the reader. Mirrors the block above. */
+:root[data-theme="dark"] {
+  --bg: var(--ink-950);
+  --bg-raised: var(--ink-900);
+  --bg-sunken: #0a0708;
+  --bg-code: #0a0708;
+  --text: var(--ink-200);
+  --text-muted: var(--ink-400);
+  --text-faint: var(--ink-500);
+  --rule: var(--ink-800);
+  --rule-strong: var(--ink-700);
+  --link: var(--tyrian-300);
+  --link-hover: var(--tyrian-200);
+  --link-visited: var(--tyrian-400);
+  --focus: var(--tyrian-300);
+  --accent: var(--tyrian-300);
+  --accent-soft: var(--tyrian-950);
+  --action-bg: var(--tyrian-300);
+  --action-text: var(--tyrian-950);
+  --action-bg-hover: var(--tyrian-200);
+  --wordmark: var(--tyrian-300);
+  --selection-bg: var(--tyrian-900);
+
+  --success-fg: #92d094;
+  --success-bg: #0d270f;
+  --warning-fg: #e5b46e;
+  --warning-bg: #2f1c00;
+  --danger-fg: #faa399;
+  --danger-bg: #361512;
+  --info-fg: #89c3ff;
+  --info-bg: #082239;
+}

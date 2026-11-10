@@ -28,3 +28,9 @@ my-portfolio-website-1ca26-e4c33685f75e.json
 .env.local
 .vercel
 .env*.local
+
+# OG-image render fonts, fetched by scripts/fetch-og-fonts.sh
+scripts/fonts/
+
+# Per-machine Claude Code settings; launch.json is shared and is committed
+.claude/settings.local.json
