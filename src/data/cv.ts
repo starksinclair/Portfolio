@@ -313,6 +313,13 @@ export const cvSections: CvSection[] = [
         ],
       },
       {
+        /* Amount confirmed by Sinclair, 11 November 2026: $549.00, not the
+           rounded $600 an older CV carried. No award year stated yet, so none
+           is shown rather than guessed. */
+        title: "Jack Beyerl Fund, Ball State University",
+        blocks: [{ kind: "text", text: "$549 award." }],
+      },
+      {
         title: "Global Achievement Scholarship, Ball State University",
         blocks: [{ kind: "text", text: "$12,000 annually." }],
       },

@@ -213,7 +213,7 @@ Confirmed directly by Sinclair, 10 November 2026:
 | GitHub `github.com/sinclairnzenwata` | Wrong. The real account is `starksinclair`, verified against the repositories in §7. |
 | Portfolio at `sinclairnzenwata.site` | Superseded; the site is `.com`. |
 | Shingul | Concept and prototype only, with pricing "discussed but not finalized". Nothing to show. |
-| Jack Beyerl Fund, $549 | Award year unverified, and it is not in the November CV. |
+| Jack Beyerl Fund, $549 | **Now used.** Sinclair confirmed the award on 11 November 2026; $549, not the rounded $600 an older CV carried. The award year is still unstated, so the entry shows none. |
 | Xtern "$3,000 team prize" | Used, because the CV states it. The *Building Indiana* article is the source for the placing only. |
 | Bike sharing, CS 421 | Coursework, and the project index already carries enough of it. |
 | Wells Fargo | Explicitly never worked there. Recorded so it is never inferred. |
