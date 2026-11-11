@@ -326,7 +326,7 @@ function staticRoutes(): RouteSeo[] {
       path: "/colophon",
       title: "Colophon",
       description:
-        "How this site is designed and built: the Tyrian purple palette, the type system, and the structured-data approach.",
+        "The meaning behind my dripping S mark, a reminder to be happy now, and why I chose Tyrian purple.",
       ogType: "website",
       crumbs: [home, { name: "Colophon", path: "/colophon" }],
       changefreq: "yearly",

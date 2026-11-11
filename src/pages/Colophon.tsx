@@ -1,6 +1,7 @@
 import { Page, Section } from "../components/Page";
 
 const toc = [
+  { id: "the-mark", label: "Be happy now" },
   { id: "why-tyrian", label: "Why Tyrian purple" },
   { id: "colour", label: "Colour" },
 ];
@@ -37,6 +38,25 @@ export function Colophon() {
         </p>
       </div>
 
+      <Section id="the-mark" title="Be happy now">
+        <div className="prose">
+          <img src="/icon-512.png" width="128" height="128" alt="An S with dripping rain and sweat, in ivory on Tyrian purple." />
+          <p>
+            The S is my initial. Its droplets are rain and sweat: the hard days
+            life brings and the effort I put into what matters to me.
+          </p>
+          <p>
+            There will always be rainy days. There will always be something to do,
+            something to work through, or another goal to reach. I do not want to
+            keep postponing happiness until all of it is finished.
+          </p>
+          <p>
+            This mark is a reminder to myself: make room for fun, enjoy the life
+            I am living, and <strong>be happy now</strong>.
+          </p>
+        </div>
+      </Section>
+
       <Section id="why-tyrian" title="Why Tyrian purple">
         <div className="prose">
           <p>
@@ -52,7 +72,7 @@ export function Colophon() {
             what I am still trying to accomplish do not line up with any path I can
             point at and copy. This colour is the closest thing to a claim I am
             willing to make about that, and it is a quiet one: it sits under the links
-            and in the wordmark, and nowhere else.
+            and in the wordmark and favicon.
           </p>
         </div>
       </Section>
