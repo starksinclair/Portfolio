@@ -313,10 +313,11 @@ export const cvSections: CvSection[] = [
         ],
       },
       {
-        /* Amount confirmed by Sinclair, 11 November 2026: $549.00, not the
-           rounded $600 an older CV carried. No award year stated yet, so none
-           is shown rather than guessed. */
-        title: "Jack Beyerl Fund, Ball State University",
+        /* From Sinclair's own aid record, 11 November 2026: award year
+           2024-2025, disbursed 19 Aug to 13 Dec 2024, $549.00 offered and
+           accepted. The full name carries "Emergency". */
+        title: "Jack Beyerl Emergency Fund, Ball State University",
+        meta: "Fall 2024",
         blocks: [{ kind: "text", text: "$549 award." }],
       },
       {
