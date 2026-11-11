@@ -213,7 +213,7 @@ Confirmed directly by Sinclair, 10 November 2026:
 | GitHub `github.com/sinclairnzenwata` | Wrong. The real account is `starksinclair`, verified against the repositories in §7. |
 | Portfolio at `sinclairnzenwata.site` | Superseded; the site is `.com`. |
 | Shingul | Concept and prototype only, with pricing "discussed but not finalized". Nothing to show. |
-| Jack Beyerl Fund, $549 | **Now used**, with corrections. Sinclair supplied the aid record on 11 November 2026: the full name is the **Jack Beyerl Emergency Fund**, award year 2024-2025, disbursed 19 Aug to 13 Dec 2024 (so, Fall 2024), $549.00 offered and accepted. The knowledge base had the short name and the rounded $600. Note it is need-based emergency aid rather than a merit award; it currently sits under Honors and awards, which is Sinclair's call. |
+| Jack Beyerl Emergency Fund, $549 | **Deliberately not on the site.** Sinclair supplied the aid record on 11 November 2026 (award year 2024-2025, disbursed 19 Aug to 13 Dec 2024, $549.00) and then decided to leave it off: it is need-based emergency aid, not a merit award, so it does not belong under Honors and awards, and it discloses hardship the rest of the CV does not. Recorded here so it is not re-added from the knowledge base, where it appears as "Jack Beyerl Fund" with a rounded $600. |
 | Xtern "$3,000 team prize" | Used, because the CV states it. The *Building Indiana* article is the source for the placing only. |
 | Bike sharing, CS 421 | Coursework, and the project index already carries enough of it. |
 | Wells Fargo | Explicitly never worked there. Recorded so it is never inferred. |
