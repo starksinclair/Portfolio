@@ -43,6 +43,13 @@ if (!pages.length) {
   process.exit(1);
 }
 
+/* 404.html is held out of every per-page check below. It is deliberately the
+   one page with no canonical and no place in the sitemap, so running the
+   indexable-page rules over it would report its correctness as failures. It
+   gets its own checks at the end instead. */
+const notFoundIdx = pages.findIndex((p) => p.url === "/404");
+const notFound = notFoundIdx === -1 ? null : pages.splice(notFoundIdx, 1)[0];
+
 const one = (html, re) => (html.match(re) ?? [])[1];
 const all = (html, re) => [...html.matchAll(re)].map((m) => m[1]);
 const meta = (html, name) =>
@@ -185,6 +192,22 @@ for (const page of pages)
   for (const tag of page.html.match(/<img\b[^>]*>/g) ?? [])
     if (!/\salt="/.test(tag)) noAlt.push(page.url);
 noAlt.length ? fail("every image has alt text", noAlt.join(", ")) : pass("every image has alt text");
+
+/* The host needs a real file to serve for an address that does not exist,
+   otherwise the visitor gets the host's own error page instead of this site.
+   It must say noindex, and it must not be in the sitemap. */
+if (!notFound) {
+  fail("404.html is built", "no 404.html in the output");
+} else {
+  const robotsMeta = meta(notFound.html, "robots") ?? "";
+  const canonical = one(notFound.html, /<link rel="canonical"/);
+  robotsMeta.includes("noindex")
+    ? pass("the 404 page is noindex", robotsMeta)
+    : fail("the 404 page is noindex", robotsMeta || "no robots meta");
+  canonical
+    ? fail("the 404 page has no canonical", "it is served at every missing URL")
+    : pass("the 404 page has no canonical");
+}
 
 /* ── report ──────────────────────────────────────────────────────────── */
 
