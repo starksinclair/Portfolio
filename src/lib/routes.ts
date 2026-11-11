@@ -123,7 +123,7 @@ function staticRoutes(): RouteSeo[] {
       path: "/about",
       title: "About",
       description:
-        "Where Sinclair Nzenwata comes from, what he works on, and the conviction underneath both: a computer science senior at Ball State University building AI systems and publishing research.",
+        "How Sinclair Nzenwata got from learning to program on a phone in Nigeria to researching whether document accessibility can be enforced while someone writes, and what he builds in between.",
       ogType: "website",
       crumbs: [home, { name: "About", path: "/about" }],
       changefreq: "monthly",
@@ -189,7 +189,7 @@ function staticRoutes(): RouteSeo[] {
       path: "/research",
       title: "Research",
       description:
-        "Peer-reviewed work on ordinal time series forecasting in Forecasting (MDPI), and an in-progress CS 499 study on enforcing accessibility at authoring time.",
+        "Peer-reviewed work on ordinal time series forecasting in Forecasting (MDPI), a CS 499 study on enforcing document accessibility at authoring time, two studies of how AI coding agents handle ambiguity and context, and the Ball State campus energy dashboard.",
       ogType: "website",
       crumbs: [home, { name: "Research", path: "/research" }],
       changefreq: "monthly",
@@ -313,24 +313,6 @@ function staticRoutes(): RouteSeo[] {
           description: `How to reach ${profile.name}.`,
           type: "ContactPage",
           crumbs: [home, { name: "Contact", path: "/contact" }],
-        }),
-      ]),
-    },
-    {
-      path: "/colophon",
-      title: "Colophon",
-      description:
-        "How this site is designed and built: the Tyrian purple palette, the type system, and the structured-data approach.",
-      ogType: "website",
-      crumbs: [home, { name: "Colophon", path: "/colophon" }],
-      changefreq: "yearly",
-      priority: "0.3",
-      jsonLd: graph([
-        webPageNode({
-          path: "/colophon",
-          title: documentTitle("/colophon", "Colophon"),
-          description: "How this site is designed and built, and why.",
-          crumbs: [home, { name: "Colophon", path: "/colophon" }],
         }),
       ]),
     },

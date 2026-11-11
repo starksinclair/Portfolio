@@ -12,7 +12,6 @@ import { PostDetail } from "./pages/PostDetail";
 import { Press } from "./pages/Press";
 import { Cv } from "./pages/Cv";
 import { Contact } from "./pages/Contact";
-import { Colophon } from "./pages/Colophon";
 import { NotFound } from "./pages/NotFound";
 
 export default function App() {
@@ -31,7 +30,6 @@ export default function App() {
           <Route path="/press" element={<Press />} />
           <Route path="/cv" element={<Cv />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/colophon" element={<Colophon />} />
 
           {/* Legacy URLs from the previous site, kept so existing links resolve. */}
           <Route path="/resume" element={<Navigate to="/cv" replace />} />

@@ -570,7 +570,7 @@ export const cvSections: CvSection[] = [
           {
             kind: "bullets",
             items: [
-              "Ball State Parking App and Map Editor: Built the staff editor (Google Apps Script, Google Maps, Google Sheets) used to rename lots and redraw lot polygons as campus parking changes. The app maps 90+ lots and garages and has 20+ downloads since launching as a new campus initiative.",
+              "Ball State Parking App: Built the Map Editor, the staff admin dashboard behind the app (Google Apps Script, Google Maps, Google Sheets), used to rename lots and redraw lot polygons as campus parking changes. The app maps 90+ lots and garages and has 20+ downloads since launching as a new campus initiative.",
               "Access to Build: Designed a scholarship proposal for young Nigerian builders; won a $3,000 LewerMark Make Your Mark award as one of seven recipients.",
               "Headway: Campus accessibility app prototype providing information about building entrances, ramps, and elevators; an early accessibility project that connects to the Accessible Scholarly Documents research above.",
               "Wilitrain: Co-developed a weather application with NASA data, Expo, and React Native for NASA Space Apps, competing among 100+ teams; published on the Apple App Store.",
@@ -623,3 +623,18 @@ export const cvSections: CvSection[] = [
     ],
   },
 ];
+
+/**
+ * The research entries, for `/research`.
+ *
+ * The CV is the source: a study described in two places would otherwise drift.
+ * The published paper has its own section on that page, driven by `press.ts`,
+ * and Monster Media Evolution is coursework and lives under projects.
+ */
+export const researchEntries: CvEntry[] =
+  cvSections
+    .find((s) => s.id === "research")
+    ?.entries.filter(
+      (e) =>
+        !e.title.startsWith("NeuralProphet") && e.title !== "Monster Media Evolution",
+    ) ?? [];

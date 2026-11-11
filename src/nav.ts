@@ -45,7 +45,6 @@ export const navGroups: NavGroup[] = [
       { label: "Press & recognition", path: "/press", count: mentions.length },
       { label: "CV", path: "/cv" },
       { label: "Contact", path: "/contact" },
-      { label: "Colophon", path: "/colophon" },
     ],
   },
 ];

@@ -185,6 +185,72 @@ identity signal a researcher can give a search engine, and both are free to crea
 Filling either field puts it straight into `Person.sameAs` on every page; nothing else needs
 changing.
 
+## 6b. The knowledge base (10 November 2026)
+
+`sinclair_portfolio_knowledge_base.md`, supplied by Sinclair: an inventory compiled by ChatGPT from
+prior conversations and older CV snapshots. It is a content source, not a record of fact; it marks
+its own uncertain items `VERIFY` and says so in its instructions.
+
+Used from it, because `src/data/cv.ts` (self-authored, November 2026) independently corroborates
+each one: Naahia, GatsToGo and Afrilibrum as ventures; the Campus Energy Dashboard; the two studies
+of AI coding agents; Play-by-Play Admin; the Ball State Parking App. The hero introduction in §1 and
+the one-paragraph bio in §11 are now `profile.summary` and `profile.bio`.
+
+Confirmed directly by Sinclair, 10 November 2026:
+
+- The "Interactive Parking Boundary Map Editor" is the **Ball State Parking App**; the editor is its
+  staff admin dashboard, not a separate product.
+- **Marco** is the name of the project his team built for the Cummins Xtern Challenge, presented as
+  Prescriptive Maintenance Dispatcher.
+- Naahia is at `naahia.com`, GatsToGo at `gatstogo.com`, Afrilibrum at `afrilibrum.com`.
+
+**Not used**, and why:
+
+| Item | Reason |
+|---|---|
+| Graduation December 2026 | The CV says May 2027 and the site follows the CV. The knowledge base flags the conflict itself. |
+| Digital Corps "15 projects, 18,000+ users" | No stated method of attribution. The site describes the work instead of counting it. |
+| GitHub `github.com/sinclairnzenwata` | Wrong. The real account is `starksinclair`, verified against the repositories in §7. |
+| Portfolio at `sinclairnzenwata.site` | Superseded; the site is `.com`. |
+| Shingul | Concept and prototype only, with pricing "discussed but not finalized". Nothing to show. |
+| Jack Beyerl Emergency Fund, $549 | **Deliberately not on the site.** Sinclair supplied the aid record on 11 November 2026 (award year 2024-2025, disbursed 19 Aug to 13 Dec 2024, $549.00) and then decided to leave it off: it is need-based emergency aid, not a merit award, so it does not belong under Honors and awards, and it discloses hardship the rest of the CV does not. Recorded here so it is not re-added from the knowledge base, where it appears as "Jack Beyerl Fund" with a rounded $600. |
+| Xtern "$3,000 team prize" | Used, because the CV states it. The *Building Indiana* article is the source for the placing only. |
+| Bike sharing, CS 421 | Coursework, and the project index already carries enough of it. |
+| Wells Fargo | Explicitly never worked there. Recorded so it is never inferred. |
+| Teacher Scholar Program | Explicitly not received. Never to be listed. |
+
+The knowledge base also reports a 4.0 GPA, scholarship amounts and anticipated honours. Those were
+already on the site from the CV and were not changed.
+
+## 6c. The About page (11 November 2026)
+
+`/about` is rewritten from two documents Sinclair supplied, both self-authored: his Carnegie Mellon
+statement of intent and his general cover letter. Every load-bearing detail in `profile.longBio`
+comes from one of them, and the wording is his story rather than a summary of his CV:
+
+| Detail | Source |
+|---|---|
+| Learned to program on a phone in Nigeria | Cover letter |
+| Came to Ball State in 2023, B.S. Computer Science May 2027 | Statement of intent |
+| A close friend who uses a wheelchair, and the realisation he had built the same barriers | Statement of intent |
+| Fifteen Digital Corps projects | Statement of intent. The "18,000+ users" figure that accompanies it elsewhere is still unsourced and is still not used. |
+| Two prototypes, the compiler, and the negative result about structural compliance | Statement of intent, corroborated by `cv.ts` |
+| Codex and the thirty-minute appointment assumption | Statement of intent |
+| Sixteen passing tasks, and the agent that restructured an interface | Statement of intent |
+| "Define the baseline before you trust the result" | Statement of intent, on the Lazar paper |
+| Naahia's origin in the dorms and Facebook Marketplace not feeling safe | Cover letter |
+| Afrilibrum workshops on accessibility | Statement of intent |
+
+The accessibility statistic is the only claim on the page that is not his own: fewer than 3.2% of
+~20,000 scholarly PDFs from 2014 to 2023 satisfy six basic criteria and 74.9% meet none. Verified
+against the abstract of Kumar and Wang, *Uncovering the New Accessibility Crisis in Scholarly PDFs*,
+ASSETS 2024, [arXiv:2410.03022](https://arxiv.org/abs/2410.03022), and cited on the page.
+
+**Left out on purpose.** The statement of intent is written for one program and names a specific
+faculty member, a lab and a hoped-for outcome; none of that is on the site, which is about his work
+rather than his applications. The friend is described without anything that identifies him: it is
+someone else's disability, and it is on a public page rather than in an admissions file.
+
 ## 7. Repositories reviewed for the project index
 
 Public repos on [github.com/starksinclair](https://github.com/starksinclair), newest activity first.
