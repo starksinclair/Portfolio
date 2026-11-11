@@ -22,7 +22,7 @@ export function Colophon() {
     <Page
       eyebrow="Meta"
       title="Colophon"
-      description="How this site is put together. The full design language is in BRAND.md in the repository."
+      description="How this site is put together."
       path="/colophon"
       toc={toc}
       crumbs={[
@@ -34,8 +34,7 @@ export function Colophon() {
         <p>
           The theme statement is <strong>precise, candid, field manual</strong>. It is
           meant to be usable as a veto: it is why there is no animated hero, no
-          carousel, and no skills section with percentage bars. Invented precision is
-          the opposite of precise.
+          carousel, and no skills section with percentage bars. 
         </p>
       </div>
 
@@ -65,9 +64,7 @@ export function Colophon() {
             Everything is generated at OKLCH hue 353.6, the hue of{" "}
             <code>#66023C</code>. The neutrals share that hue at very low chroma, so
             they read as faintly plum and the page feels like one material rather than
-            an accent dropped onto grey. It is a deep red-violet, not the blue-violet
-            that every AI product landing page currently uses, which is part of the
-            point.
+            an accent dropped onto grey.
           </p>
         </div>
         <table>
@@ -114,40 +111,6 @@ export function Colophon() {
           2.1 and passes AA for text. Status is never carried by colour alone: every
           badge also has a text label.
         </div>
-      </Section>
-
-      <Section id="structure" title="Structure">
-        <dl className="meta-table">
-          <div>
-            <dt>Layout</dt>
-            <dd>
-              Sidebar, main, on-page contents. The sidebar becomes persistent at
-              1024px; the contents rail appears at 1280px.
-            </dd>
-          </div>
-          <div>
-            <dt>Depth</dt>
-            <dd>
-              None. Hairline rules and background steps only: no box-shadows, no
-              gradients, no translucency.
-            </dd>
-          </div>
-          <div>
-            <dt>Radius</dt>
-            <dd>2px on controls, 4px on cards. A field manual is printed, not moulded.</dd>
-          </div>
-          <div>
-            <dt>Motion</dt>
-            <dd>
-              Colour and border transitions at 120ms. Nothing else moves, and all of it
-              is behind <code>prefers-reduced-motion</code>.
-            </dd>
-          </div>
-          <div>
-            <dt>Measure</dt>
-            <dd>Prose is capped at 68 characters, however wide the screen gets.</dd>
-          </div>
-        </dl>
       </Section>
     </Page>
   );

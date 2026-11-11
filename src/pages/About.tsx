@@ -32,6 +32,20 @@ export function About() {
             <p key={i}>{para}</p>
           ))}
         </div>
+
+        {/* The one statistic above belongs to someone else, so it is cited. */}
+        <p className="cv-note">
+          <strong>Source: </strong>
+          Anukriti Kumar and Lucy Lu Wang,{" "}
+          <a
+            href="https://arxiv.org/abs/2410.03022"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Uncovering the New Accessibility Crisis in Scholarly PDFs
+          </a>
+          , ASSETS 2024.
+        </p>
       </Section>
 
       <Section id="stack" title="What I work with">

@@ -123,7 +123,7 @@ function staticRoutes(): RouteSeo[] {
       path: "/about",
       title: "About",
       description:
-        "Where Sinclair Nzenwata comes from, what he works on, and the conviction underneath both: a computer science senior at Ball State University building AI systems and publishing research.",
+        "How Sinclair Nzenwata got from learning to program on a phone in Nigeria to researching whether document accessibility can be enforced while someone writes, and what he builds in between.",
       ogType: "website",
       crumbs: [home, { name: "About", path: "/about" }],
       changefreq: "monthly",

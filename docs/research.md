@@ -222,6 +222,35 @@ Confirmed directly by Sinclair, 10 November 2026:
 The knowledge base also reports a 4.0 GPA, scholarship amounts and anticipated honours. Those were
 already on the site from the CV and were not changed.
 
+## 6c. The About page (11 November 2026)
+
+`/about` is rewritten from two documents Sinclair supplied, both self-authored: his Carnegie Mellon
+statement of intent and his general cover letter. Every load-bearing detail in `profile.longBio`
+comes from one of them, and the wording is his story rather than a summary of his CV:
+
+| Detail | Source |
+|---|---|
+| Learned to program on a phone in Nigeria | Cover letter |
+| Came to Ball State in 2023, B.S. Computer Science May 2027 | Statement of intent |
+| A close friend who uses a wheelchair, and the realisation he had built the same barriers | Statement of intent |
+| Fifteen Digital Corps projects | Statement of intent. The "18,000+ users" figure that accompanies it elsewhere is still unsourced and is still not used. |
+| Two prototypes, the compiler, and the negative result about structural compliance | Statement of intent, corroborated by `cv.ts` |
+| Codex and the thirty-minute appointment assumption | Statement of intent |
+| Sixteen passing tasks, and the agent that restructured an interface | Statement of intent |
+| "Define the baseline before you trust the result" | Statement of intent, on the Lazar paper |
+| Naahia's origin in the dorms and Facebook Marketplace not feeling safe | Cover letter |
+| Afrilibrum workshops on accessibility | Statement of intent |
+
+The accessibility statistic is the only claim on the page that is not his own: fewer than 3.2% of
+~20,000 scholarly PDFs from 2014 to 2023 satisfy six basic criteria and 74.9% meet none. Verified
+against the abstract of Kumar and Wang, *Uncovering the New Accessibility Crisis in Scholarly PDFs*,
+ASSETS 2024, [arXiv:2410.03022](https://arxiv.org/abs/2410.03022), and cited on the page.
+
+**Left out on purpose.** The statement of intent is written for one program and names a specific
+faculty member, a lab and a hoped-for outcome; none of that is on the site, which is about his work
+rather than his applications. The friend is described without anything that identifies him: it is
+someone else's disability, and it is on a public page rather than in an admissions file.
+
 ## 7. Repositories reviewed for the project index
 
 Public repos on [github.com/starksinclair](https://github.com/starksinclair), newest activity first.
