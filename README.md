@@ -145,6 +145,32 @@ JSON-LD that parses into a non-empty graph, a sitemap that matches the built
 pages exactly, internal links that resolve, the Scholar citation tags, and alt
 text on every image. It exits non-zero, so it can gate a deploy.
 
+### Telling the other engines
+
+Google and Brave only ever find this site by crawling it. The rest can be
+pushed. `npm run indexnow` POSTs the URL list to `api.indexnow.org`, which fans
+out to Bing, Yandex, Naver, Seznam and Yep:
+
+```
+npm run build && npm run indexnow          # the whole sitemap
+npm run indexnow -- --dry-run              # print what would be sent
+npm run indexnow -- /research /projects/marco   # just these
+```
+
+It reads the URLs from `dist/sitemap.xml` rather than importing the route table,
+so a route can only be submitted if it was actually built — submitting 404s is
+how a site loses IndexNow standing.
+
+The key lives in exactly one place: the **name** of the single `.txt` file in
+`public/`, whose only contents are that same name. The engines fetch it to prove
+host ownership, so the script checks it is live before submitting and says so
+plainly when it is not. Rotating the key means deleting that file and making
+another; nothing else refers to it.
+
+Bing Webmaster Tools is the console to watch all this in, and it covers
+DuckDuckGo, Yahoo and Ecosia, which take their links from Bing. Brave runs an
+independent index with no console at all.
+
 ## The mark
 
 The favicon and app icons are a plumb bob: a datum bar, a thread, a weight hanging still beneath

@@ -15,7 +15,8 @@
     "icons": "python3 scripts/make-icons.py",
     "seo:check": "node scripts/check-seo.mjs",
     "cv:pdf": "node scripts/make-cv-pdf.mjs",
-    "cv:check": "node scripts/check-cv-pdf.mjs"
+    "cv:check": "node scripts/check-cv-pdf.mjs",
+    "indexnow": "node scripts/submit-indexnow.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^1.3.1",
