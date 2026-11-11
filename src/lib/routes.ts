@@ -316,24 +316,6 @@ function staticRoutes(): RouteSeo[] {
         }),
       ]),
     },
-    {
-      path: "/colophon",
-      title: "Colophon",
-      description:
-        "How this site is designed and built: the Tyrian purple palette, the type system, and the structured-data approach.",
-      ogType: "website",
-      crumbs: [home, { name: "Colophon", path: "/colophon" }],
-      changefreq: "yearly",
-      priority: "0.3",
-      jsonLd: graph([
-        webPageNode({
-          path: "/colophon",
-          title: documentTitle("/colophon", "Colophon"),
-          description: "How this site is designed and built, and why.",
-          crumbs: [home, { name: "Colophon", path: "/colophon" }],
-        }),
-      ]),
-    },
   ];
 }
 
