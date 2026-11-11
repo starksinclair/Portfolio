@@ -45,6 +45,12 @@ export interface RouteSeo {
    * reads; see the `/research` entry.
    */
   extraMeta?: { name: string; content: string }[];
+  /**
+   * Keep this page out of the index, and omit its canonical. Only the 404 page
+   * uses it: it is served at every address that does not exist, so there is no
+   * one URL for a canonical to name.
+   */
+  noIndex?: boolean;
   /** ISO 8601, for the sitemap. */
   lastmod?: string;
   changefreq: string;
@@ -316,6 +322,24 @@ function staticRoutes(): RouteSeo[] {
         }),
       ]),
     },
+    {
+      path: "/colophon",
+      title: "Colophon",
+      description:
+        "The meaning behind my dripping S mark, a reminder to be happy now, and why I chose Tyrian purple.",
+      ogType: "website",
+      crumbs: [home, { name: "Colophon", path: "/colophon" }],
+      changefreq: "yearly",
+      priority: "0.3",
+      jsonLd: graph([
+        webPageNode({
+          path: "/colophon",
+          title: documentTitle("/colophon", "Colophon"),
+          description: "How this site is designed and built, and why.",
+          crumbs: [home, { name: "Colophon", path: "/colophon" }],
+        }),
+      ]),
+    },
   ];
 }
 
@@ -399,6 +423,39 @@ function postRoutes(): RouteSeo[] {
       ]),
     };
   });
+}
+
+/**
+ * The 404 page, prerendered so the host has a real file to serve.
+ *
+ * Deliberately not in `allRoutes()`: it must never reach the sitemap, and its
+ * head is the one head on the site that tells crawlers to stay away. Vercel
+ * serves `404.html` from the build output whenever a request matches no other
+ * file, which is how a bad URL reaches this instead of Vercel's own error page.
+ */
+export function notFoundRoute(): RouteSeo {
+  const title = "Not found";
+  const description =
+    "There is no page at this address. It may have been renamed, or the link may be wrong.";
+
+  return {
+    path: "/404",
+    title,
+    description,
+    ogType: "website",
+    noIndex: true,
+    crumbs: [home],
+    changefreq: "yearly",
+    priority: "0.0",
+    jsonLd: graph([
+      webPageNode({
+        path: "/404",
+        title: documentTitle("/404", title),
+        description,
+        crumbs: [home],
+      }),
+    ]),
+  };
 }
 
 /** Every prerenderable route, in sidebar order then content order. */

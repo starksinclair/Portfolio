@@ -261,33 +261,19 @@ identity is typographic, full stop.
 
 ### 8.2 Mark
 
-The mark exists because a tab bar, a home screen and an install prompt will not take type. It is a
-**plumb bob**: a datum bar, a thread, and a weight hanging still beneath it.
+The mark is a bold **S with rain and sweat droplets**. The S is Sinclair's initial.
+Rain represents hard days; sweat represents effort. There will always be more work
+and another challenge. The reminder is personal: stop postponing happiness, make
+room for fun, and **be happy now**.
 
-Why that object, and not a monogram, a chevron or a node graph:
+The reference silhouette informed a generated concept in
+`docs/brand/dripping-s-concept.png`. The production mark uses flat ivory `#FCF9FA`
+on Tyrian purple `#66023C`, with broad counters and droplets at both ends. It has no
+gradients, gloss or shadows. The purple retains its personal meaning of rarity.
 
-- It is an **industrial instrument**. A plumb bob is what you hang off a steel frame to find out
-  whether the thing you built is actually true. That is the engineering half.
-- It is a **measuring instrument**. It does not argue, assert or estimate; it settles, and then you
-  read it. That is the research half.
-- It is the **only tool that finds its answer by balancing**. The bob hangs where gravity and the
-  thread agree. The balance in the positioning is the mechanism of the object, not a metaphor
-  bolted onto it.
-- It is **rare in this field**. Software identity leans on monograms, abstract nodes, gradients and
-  geometric glyphs. A hanging weight is drawn from construction and surveying, not from the
-  category, which is why it will not be confused with anyone else's.
-
-Construction: a 32-unit grid, 3.6 units of clear space above the datum bar and below the tip. The
-body of the bob is taller than its taper on purpose; reversed, the silhouette reads as a download
-arrow. Knockout in `ink-50` on a solid `--tyrian-anchor` field at every size, because browser chrome
-is neither the light nor the dark surface and the mark must hold against both.
-
-Minimum size 16px. At 16px the mark is drawn on the pixel grid rather than scaled down, so the datum
-bar stays a bar instead of becoming grey haze; the taper is sacrificed, the silhouette is not.
-
-The geometry lives once, in [`scripts/make-icons.py`](scripts/make-icons.py), which emits the SVG and
-every raster size from the same numbers. Do not hand-edit an icon file; change the geometry and run
-`npm run icons`.
+`scripts/make-icons.py` holds the production paths and generates the SVG, 16/32/48px
+ICO, Apple touch icon, and maskable 192/512px icons. Run `npm run icons` after edits.
+At small sizes the S carries recognition; the colophon explains the droplets.
 
 ---
 

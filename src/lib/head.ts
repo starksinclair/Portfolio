@@ -47,6 +47,10 @@ function upsertLink(rel: string, href: string) {
   el.setAttribute("href", href);
 }
 
+function removeLink(rel: string) {
+  document.head.querySelector(`link[rel="${rel}"]`)?.remove();
+}
+
 export interface HeadOptions {
   /** Without the site name, which is appended. */
   title: string;
@@ -92,9 +96,14 @@ export function useHead({
       'meta[name="robots"]',
       "name",
       "robots",
-      noIndex ? "noindex, nofollow" : "index, follow, max-image-preview:large",
+      noIndex ? "noindex, follow" : "index, follow, max-image-preview:large",
     );
-    upsertLink("canonical", url);
+    /* A noindex page is the 404, which answers at every address that does not
+       exist, so there is no one URL for a canonical to name. Remove rather than
+       skip: navigating here from a real page would otherwise leave that page's
+       canonical behind. This matches `headFor()` in vite.config.ts, so the
+       prerendered head and the hydrated head cannot disagree. */
+    noIndex ? removeLink("canonical") : upsertLink("canonical", url);
 
     upsertMeta('meta[property="og:type"]', "property", "og:type", ogType);
     upsertMeta('meta[property="og:url"]', "property", "og:url", url);

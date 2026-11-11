@@ -76,10 +76,18 @@ Social and search crawlers do not execute JavaScript. In a single-page app every
 
 `src/lib/routes.ts` is the route table: for every URL it defines the title, description, Open Graph
 type and schema.org graph. At build time `vite.config.ts` walks that table and emits **one real HTML
-file per route** (36 of them) with those tags in the head. The body and script tag are untouched, so
-the app still boots and takes over. This only changes what a non-rendering client sees. Vercel
-checks the filesystem before applying rewrites and `cleanUrls` maps `/about` to `about.html`, so
-they are served automatically.
+file per route** (42 of them) with those tags in the head. The body and script tag are untouched, so
+the app still boots and takes over. This only changes what a non-rendering client sees. `cleanUrls`
+maps `/about` to `about.html`, so every route is a file the host serves directly.
+
+That is also why there is **no catch-all rewrite** in `vercel.json`. Every real route has its own
+file, so a rewrite could only ever fire for an address that does not exist — and it would answer
+with the home page at status 200, a soft 404. Instead the build emits a `404.html`, which Vercel
+serves when a request matches no file. A missing page therefore gets this site's own Not found page,
+not Vercel's error page, and a crawler gets a real 404 rather than a page pretending to be the home
+page. It is the one page on the site with `noindex` and no canonical: it answers at every address
+that does not exist, so there is no single URL for a canonical to name. `npm run seo:check` asserts
+both, and holds the page out of the sitemap.
 
 `Page.tsx` reads the *same* table at runtime. That matters: a crawler that doesn't run JS reads the
 prerendered tags, one that does reads whatever the app sets afterwards, and if those disagree the
@@ -139,11 +147,38 @@ over a decade, and `npm run seo:check` fails if one reappears. Research terms
 belong in the prose and headings instead, which is where `/research` carries
 them.
 
-`npm run seo:check` reads `dist/` and asserts fifteen properties: unique titles
+`npm run seo:check` reads `dist/` and asserts seventeen properties: unique titles
 and descriptions, canonicals that match their own URL, complete Open Graph,
 JSON-LD that parses into a non-empty graph, a sitemap that matches the built
-pages exactly, internal links that resolve, the Scholar citation tags, and alt
-text on every image. It exits non-zero, so it can gate a deploy.
+pages exactly, internal links that resolve, the Scholar citation tags, alt
+text on every image, and a 404 page that is noindex and has no canonical. It
+exits non-zero, so it can gate a deploy.
+
+### Telling the other engines
+
+Google and Brave only ever find this site by crawling it. The rest can be
+pushed. `npm run indexnow` POSTs the URL list to `api.indexnow.org`, which fans
+out to Bing, Yandex, Naver, Seznam and Yep:
+
+```
+npm run build && npm run indexnow          # the whole sitemap
+npm run indexnow -- --dry-run              # print what would be sent
+npm run indexnow -- /research /projects/marco   # just these
+```
+
+It reads the URLs from `dist/sitemap.xml` rather than importing the route table,
+so a route can only be submitted if it was actually built — submitting 404s is
+how a site loses IndexNow standing.
+
+The key lives in exactly one place: the **name** of the single `.txt` file in
+`public/`, whose only contents are that same name. The engines fetch it to prove
+host ownership, so the script checks it is live before submitting and says so
+plainly when it is not. Rotating the key means deleting that file and making
+another; nothing else refers to it.
+
+Bing Webmaster Tools is the console to watch all this in, and it covers
+DuckDuckGo, Yahoo and Ecosia, which take their links from Bing. Brave runs an
+independent index with no console at all.
 
 ## The mark
 

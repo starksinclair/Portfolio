@@ -6,7 +6,7 @@ import react from "@vitejs/plugin-react";
    the static JSON-LD are all generated from the same source as the app, so they
    cannot drift from what the site actually contains. */
 import { profile, SITE_URL } from "./src/data/profile";
-import { allRoutes, documentTitle, type RouteSeo } from "./src/lib/routes";
+import { allRoutes, notFoundRoute, documentTitle, type RouteSeo } from "./src/lib/routes";
 import { siteNodes } from "./src/lib/schema";
 import {
   OG_IMAGE_ALT,
@@ -87,11 +87,18 @@ function headFor(route: RouteSeo): string {
     )
     .join("");
 
+  /* The 404 page is served at every address that does not exist, so it gets no
+     canonical: there is no single URL for one to name. `noindex, follow` keeps
+     it out of the index while still letting crawlers use the links on it. */
+  const robots = route.noIndex
+    ? `    <meta name="robots" content="noindex, follow" />`
+    : `    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="${url}" />`;
+
   return `    <title>${title}</title>
     <meta name="description" content="${description}" />
     <meta name="author" content="${escapeAttr(profile.name)}" />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
-    <link rel="canonical" href="${url}" />
+${robots}
 
     <meta property="og:type" content="${route.ogType}" />
     <meta property="og:site_name" content="${escapeAttr(profile.name)}" />
@@ -226,7 +233,10 @@ function prerenderRoutes(): Plugin {
 
       const problems: string[] = [];
 
-      for (const route of allRoutes()) {
+      /* The 404 page rides along with the real routes: same head builder, same
+         graph validation, but it is emitted as 404.html and never reaches the
+         sitemap, because `allRoutes()` does not contain it. */
+      for (const route of [...allRoutes(), notFoundRoute()]) {
         const problem = assertGraphResolves(route.path, route.jsonLd);
         if (problem) problems.push(problem);
 
