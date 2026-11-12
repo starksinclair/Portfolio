@@ -17,7 +17,7 @@ export function Presentations() {
     <Page
       eyebrow="Writing"
       title="Presentations"
-      description="Talks and workshops, with the slides as they were presented. Each one opens at its own address, so a link goes straight to the deck."
+      description="Talks and workshops, with the slides as they were presented."
       path="/presentations"
       crumbs={crumbs}
     >
