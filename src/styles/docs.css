@@ -996,3 +996,68 @@
   padding: var(--space-3xl) 0;
   text-align: left;
 }
+
+/* ── presentations ─────────────────────────────────────────────────── */
+
+/* A deck is someone else's design inside this one, so it gets a frame and a
+   seam: a hairline and a sunken ground, the same treatment a figure gets. The
+   aspect ratio comes from the data, because a 4:3 deck letterboxed into 16:9
+   is a worse record of the talk than a correctly shaped one. */
+.deck {
+  position: relative;
+  margin: var(--space-lg) 0 0;
+  width: 100%;
+  background: var(--bg-sunken);
+  border: var(--border-hairline) solid var(--rule);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+/* The deck keeps its authored 1280x720 viewport and the frame is scaled to
+   fit, so the deck's own layout maths never sees a window it was not built
+   for. transform-origin is the top left corner because the frame is pinned
+   there: scaling from the centre would leave it offset by half the slack. */
+.deck__stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 0;
+  display: block;
+  transform-origin: top left;
+}
+
+.deck--pdf {
+  aspect-ratio: 1 / 1.2;
+}
+
+.deck__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.deck-images {
+  list-style: none;
+  margin: var(--space-lg) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-md);
+}
+
+.deck-images img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: var(--border-hairline) solid var(--rule);
+  border-radius: var(--radius-card);
+}
+
+kbd {
+  background: var(--bg-code);
+  border: var(--border-hairline) solid var(--rule);
+  border-radius: var(--radius-control);
+  padding: 0.1em 0.34em;
+}

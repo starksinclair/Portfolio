@@ -9,6 +9,8 @@ import { ProjectDetail } from "./pages/ProjectDetail";
 import { Research } from "./pages/Research";
 import { Writing } from "./pages/Writing";
 import { PostDetail } from "./pages/PostDetail";
+import { Presentations } from "./pages/Presentations";
+import { PresentationDetail } from "./pages/PresentationDetail";
 import { Press } from "./pages/Press";
 import { Cv } from "./pages/Cv";
 import { Contact } from "./pages/Contact";
@@ -28,6 +30,8 @@ export default function App() {
           <Route path="/research" element={<Research />} />
           <Route path="/writing" element={<Writing />} />
           <Route path="/writing/:slug" element={<PostDetail />} />
+          <Route path="/presentations" element={<Presentations />} />
+          <Route path="/presentations/:slug" element={<PresentationDetail />} />
           <Route path="/press" element={<Press />} />
           <Route path="/cv" element={<Cv />} />
           <Route path="/contact" element={<Contact />} />

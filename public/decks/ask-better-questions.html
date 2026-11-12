@@ -1,0 +1,998 @@
+<!doctype html><html lang="en"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Ask Better Questions</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@600;700&family=Inter:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,400;1,700&display=swap">
+<style>
+/* Layout: fixed 1280x720 projector stage scaled to the window; Ball State header rule + red tag on every content slide; wing parallelograms as the one bold device. Single deliberate light look (projected deck). */
+:root{
+  --cardinal:#BA0C2F; --cardinal-deep:#8C0A24; --ink:#231F20; --gray:#54585A; --mute:#7A7E80;
+  --mist:#ECEAEA; --paper:#FFFFFF; --letterbox:#1C1A1B;
+  --ux:#FDDE69; --design:#AEDBE9; --pm:#BAD57E; --dev:#C8C9CA; --comm:#F2A9B6; --blue:#0079A7;
+  --f-display:"Playfair Display","IvyPresto Display",Georgia,"Times New Roman",serif;
+  --f-cond:"Antonio","Acumin Pro ExtraCondensed","Arial Narrow",Impact,sans-serif;
+  --f-text:"Helvetica Neue","Inter",Helvetica,Arial,sans-serif;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--letterbox);color:var(--ink);font-family:var(--f-text);overflow:hidden;margin:0}
+#wrap{position:fixed;inset:0;display:grid;place-items:center;padding-block:16px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+#stage{width:1280px;height:720px;position:relative;background:var(--paper);transform-origin:center center;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.45);flex:none}
+.slide{position:absolute;inset:0;padding:0 64px;opacity:0;visibility:hidden;transition:opacity .45s ease,visibility .45s}
+.slide.active{opacity:1;visibility:visible}
+/* header */
+.hd{position:absolute;left:64px;right:64px;top:30px;display:flex;align-items:flex-end;gap:16px}
+.hd .bsu{font-family:var(--f-display);font-weight:400;font-size:22px;white-space:nowrap;line-height:1}
+.hd .rule{flex:1;height:1px;background:var(--cardinal);margin-bottom:3px}
+.hd .pg{font:700 13px var(--f-text);margin-bottom:-2px;font-variant-numeric:tabular-nums}
+.tag{display:inline-block;background:var(--cardinal);color:#fff;font:700 19px/1 var(--f-cond);letter-spacing:.04em;text-transform:uppercase;padding:6px 9px 5px}
+.slide>.tag{position:absolute;left:64px;top:66px}
+.body{position:absolute;left:64px;right:64px;top:116px;bottom:56px}
+h1,h2,h3{margin:0;text-wrap:balance}
+.h-xl{font:900 82px/0.92 var(--f-display);text-transform:uppercase;letter-spacing:-.01em}
+.h-l{font:900 52px/1 var(--f-display);letter-spacing:-.01em}
+.h-m{font:800 34px/1.08 var(--f-display)}
+.it{font-family:var(--f-display);font-style:italic;font-weight:400}
+.sub{font:700 22px/1 var(--f-cond);text-transform:uppercase;letter-spacing:.05em;color:var(--cardinal)}
+p{margin:0}
+.lead{font-size:21px;line-height:1.45;color:var(--gray);max-width:62ch}
+.src{position:absolute;left:64px;right:180px;bottom:20px;font-size:11.5px;color:var(--mute);line-height:1.35}
+.red{color:var(--cardinal)}
+/* step reveals */
+.slide [data-step]{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.7,.2,1)}
+.slide [data-step].in{opacity:1;transform:none}
+/* controls */
+#ui{position:absolute;right:18px;bottom:14px;display:flex;gap:6px;align-items:center;z-index:50}
+#ui button{font:700 13px var(--f-text);border:1px solid #d7d4d4;background:#fff;color:var(--ink);height:30px;min-width:30px;padding:0 9px;cursor:pointer}
+#ui button:hover{border-color:var(--cardinal);color:var(--cardinal)}
+#prog{position:absolute;left:0;bottom:0;height:5px;background:var(--cardinal);transition:width .4s ease;z-index:49}
+button:focus-visible,.pick:focus-visible,.flip:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.hint{position:absolute;left:64px;bottom:18px;font:600 15px var(--f-cond);letter-spacing:.08em;text-transform:uppercase;color:var(--cardinal)}
+
+/* wing */
+.wing polygon{transition:transform 1.1s cubic-bezier(.2,.7,.2,1),opacity 1s}
+
+/* S1 */
+#s-title{padding:0}
+#s-title .left{position:absolute;left:64px;top:150px;width:690px}
+#s-title .h-xl{font-size:96px}
+#s-title .h-xl .it{text-transform:none;font-size:72px;display:block;margin-top:14px;color:var(--cardinal);letter-spacing:0}
+#s-title .meta{margin-top:34px;display:flex;flex-direction:column;gap:8px}
+#s-title .meta .who{font-size:19px;color:var(--gray)}
+#s-title .art{position:absolute;right:-40px;top:0;width:560px;height:720px;background:var(--cardinal);clip-path:polygon(28% 0,100% 0,100% 100%,0 100%)}
+#s-title .art svg{position:absolute;inset:0;width:100%;height:100%}
+#s-title.active .wa{animation:wingIn 1.4s cubic-bezier(.2,.7,.2,1) both}
+#s-title.active .wb{animation:wingIn 1.4s .25s cubic-bezier(.2,.7,.2,1) both}
+#s-title.active .wc{animation:wingIn 1.4s .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes wingIn{from{transform:translate(-80px,90px);opacity:0}to{transform:none;opacity:1}}
+#s-title .food{position:absolute;left:64px;bottom:30px;font:600 17px var(--f-cond);letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
+
+/* S2 four builds */
+.quote{font:700 34px/1.2 var(--f-display);font-style:italic;max-width:900px}
+.qbox{position:absolute;left:50%;top:0;transform:translateX(-50%);width:880px;text-align:center;padding:26px 30px;border:2px solid var(--ink);background:#fff;z-index:2}
+.qbox .who{font:600 15px var(--f-cond);letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-top:12px}
+.builds{position:absolute;left:0;right:0;top:200px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.build{padding:18px 18px 20px;min-height:200px;display:flex;flex-direction:column;gap:10px}
+.build .role{font:700 24px/1 var(--f-cond);text-transform:uppercase;letter-spacing:.04em}
+.build .pic{font-size:17px;line-height:1.4}
+.build .q{margin-top:auto;font-size:14px;color:var(--ink);opacity:.75}
+.b-dev{background:var(--dev)} .b-des{background:var(--design)} .b-pm{background:var(--pm)} .b-com{background:var(--comm)}
+#s-builds .build[data-step]{transform:translateY(-120px) scale(.7)}
+#s-builds .build[data-step].in{transform:none}
+.verdict{position:absolute;left:0;right:0;bottom:6px;text-align:center;font:900 40px var(--f-display)}
+
+/* S3 */
+.cols{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;height:100%}
+.defn{border-left:6px solid var(--cardinal);padding:6px 0 6px 24px}
+.defn blockquote{margin:0;font:700 31px/1.25 var(--f-display)}
+.defn cite{display:block;margin-top:12px;font-style:normal;font-size:14px;color:var(--mute)}
+.twoq{display:flex;flex-direction:column;gap:14px}
+.qq{padding:18px 22px;border:2px solid var(--ink);display:flex;justify-content:space-between;align-items:center;gap:16px}
+.qq .t{font:800 26px/1.15 var(--f-display)}
+.qq .k{font:700 15px var(--f-cond);text-transform:uppercase;letter-spacing:.06em;color:var(--gray);white-space:nowrap}
+.qq.hot{background:var(--cardinal);border-color:var(--cardinal);color:#fff}
+.qq.hot .k{color:#fff}
+.oops{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+.oops div{background:var(--mist);padding:12px 12px;font:700 20px/1.1 var(--f-cond);text-transform:uppercase;letter-spacing:.03em}
+.oops div span{display:block;font:400 13px/1.35 var(--f-text);text-transform:none;letter-spacing:0;color:var(--gray);margin-top:6px}
+
+/* S4 today */
+.lanes{display:grid;grid-template-columns:1fr 1fr;gap:40px;height:350px}
+.lane h3{font:800 30px var(--f-display);margin-bottom:6px}
+.lane .cap{font-size:15px;color:var(--gray);margin-bottom:14px}
+.mail{display:flex;flex-direction:column;gap:8px;position:relative}
+.m{background:var(--mist);padding:9px 14px;font-size:15px;display:flex;gap:12px;align-items:baseline;transition:opacity .5s,background .4s}
+.m b{font:700 15px var(--f-cond);letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;min-width:92px}
+.m:nth-child(2){margin-left:22px}.m:nth-child(3){margin-left:44px}.m:nth-child(4){margin-left:66px}.m:nth-child(5){margin-left:88px}
+.m.buried{background:var(--ux)}
+#s-today.st2 .m.buried{background:var(--mist);opacity:.35}
+.lost{font:700 16px var(--f-cond);letter-spacing:.06em;text-transform:uppercase;color:var(--cardinal);margin-top:10px}
+.table{position:relative;height:250px}
+.table .tb{position:absolute;left:50%;top:50%;width:250px;height:110px;transform:translate(-50%,-50%);background:var(--mist);border-radius:60px}
+.seat{position:absolute;width:104px;padding:9px 6px;text-align:center;font:700 16px/1.1 var(--f-cond);letter-spacing:.04em;text-transform:uppercase;transition:all .5s}
+.seat.empty{border:2px dashed #bdbaba;color:#aaa;background:#fff}
+.seat.filled{border:2px solid transparent}
+#s-today.st2 .seat.empty{border-style:solid;color:var(--ink)}
+#s-today.st2 .seat.e-dev{background:var(--dev);border-color:var(--dev)}
+#s-today.st2 .seat.e-des{background:var(--design);border-color:var(--design)}
+#s-today.st2 .seat.e-pm{background:var(--pm);border-color:var(--pm)}
+#s-today.st2 .seat.e-com{background:var(--comm);border-color:var(--comm)}
+.flowline{position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.fstep{padding:12px 18px;border-top:4px solid var(--cardinal);font-size:15px;line-height:1.35}
+.fstep b{display:block;font:700 17px var(--f-cond);text-transform:uppercase;letter-spacing:.05em;color:var(--cardinal);margin-bottom:3px}
+
+/* S5 workflow */
+.wf{position:absolute;left:0;right:0;top:46px;height:470px}
+.box{position:absolute;width:140px;height:118px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:13.5px;line-height:1.25;padding:8px;border:1px solid #9b9b9b;transition:all .7s cubic-bezier(.2,.7,.2,1)}
+.box.ux{background:var(--ux)}
+.box.uxpm{background:linear-gradient(135deg,var(--ux) 50%,var(--pm) 50%)}
+.box.uxdev{background:linear-gradient(135deg,var(--ux) 50%,var(--dev) 50%)}
+.box.uxpmdev{background:linear-gradient(135deg,var(--ux) 34%,var(--pm) 34% 67%,var(--dev) 67%)}
+.box.uxcom{background:linear-gradient(135deg,var(--ux) 50%,var(--comm) 50%)}
+.box.rs{font-weight:700;z-index:3}
+.arrow{position:absolute;height:2px;background:#6d6d6d}
+.arrow::after{content:"";position:absolute;right:-1px;top:-4px;border:5px solid transparent;border-left:7px solid #6d6d6d;border-right:0}
+#s-wf.st1 .box.rs{box-shadow:0 0 0 5px var(--cardinal)}
+#s-wf.st2 .box.rs,#s-wf.st3 .box.rs{height:250px;align-items:flex-start;padding-top:14px;background:linear-gradient(135deg,var(--ux) 20%,var(--design) 20% 40%,var(--pm) 40% 60%,var(--dev) 60% 80%,var(--comm) 80%);box-shadow:0 0 0 5px var(--cardinal)}
+.corpswf{position:absolute;left:330px;right:0;top:300px;height:150px;border:2px dashed #8a8a8a;padding:30px 16px 14px}
+.corpswf .lbl{position:absolute;right:12px;top:6px;font:italic 700 15px var(--f-text);color:var(--gray)}
+.corpswf .row{display:flex;gap:10px;align-items:center;height:100%}
+.mini{flex:1;height:72px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12.5px;line-height:1.2;padding:6px;border:1px solid #9b9b9b}
+.mini.d{background:var(--design)} .mini.v{background:var(--dev)} .mini.u{background:var(--ux)} .mini.w{background:#fff}
+.chip{position:absolute;width:62px;height:30px;display:flex;align-items:center;justify-content:center;font:700 14px var(--f-cond);letter-spacing:.05em;text-transform:uppercase;border:2px solid var(--ink);background:#fff;z-index:5;left:var(--x0);top:var(--y0);transition:left 1.1s cubic-bezier(.3,.1,.2,1),top 1.1s cubic-bezier(.3,.1,.2,1),transform .4s}
+#s-wf.st2 .chip,#s-wf.st3 .chip{left:var(--x1);top:var(--y1)}
+.chip:nth-of-type(2){transition-delay:.12s}.chip:nth-of-type(3){transition-delay:.24s}.chip:nth-of-type(4){transition-delay:.36s}
+.legend{position:absolute;left:0;top:318px;display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;font-size:13px}
+.legend i{display:inline-block;width:18px;height:14px;border:1px solid #888;vertical-align:-2px;margin-right:6px}
+.wfcap{position:absolute;left:0;top:0;font-size:18px;line-height:1.35;max-width:1000px}
+.why{position:absolute;left:330px;right:0;top:300px;height:150px;padding:0;background:#fff;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;z-index:6}
+.why div{padding:12px 14px;font-size:15px;line-height:1.35}
+.why b{display:block;font:700 19px var(--f-cond);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+
+/* S6 flip cards */
+.flips{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+.flip{height:172px;perspective:1000px;cursor:pointer;background:none;border:0;padding:0;text-align:left;font:inherit;color:inherit}
+.flip .in2{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d}
+.flip.on .in2{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between}
+.front{background:var(--mist)}
+.front .fq{font:800 23px/1.2 var(--f-display)}
+.front .fk,.back .fk{font:600 13px var(--f-cond);letter-spacing:.1em;text-transform:uppercase;color:var(--gray)}
+.back{background:var(--cardinal);color:#fff;transform:rotateY(180deg)}
+.back .fk{color:#ffd9df}
+.back .fa{font-size:18px;line-height:1.4}
+
+/* S7 research */
+.paper{display:grid;grid-template-columns:1.1fr 1fr;gap:50px;align-items:start}
+.ptitle{font:800 36px/1.1 var(--f-display)}
+.pauth{font-size:16px;color:var(--gray);margin-top:12px;line-height:1.45}
+.setup{margin-top:24px;font-size:18px;line-height:1.5;color:var(--ink)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stat{background:var(--mist);padding:16px 18px}
+.stat .n{font:700 64px/1 var(--f-cond);color:var(--cardinal);font-variant-numeric:tabular-nums}
+.stat .l{font-size:15px;color:var(--gray);margin-top:4px}
+.stat.wide{grid-column:1/-1;background:var(--cardinal)}
+.stat.wide .n,.stat.wide .l{color:#fff}
+
+/* S8 guess */
+.opts{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;max-width:1150px}
+.opt{font:700 19px var(--f-cond);letter-spacing:.03em;text-transform:uppercase;padding:9px 14px;border:2px solid var(--ink);background:#fff;transition:all .4s}
+.opt.hit{background:var(--cardinal);border-color:var(--cardinal);color:#fff}
+.opt.miss{opacity:.3}
+.podium{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:18px;margin-top:30px;align-items:end}
+.pod{background:var(--mist);padding:18px 20px;display:flex;flex-direction:column;gap:6px;min-height:200px;justify-content:flex-end;position:relative}
+.pod .rank{position:absolute;top:12px;left:18px;font:900 44px var(--f-display);color:var(--cardinal)}
+.pod .nm{font:800 25px/1.12 var(--f-display)}
+.pod .ct{font:700 46px/1 var(--f-cond);font-variant-numeric:tabular-nums}
+.pod .ct small{font-size:20px;color:var(--gray);margin-left:4px}
+.pod .ex{font-size:14px;color:var(--gray);line-height:1.35}
+.pod.one{background:var(--cardinal);color:#fff;min-height:250px}
+.pod.one .rank{color:#fff}.pod.one .ex,.pod.one .ct small{color:#ffd9df}
+.pod .cover{position:absolute;inset:0;background:var(--ink);display:flex;align-items:center;justify-content:center;font:900 70px var(--f-display);color:#fff;transition:opacity .5s, transform .6s;transform-origin:top}
+.pod.shown .cover{opacity:0;transform:scaleY(0)}
+
+/* S9 chart */
+.chart{margin-top:10px;display:flex;flex-direction:column;gap:7px}
+.crow{display:grid;grid-template-columns:330px 1fr 70px;align-items:center;gap:14px}
+.crow .cl{font-size:16.5px;text-align:right}
+.crow .ctrack{height:30px;background:var(--mist);position:relative}
+.crow .cbar{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--gray);transition:width 1s cubic-bezier(.2,.7,.2,1)}
+.crow.top .cbar{background:var(--cardinal)}
+.crow .cv{font:700 22px var(--f-cond);font-variant-numeric:tabular-nums}
+.crow .cth{font:600 12px var(--f-cond);letter-spacing:.08em;text-transform:uppercase;color:var(--mute);display:block}
+.chart.in .cbar{width:var(--w)}
+.axis{display:grid;grid-template-columns:330px 1fr 70px;gap:14px;font-size:12px;color:var(--mute);margin-top:2px}
+.axis div:nth-child(2){display:flex;justify-content:space-between;font-variant-numeric:tabular-nums}
+
+/* S10 rare */
+.rare{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.rc{border:2px solid var(--ink);padding:14px 16px;min-height:118px;display:flex;flex-direction:column;justify-content:space-between}
+.rc .rn{font:800 20px/1.2 var(--f-display)}
+.rc .rv{font:700 30px var(--f-cond);color:var(--cardinal);font-variant-numeric:tabular-nums;opacity:0;transform:translateY(8px);transition:all .4s}
+#s-rare.st1 .rc .rv{opacity:1;transform:none}
+.rc .rv small{font-size:16px;color:var(--gray)}
+.contrast{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.contrast div{padding:18px 22px;font-size:18px;line-height:1.4}
+.contrast .loud{background:var(--mist)}
+.contrast .quiet{background:var(--cardinal);color:#fff}
+.contrast b{display:block;font:700 22px var(--f-cond);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+
+/* S11 makeover */
+.mk{display:grid;grid-template-columns:430px 1fr;gap:40px;margin-top:8px}
+.qlist{display:flex;flex-direction:column;gap:10px}
+.pick{background:var(--mist);border:0;text-align:left;padding:14px 18px;font:italic 400 21px/1.3 var(--f-display);color:var(--ink);cursor:pointer;border-left:6px solid transparent;transition:all .3s}
+.pick:hover{border-left-color:#d9a3ae}
+.pick.on{background:#fff;border-left-color:var(--cardinal);box-shadow:0 0 0 2px var(--ink)}
+.mkpanel{position:relative;min-height:440px}
+.mkempty{font-size:20px;color:var(--gray);padding-top:20px;line-height:1.5}
+.vq{font:italic 400 30px/1.25 var(--f-display);position:relative;display:inline}
+.vq .strike{position:absolute;left:0;top:55%;height:3px;background:var(--cardinal);width:0;transition:width .6s .2s ease}
+.mkpanel.go .vq .strike{width:100%}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 22px}
+.ctag{font:700 15px var(--f-cond);letter-spacing:.05em;text-transform:uppercase;background:var(--ink);color:#fff;padding:6px 10px;opacity:0;transform:scale(.6);transition:all .35s cubic-bezier(.3,1.6,.5,1)}
+.mkpanel.go .ctag{opacity:1;transform:none}
+.mkpanel.go .ctag:nth-child(2){transition-delay:.55s}.mkpanel.go .ctag:nth-child(1){transition-delay:.4s}.mkpanel.go .ctag:nth-child(3){transition-delay:.7s}
+.why2{font-size:16px;color:var(--gray);line-height:1.45;opacity:0;transition:opacity .4s .8s}
+.mkpanel.go .why2{opacity:1}
+.better{margin-top:22px;background:var(--cardinal);color:#fff;padding:20px 24px;opacity:0;transform:translateX(40px);transition:all .6s 1.05s cubic-bezier(.2,.7,.2,1)}
+.mkpanel.go .better{opacity:1;transform:none}
+.better .bk{font:700 15px var(--f-cond);letter-spacing:.1em;text-transform:uppercase;color:#ffd9df;margin-bottom:6px}
+.better .bq{font:700 27px/1.25 var(--f-display)}
+
+/* S12 context */
+.ctx{display:grid;grid-template-columns:330px 1fr;gap:40px;margin-top:16px}
+.who{display:flex;flex-direction:column;gap:10px}
+.who .pick{font:700 21px/1.1 var(--f-cond);font-style:normal;text-transform:uppercase;letter-spacing:.04em}
+.who .pick span{display:block;font:400 13.5px/1.3 var(--f-text);text-transform:none;letter-spacing:0;color:var(--gray);margin-top:4px}
+.goal{font-size:15px;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.goal b{color:var(--ink);text-transform:none;letter-spacing:0;font:italic 400 22px var(--f-display);display:block;margin-top:4px}
+.askcard{margin-top:22px;border:2px solid var(--ink);padding:24px 28px;min-height:170px;position:relative}
+.askcard .ak{font:700 15px var(--f-cond);letter-spacing:.1em;text-transform:uppercase;color:var(--cardinal)}
+.askcard .aq{font:800 30px/1.25 var(--f-display);margin-top:10px;transition:opacity .25s}
+.askcard .aw{font-size:15px;color:var(--gray);margin-top:12px;transition:opacity .25s}
+.askcard.swap .aq,.askcard.swap .aw{opacity:0}
+.warn{margin-top:18px;background:var(--mist);padding:14px 18px;font-size:15.5px;line-height:1.45}
+.warn b{color:var(--cardinal)}
+
+/* S12b intake */
+.intake{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+.ic{background:#fff;border:2px solid var(--ink);border-top:10px solid var(--c);padding:10px 14px 12px;height:236px;display:flex;flex-direction:column;transition:all .45s}
+.ic h4{margin:0 0 6px;font:700 20px/1.05 var(--f-cond);text-transform:uppercase;letter-spacing:.03em}
+.ic ul{margin:0;padding-left:16px;font-size:14px;line-height:1.32;display:flex;flex-direction:column;gap:4px}
+.ic.empty{border-style:dashed;border-top-style:solid;background:var(--mist)}
+.ic .ask{font:italic 400 22px/1.2 var(--f-display);color:var(--mute);margin-top:6px;transition:all .4s}
+.ic .seed{margin-top:auto;color:var(--gray);font-size:13.5px;opacity:0;transform:translateY(8px);transition:all .45s}
+.ic .seed::before{content:"Starter ideas";display:block;margin:0 0 4px -16px;font:700 12px var(--f-cond);letter-spacing:.1em;text-transform:uppercase;color:var(--cardinal)}
+#s-intake.st1 .ic.empty{background:#fff;box-shadow:0 0 0 4px var(--cardinal);border-color:var(--cardinal)}
+#s-intake.st1 .ic.empty .ask{color:var(--cardinal);font-size:26px}
+#s-intake.st1 .ic:not(.empty){opacity:.5}
+#s-intake.st2 .ic .seed{opacity:1;transform:none}
+#s-intake.st2 .ic.empty .ask{font-size:18px}
+
+/* S13 flow */
+.track{position:relative;margin-top:24px;height:60px}
+.track .line{position:absolute;left:60px;right:60px;top:28px;height:4px;background:var(--mist)}
+.track .fill{position:absolute;left:60px;top:28px;height:4px;background:var(--cardinal);width:0;transition:width .8s cubic-bezier(.2,.7,.2,1)}
+.dots{position:absolute;inset:0;display:grid;grid-template-columns:repeat(5,1fr)}
+.dots div{display:flex;flex-direction:column;align-items:center;gap:6px}
+.dots i{width:22px;height:22px;border-radius:50%;background:#fff;border:4px solid var(--mist);margin-top:19px;transition:all .4s}
+.dots div.on i{border-color:var(--cardinal);background:var(--cardinal)}
+.stages{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:6px}
+.stg{padding:14px 14px 16px;background:var(--mist);transition:all .45s;min-height:300px;opacity:.45}
+.stg.on{opacity:1}
+.stg.cur{background:var(--ink);color:#fff}
+.stg h4{margin:0;font:700 28px/1 var(--f-cond);text-transform:uppercase;letter-spacing:.04em}
+.stg .goal3{font-size:14px;color:var(--gray);margin:6px 0 12px;min-height:38px}
+.stg.cur .goal3{color:#cfcfcf}
+.stg .line3{font:italic 400 17px/1.35 var(--f-display);margin-bottom:10px}
+.stg .stat3{font:700 14px var(--f-cond);letter-spacing:.05em;text-transform:uppercase;color:var(--cardinal);margin-top:8px}
+.stg.cur .stat3{color:#ff8fa3}
+
+/* S14 toolkit */
+.swaps{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+.sw{display:grid;grid-template-columns:150px 1fr 40px 1fr;gap:14px;align-items:center}
+.sw .kind{font:700 20px/1.1 var(--f-cond);text-transform:uppercase;letter-spacing:.04em}
+.sw .bad,.sw .good{padding:13px 16px;font-size:17px;line-height:1.35}
+.sw .bad{background:var(--mist);text-decoration:line-through;text-decoration-color:var(--cardinal);text-decoration-thickness:2px;color:var(--gray)}
+.sw .good{background:#fff;border:2px solid var(--cardinal);font-weight:500}
+.sw .ar{font:900 26px var(--f-display);color:var(--cardinal);text-align:center}
+.scripts{margin-top:18px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.scripts div{background:var(--ink);color:#fff;padding:13px 15px;font:italic 400 17px/1.3 var(--f-display)}
+.scripts div span{display:block;font:600 12px var(--f-cond);font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:#ff9db0;margin-bottom:5px}
+
+/* S15 notes */
+.notes{display:grid;grid-template-columns:1fr 420px;gap:40px;margin-top:6px}
+.sheet{border:2px solid var(--ink)}
+.sheet .th,.sheet .tr{display:grid;grid-template-columns:1.1fr 1.1fr .9fr}
+.sheet .th div{background:var(--ink);color:#fff;font:700 16px var(--f-cond);letter-spacing:.06em;text-transform:uppercase;padding:9px 12px}
+.sheet .tr div{padding:10px 12px;font-size:14.5px;line-height:1.35;border-top:1px solid #d2cfcf;min-height:64px}
+.sheet .tr div+div{border-left:1px solid #d2cfcf}
+.sheet .tr div.fu{color:var(--cardinal);font-weight:500}
+.type{display:inline;background:linear-gradient(var(--paper),var(--paper)) no-repeat right/0 100%}
+.minutes{background:var(--mist);padding:18px 20px}
+.minutes .mq{font:italic 400 19px/1.3 var(--f-display);margin:8px 0}
+.minutes .ma{font-size:15px;color:var(--gray);line-height:1.4}
+.minutes .mk2{font:700 14px var(--f-cond);letter-spacing:.08em;text-transform:uppercase;color:var(--cardinal)}
+.tips{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.tips div{font-size:15.5px;line-height:1.35;padding-left:16px;border-left:4px solid var(--cardinal)}
+
+/* S16 activity */
+.act{display:grid;grid-template-columns:1fr 470px;gap:40px;margin-top:4px}
+.roles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.rl{padding:16px 16px 18px;min-height:250px;display:flex;flex-direction:column;gap:8px}
+.rl h4{margin:0;font:700 30px/1 var(--f-cond);text-transform:uppercase;letter-spacing:.03em}
+.rl .cnt{font:600 13px var(--f-cond);letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+.rl p{font-size:15px;line-height:1.4}
+.rl .paperk{margin-top:auto;font:700 13px var(--f-cond);letter-spacing:.08em;text-transform:uppercase;border-top:1px solid currentColor;padding-top:8px}
+.r-cl{background:var(--ux)} .r-in{background:var(--design)} .r-ju{background:var(--ink);color:#fff}
+.rule3{margin-top:14px;font-size:16px;line-height:1.45;background:var(--mist);padding:12px 16px}
+.timer{background:var(--cardinal);color:#fff;padding:18px 22px 20px}
+.timer .phase{font:700 18px var(--f-cond);letter-spacing:.1em;text-transform:uppercase;color:#ffd9df}
+.timer .clock{font:700 128px/1 var(--f-cond);font-variant-numeric:tabular-nums;margin:6px 0 10px}
+.timer.done .clock{animation:blink .6s steps(2) 6}
+@keyframes blink{50%{opacity:.2}}
+.phases{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.phases button,.tctl button{font:700 16px var(--f-cond);letter-spacing:.05em;text-transform:uppercase;padding:9px 8px;border:2px solid #fff;background:transparent;color:#fff;cursor:pointer;text-align:left}
+.phases button span{float:right;font-variant-numeric:tabular-nums}
+.phases button.on{background:#fff;color:var(--cardinal)}
+.tctl{display:flex;gap:8px;margin-top:10px}
+.tctl button{flex:1;text-align:center;background:#fff;color:var(--cardinal)}
+
+/* S17 close */
+#s-close .three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
+#s-close .t3{border-top:6px solid var(--cardinal);padding-top:14px}
+#s-close .t3 .n3{font:900 54px/1 var(--f-display);color:var(--cardinal)}
+#s-close .t3 h4{margin:8px 0 6px;font:800 26px/1.15 var(--f-display)}
+#s-close .t3 p{font-size:16px;line-height:1.45;color:var(--gray)}
+#s-close .invite{margin-top:34px;background:var(--ink);color:#fff;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+#s-close .invite .iq{font:800 30px/1.15 var(--f-display)}
+#s-close .invite .ik{font:600 16px var(--f-cond);letter-spacing:.08em;text-transform:uppercase;color:#ff9db0;white-space:nowrap}
+#s-close .wingc{position:absolute;right:-20px;bottom:40px;width:260px;opacity:.12}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+
+<div id="wrap">
+<div id="stage" aria-live="polite">
+
+<!-- 1 TITLE -->
+<section class="slide" id="s-title" data-steps="0" aria-label="Title">
+  <div class="art" aria-hidden="true">
+    <svg viewBox="0 0 560 720" preserveAspectRatio="xMidYMid slice">
+      <g class="wa"><polygon points="150,250 320,355 470,262 470,370 270,494 270,438 150,362" fill="#fff"/></g>
+      <g class="wb"><polygon points="120,420 290,525 440,432 440,540 240,664 240,608 120,532" fill="none" stroke="#fff" stroke-width="2"/></g>
+      <g class="wc"><polygon points="230,40 420,158 420,240 230,122" fill="#8C0A24"/></g>
+    </svg>
+  </div>
+  <div class="hd" style="right:560px"><span class="bsu">Ball State University</span><span class="rule"></span></div>
+  <span class="tag" style="position:absolute;left:64px;top:66px">Corps Conversation · Nov 13 · 3 PM</span>
+  <div class="left">
+    <h1 class="h-xl">Ask better questions. <span class="it">Build the right thing.</span></h1>
+    <div class="meta">
+      <span class="sub">Requirements at the Digital Corps</span>
+      <span class="who">Sinclair Nzenwata · Development Team</span>
+    </div>
+  </div>
+  <div class="food">Grab food. Press → or click to begin.</div>
+</section>
+
+<!-- 2 FOUR BUILDS -->
+<section class="slide" id="s-builds" data-steps="2" aria-label="Same request, four builds">
+  <div class="hd"><span class="bsu">Ball State University</span><span class="rule"></span><span class="pg"></span></div>
+  <span class="tag">Warm-up</span>
+  <div class="body">
+    <div class="qbox">
+      <div class="quote">“We need a page where students can find study groups.”</div>
+      <div class="who">A client, in one email</div>
+    </div>
+    <div class="builds">
+      <div class="build b-dev" data-step="1"><span class="role">Dev pictures</span><span class="pic">BSU login, search by course number, a matching algorithm, a database of groups.</span><span class="q">Asks: what stack, what data?</span></div>
+      <div class="build b-des" data-step="1" style="transition-delay:.1s"><span class="role">Design pictures</span><span class="pic">A friendly card grid with filters, avatars, and a quick “join” flow.</span><span class="q">Asks: who is the user?</span></div>
+      <div class="build b-pm" data-step="1" style="transition-delay:.2s"><span class="role">PM pictures</span><span class="pic">A four-week MVP ready before midterms, with one owner on the client side.</span><span class="q">Asks: when, and who approves?</span></div>
+      <div class="build b-com" data-step="1" style="transition-delay:.3s"><span class="role">Comm pictures</span><span class="pic">A launch campaign aimed at freshmen, with a name, a tone, and posts.</span><span class="q">Asks: what is the message?</span></div>
+    </div>
+    <div class="verdict" data-step="2">Nobody was wrong. <span class="red it">Everybody was guessing.</span></div>
+  </div>
+  <div class="src">Adapted from the “Build what I said” activity, CS439 Requirements Engineering in Practice, Ball State, Fall 2026.</div>
+</section>
+
+<!-- 3 WHAT ARE REQUIREMENTS -->
+<section class="slide" id="s-what" data-steps="3" aria-label="What are requirements">
+  <div class="hd"><span class="bsu">Ball State University</span><span class="rule"></span><span class="pg"></span></div>
+  <span class="tag">What are requirements?</span>
+  <div class="body">
+    <div class="cols">
+      <div style="display:flex;flex-direction:column;gap:26px">
+        <div class="defn">
+          <blockquote>A property a product must have to provide value to stakeholders.</blockquote>
+          <cite>Wiegers &amp; Beatty, Software Requirements</cite>
+        </div>
+        <p class="lead">Before any work begins, someone has to figure out <b>what</b> we are building and <b>why</b>. Requirements turn a vague idea into clear goals so the client, designers, developers, and creatives are all building the same thing.</p>
+        <div data-step="3">
+          <div class="sub" style="margin-bottom:10px">When requirements go wrong</div>
+          <div class="oops">
+            <div>Over budget<span>Rework costs hours we planned for something else.</span></div>
+            <div>Behind schedule<span>We find the real need late, then rebuild.</span></div>
+            <div>The wrong thing<span>It works perfectly and solves nothing.</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="twoq">
+        <div class="qq" data-step="1"><span class="t">Are we building the system <span class="it">right?</span></span><span class="k">Code quality</span></div>
+        <div class="qq hot" data-step="2"><span class="t">Are we building the <span class="it">right</span> system?</span><span class="k">Requirements</span></div>
+        <p data-step="2" style="font:italic 400 24px/1.35 var(--f-display);margin-top:10px">Excellent code can faithfully implement the wrong requirement.</p>
+      </div>
+    </div>
+  </div>
+  <div class="src">Framing from CS439 Lecture 1, “Building the RIGHT system before building the system RIGHT.”</div>
+</section>
+
+<!-- 4 HOW THE CORPS DOES IT TODAY -->
+<section class="slide" id="s-today" data-steps="3" aria-label="How the Corps gathers requirements today">
+  <div class="hd"><span class="bsu">Ball State University</span><span class="rule"></span><span class="pg"></span></div>
+  <span class="tag">How we do it today</span>
+  <div class="body">
+    <div class="lanes">
+      <div class="lane">
+        <h3>The email chain</h3>
+        <div class="cap">Fast and written down. Easy to lose a question.</div>
+        <div class="mail">
+          <div class="m" data-step="1"><b>Client</b>Hi! We'd love a new site for our program.</div>
+          <div class="m" data-step="1" style="transition-delay:.15s"><b>Corps</b>Great. Who is the main audience?</div>
+          <div class="m" data-step="1" style="transition-delay:.3s"><b>Client</b>Students, mostly. Also here are 12 links we like.</div>
+          <div class="m buried" data-step="1" style="transition-delay:.45s"><b>Corps</b>…and is there a launch date we're working toward?</div>
+          <div class="m" data-step="1" style="transition-delay:.6s"><b>Client</b>Love these links! Talk soon.</div>
+        </div>
+        <div class="lost" data-step="2">The launch date never got answered.</div>
+      </div>
+      <div class="lane">
+        <h3>The interview meeting</h3>
+        <div class="cap">Real conversation and follow-ups. Usually just a few people in the room.</div>
+        <div class="table">
+          <div class="tb"></div>
+          <div class="seat filled" style="left:50%;top:0;transform:translateX(-50%);background:var(--ink);color:#fff">Client</div>
+          <div class="seat filled" style="left:10px;top:104px;background:var(--ux)">UX</div>
+          <div class="seat filled" style="right:10px;top:104px;background:var(--mist)">Team lead</div>
+          <div class="seat empty e-dev" style="left:56px;bottom:6px">Dev</div>
+          <div class="seat empty e-des" style="left:174px;bottom:6px">Design</div>
+          <div class="seat empty e-pm" style="right:174px;bottom:6px">PM</div>
+          <div class="seat empty e-com" style="right:56px;bottom:6px">Comm</div>
+        </div>
+      </div>
+    </div>
+    <div class="flowline" data-step="3">
+      <div class="fstep"><b>1 · Feasibility call</b>Brandon Smith holds a Zoom with the client, with the head or team lead, to check the project is possible.</div>
+      <div class="fstep"><b>2 · Students meet the client</b>Students learn what the project is and what it takes to build it.</div>
+      <div class="fstep"><b>3 · Stakeholders can join</b>We can bring the people who use or run the system into the conversation.</div>
+    </div>
+  </div>
+  <div class="src">From conversations with Digital Corps staff, November 2026.</div>
+</section>
+
+<!-- 5 UX WORKFLOW -->
+<section class="slide" id="s-wf" data-steps="3" aria-label="Where everyone joins the UX workflow">
+  <div class="hd"><span class="bsu">Ball State University</span><span class="rule"></span><span class="pg"></span></div>
+  <span class="tag">2026 UX team process</span>
+  <div class="body">
+    <p class="wfcap" id="wfcap">This is how our UX team runs a project. UX already does almost all of the requirements work.</p>
+    <div class="wf">
+      <div class="box ux rs" style="left:0;top:40px">User / Subject Matter Research</div>
+      <div class="arrow" style="left:140px;top:99px;width:24px"></div>
+      <div class="box ux" style="left:166px;top:40px">Personas / Empathy Maps / User Journeys</div>
+      <div class="arrow" style="left:306px;top:99px;width:24px"></div>
+      <div class="box uxpm" style="left:332px;top:40px">Problem Statement / High-Level Requirements</div>
+      <div class="arrow" style="left:472px;top:99px;width:24px"></div>
+      <div class="box uxdev" style="left:498px;top:40px">Site Map / Workflow Diagrams</div>
+      <div class="arrow" style="left:638px;top:99px;width:24px"></div>
+      <div class="box ux" style="left:664px;top:40px">Low-Fidelity Wireframes</div>
+      <div style="position:absolute;left:806px;top:84px;font:900 26px var(--f-display)">+</div>
+      <div class="box uxpmdev" style="left:830px;top:40px">Functional / UI Requirements (Scope of Work)</div>
+      <div class="arrow" style="left:970px;top:99px;width:24px"></div>
+      <div class="box uxcom" style="left:996px;top:40px">Written Interface</div>
+
+      <div class="legend">
+        <span><i style="background:var(--ux)"></i>User Experience</span>
+        <span><i style="background:var(--dev)"></i>Development</span>
+        <span><i style="background:var(--design)"></i>Design</span>
+        <span><i style="background:var(--comm)"></i>Communications</span>
+        <span><i style="background:var(--pm)"></i>Project Mgmt</span>
+      </div>
+
+      <div class="corpswf">
+        <span class="lbl">Digital Corps Project Workflow</span>
+        <div class="row">
+          <div class="mini d">Hi-Fi Prototype</div>
+          <div class="mini v">Dev Stage 1: Skeleton</div>
+          <div class="mini v">Dev Stage 2: Interface</div>
+          <div class="mini d">Design QA</div>
+          <div class="mini u">UX QA</div>
+          <div class="mini w">Final Release</div>
+        </div>
+      </div>
+
+      <div class="chip" style="--x0:360px;--y0:268px;--x1:6px;--y1:96px;background:var(--dev)">Dev</div>
+      <div class="chip" style="--x0:470px;--y0:268px;--x1:72px;--y1:96px;background:var(--design)">Design</div>
+      <div class="chip" style="--x0:580px;--y0:268px;--x1:6px;--y1:140px;background:var(--pm)">PM</div>
+      <div class="chip" style="--x0:690px;--y0:268px;--x1:72px;--y1:140px;background:var(--comm)">Comm</div>
+
+      <div class="why" data-step="3">
+        <div style="background:var(--dev)"><b>Dev</b>knows what is feasible and what will be expensive.</div>
+        <div style="background:var(--design)"><b>Design</b>notices how the user actually sees and feels the product.</div>
+        <div style="background:var(--pm)"><b>PM</b>keeps scope, timeline, and the client's priorities honest.</div>
+        <div style="background:var(--comm)"><b>Comm</b>knows the audience, the message, and the tone.</div>
+      </div>
+    </div>
+  </div>
+  <div class="src">Ball State University, 2026 UX Team Process and Deliverables, Rev. 2.0.</div>
+</section>
+
+<!-- 6 WHY WE DON'T ASK -->
+<section class="slide" id="s-fear" data-steps="0" aria-label="Why we don't ask">
+  <div class="hd"><span class="bsu">Ball State University</span><span class="rule"></span><span class="pg"></span></div>
+  <span class="tag">So why don't we ask?</span>
+  <div class="body">
+    <h2 class="h-l">Sound familiar? <span class="it red" style="font-size:34px">Tap a card.</span></h2>
+    <div class="flips">
+      <button class="flip" data-ui><div class="in2"><div class="face front"><span class="fq">“Clients are adults. I'm intimidated.”</span><span class="fk">What we hear</span></div><div class="face back"><span class="fa">They asked us for help. A thoughtful question shows you care about their problem.</span><span class="fk">Reframe</span></div></div></button>
+      <button class="flip" data-ui><div class="in2"><div class="face front"><span class="fq">“I'm not confident I'll ask the right thing.”</span><span class="fk">What we hear</span></div><div class="face back"><span class="fa">Draft three questions before the meeting. Confidence comes from preparation, and practice.</span><span class="fk">Reframe</span></div></div></button>
+      <button class="flip" data-ui><div class="in2"><div class="face front"><span class="fq">“I'm a new hire. It's not my place.”</span><span class="fk">What we hear</span></div><div class="face back"><span class="fa">New eyes catch what veterans assume. Some of the best clarifying questions come from new hires.</span><span class="fk">Reframe</span></div></div></button>
+      <button class="flip" data-ui><div class="in2"><div class="face front"><span class="fq">“I didn't know I was allowed to ask.”</span><span class="fk">What we hear</span></div><div class="face back"><span class="fa">You are. That is the whole point of today.</span><span class="fk">Reframe</span></div></div></button>
+      <button class="flip" data-ui><div class="in2"><div class="face front"><span class="fq">“There was no project summary to prepare from.”</span><span class="fk">What we hear</span></div><div class="face back"><span class="fa">Ask for one. No summary? Open the meeting by asking the client to describe the problem in their words.</span><span class="fk">Reframe</span></div></div></button>
+      <button class="flip" data-ui><div class="in2"><div class="face front"><span class="fq">“If I ask, it sounds like we're promising it.”</span><span class="fk">What we hear</span></div><div class="face back"><span class="fa">Asking is not promising. “Help me understand…” commits us to nothing except understanding.</span><span class="fk">Reframe</span></div></div></button>
+    </div>
+  </div>
+  <div class="src">Problems and solutions gathered from Digital Corps staff conversations, November 2026.</div>
+</section>
+
+<!-- 7 RESEARCH -->
+<section class="slide" id="s-paper" data-steps="1" aria-label="The research">
+  <div class="hd"><span class="bsu">Ball State University</span><span class="rule"></span><span class="pg"></span></div>
+  <span class="tag">We're not the only ones</span>
+  <div class="body">
+    <div class="paper">
+      <div>
+        <div class="sub">The study</div>
+        <div class="ptitle" style="margin-top:10px">Learning from Mistakes: An Empirical Study of Elicitation Interviews Performed by Novices</div>
+        <div class="pauth">Bano, Zowghi, Ferrari, Spoletini &amp; Donati · IEEE Requirements Engineering Conference, 2018</div>
+        <p class="setup">Student teams prepared, then interviewed a “client” played by an experienced requirements researcher. Every interview was recorded and reviewed by two outside experts, who logged every mistake.</p>
+      </div>
+      <div class="stats" data-step="1">
+        <div class="stat"><div class="n" data-count="110">0</div><div class="l">students</div></div>
+        <div class="stat"><div class="n" data-count="28">0</div><div class="l">interview teams</div></div>
+        <div class="stat"><div class="n" data-count="15">0</div><div class="l">minutes per interview</div></div>
+        <div class="stat"><div class="n" data-count="7">0</div><div class="l">themes of mistakes</div></div>
+        <div class="stat wide"><div class="n" data-count="34">0</div><div class="l">unique mistakes found. Let's see which ones you'd make.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="src">Bano, M., Zowghi, D., Ferrari, A., Spoletini, P., &amp; Donati, B. (2018). Learning from Mistakes. IEEE RE 2018.</div>
+</section>
+
+<!-- 8 GUESS -->
+<section class="slide" id="s-guess" data-steps="3" aria-label="Guess the most common mistakes">
+  <div class="hd"><span class="bsu">Ball State University</span><span class="rule"></span><span class="pg"></span></div>
+  <span class="tag">Your turn: guess</span>
+  <div class="body">
+    <h2 class="h-l">Which three mistakes happened the <span class="it red">most?</span></h2>
+    <div class="opts">
+      <span class="opt" data-k="laptop">Looking at your laptop</span>
+      <span class="opt" data-k="rapport">Not building rapport</span>
+      <span class="opt" data-k="interrupt">Interrupting the client</span>
+      <span class="opt" data-k="tech">Asking technical questions</span>
+      <span class="opt" data-k="vague">Asking vague questions</span>
+      <span class="opt" data-k="over">Being overconfident</span>
+      <span class="opt" data-k="ending">Ending the interview badly</span>
+      <span class="opt" data-k="stake">Not asking who else to talk to</span>
+    </div>
+    <div class="podium">
+      <div class="pod" id="pod2"><span class="rank">2</span><span class="nm">Ending the interview badly</span><span class="ct">19<small>of 28 teams</small></span><span class="ex">No summary back to the client. The talk just stopped.</span><div class="cover">?</div></div>
+      <div class="pod one" id="pod1"><span class="rank">1</span><span class="nm">Asking vague questions</span><span class="ct">21<small>of 28 teams</small></span><span class="ex">Questions that could mean several things, or nothing at all.</span><div class="cover">?</div></div>
+      <div class="pod" id="pod3"><span class="rank">3</span><span class="nm">Not building rapport</span><span class="ct">16<small>of 28 teams</small></span><span class="ex">Jumping straight into questions. No intro, no warm-up.</span><div class="cover">?</div></div>
+    </div>
+  </div>
+  <div class="hint">Shout your guesses, then click to reveal</div>
+  <div class="src" style="left:auto;right:180px;text-align:right">Bano et al., 2018, Fig. 2</div>
+</section>
+
+<!-- 9 LEADERBOARD -->
+<section class="slide" id="s-chart" data-steps="1" aria-label="Most frequent mistakes">
+  <div class="hd"><span class="bsu">Ball State University</span><span class="rule"></span><span class="pg"></span></div>
+  <span class="tag">The full leaderboard</span>
+  <div class="body">
+    <h2 class="h-m">Teams that made each mistake, out of 28</h2>
+    <div class="chart" data-step="1" style="transform:none">
+      <div class="crow top"><span class="cl">Asking vague questions<span class="cth">Question formulation</span></span><span class="ctrack"><span class="cbar" style="--w:75%"></span></span><span class="cv">21</span></div>
+      <div class="crow top"><span class="cl">Ending the interview badly<span class="cth">Order of interview</span></span><span class="ctrack"><span class="cbar" style="--w:67.9%;transition-delay:.08s"></span></span><span class="cv">19</span></div>
+      <div class="crow top"><span class="cl">No rapport with the client<span class="cth">Customer interaction</span></span><span class="ctrack"><span class="cbar" style="--w:57.1%;transition-delay:.16s"></span></span><span class="cv">16</span></div>
+      <div class="crow"><span class="cl">Asking technical questions<span class="cth">Question formulation</span></span><span class="ctrack"><span class="cbar" style="--w:53.6%;transition-delay:.24s"></span></span><span class="cv">15</span></div>
+      <div class="crow"><span class="cl">Opening the interview badly<span class="cth">Order of interview</span></span><span class="ctrack"><span class="cbar" style="--w:53.6%;transition-delay:.32s"></span></span><span class="cv">15</span></div>
+      <div class="crow"><span class="cl">Questions in the wrong order<span class="cth">Order of interview</span></span><span class="ctrack"><span class="cbar" style="--w:53.6%;transition-delay:.4s"></span></span><span class="cv">15</span></div>
+      <div class="crow"><span class="cl">Unnatural, scripted dialogue<span class="cth">Communication skills</span></span><span class="ctrack"><span class="cbar" style="--w:50%;transition-delay:.48s"></span></span><span class="cv">14</span></div>
+      <div class="crow"><span class="cl">No coordination within the team<span class="cth">Teamwork and planning</span></span><span class="ctrack"><span class="cbar" style="--w:50%;transition-delay:.56s"></span></span><span class="cv">14</span></div>
+      <div class="crow"><span class="cl">Not identifying stakeholders<span class="cth">Question omission</span></span><span class="ctrack"><span class="cbar" style="--w:42.9%;transition-delay:.64s"></span></span><span class="cv">12</span></div>
+      <div class="crow"><span class="cl">No probing or follow-up questions<span class="cth">Question omission</span></span><span class="ctrack"><span class="cbar" style="--w:39.3%;transition-delay:.72s"></span></span><span class="cv">11</span></div>
+      <div class="axis"><div></div><div><span>0</span><span>7</span><span>14</span><span>21</span><span>28</span></div><div></div></div>
+    </div>
+  </div>
+  <div class="src">Bano et al., 2018, Fig. 2. Not asking about the existing process also hit 11 of 28.</div>
+</section>
+
+<!-- 10 RAREST -->
+<section class="slide" id="s-rare" data-steps="2" aria-label="The rarest mistakes">
+  <div class="hd"><span class="bsu">Ball State University</span><span class="rule"></span><span class="pg"></span></div>
+  <span class="tag">Now guess the rarest</span>
+  <div class="body">
+    <h2 class="h-l">These sound bad. <span class="it red">How often did they happen?</span></h2>
+    <div class="rare">
+      <div class="rc"><span class="rn">Interrupting the client</span><span class="rv">1 <small>of 28</small></span></div>
+      <div class="rc"><span class="rn">Overconfidence, arrogance</span><span class="rv">1 <small>of 28</small></span></div>
+      <div class="rc"><span class="rn">Staring at a laptop mid-conversation</span><span class="rv">1 <small>of 28</small></span></div>
+      <div class="rc"><span class="rn">Asking very long questions</span><span class="rv">1 <small>of 28</small></span></div>
+      <div class="rc"><span class="rn">Long awkward pauses</span><span class="rv">1 <small>of 28</small></span></div>
+      <div class="rc"><span class="rn">Pushing the client's opinion</span><span class="rv">1 <small>of 28</small></span></div>
+      <div class="rc"><span class="rn">Unprofessional behavior</span><span class="rv">1 <small>of 28</small></span></div>
+      <div class="rc"><span class="rn">Passive, disengaged attitude</span><span class="rv">1 <small>of 28</small></span></div>
+    </div>
+    <div class="contrast" data-step="2">
+      <div class="loud"><b>The loud mistakes are rare</b>Most people already know not to interrupt or show off.</div>
+      <div class="quiet"><b>The quiet mistakes are everywhere</b>Vague questions, no summary, no rapport. They feel normal, so nobody notices.</div>
+    </div>
+  </div>
+  <div class="hint" id="rarehint">Guess first, then click</div>
+  <div class="src" style="left:auto;right:180px;text-align:right">Bano et al., 2018, Fig. 2</div>
+</section>
+
+<!-- 11 MAKEOVER -->
+<section class="slide" id="s-make" data-steps="4" aria-label="Vague question makeover">
+  <div class="hd"><span class="bsu">Ball State University</span><span class="rule"></span><span class="pg"></span></div>
+  <span class="tag">Question makeover</span>
+  <div class="body">
+    <h2 class="h-m">Real questions students asked. <span class="it red">What's wrong with them?</span></h2>
+    <div class="mk">
+      <div class="qlist">
+        <button class="pick" data-ui data-i="1">“What is the impact of the project to your business?”</button>
+        <button class="pick" data-ui data-i="2">“Can you indicate the major constraints of the project?”</button>
+        <button class="pick" data-ui data-i="3">“Do you want some specific features on the website?”</button>
+        <button class="pick" data-ui data-i="4">“What are your expectations?”</button>
+      </div>
+      <div class="mkpanel" id="mkpanel">
+        <p class="mkempty" id="mkempty">The reviewers called these “too vague.” The client could not give a useful answer to any of them. Critique each one together, then click to see a rewrite.</p>
+        <div id="mkfill" hidden>
+          <div><span class="vq"><span id="mkq"></span><span class="strike"></span></span></div>
+          <div class="tags" id="mktags"></div>
+          <p class="why2" id="mkwhy"></p>
+          <div class="better"><div class="bk">Try instead</div><div class="bq" id="mkbetter"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="src">Vague questions quoted from Bano et al., 2018, Section V.A. Rewrites are ours.</div>
+</section>
+
+<!-- 12 CONTEXT -->
+<section class="slide" id="s-ctx" data-steps="4" aria-label="Context decides the question">
+  <div class="hd"><span class="bsu">Ball State University</span><span class="rule"></span><span class="pg"></span></div>
+  <span class="tag">Context decides the question</span>
+  <div class="body">
+    <h2 class="h-m">There is no perfect question list. <span class="it red">Who you're asking changes everything.</span></h2>
+    <div class="ctx">
+      <div class="who">
+        <button class="pick" data-ui data-i="1">Department director<span>Sponsors and approves the project</span></button>
+        <button class="pick" data-ui data-i="2">Front-desk student worker<span>Lives the problem every day</span></button>
+        <button class="pick" data-ui data-i="3">Campus IT contact<span>Owns the systems and rules</span></button>
+        <button class="pick" data-ui data-i="4">Students who attend<span>The end users</span></button>
+      </div>
+      <div>
+        <div class="goal">Same goal for every conversation<b>Understand how event sign-ups work today.</b></div>
+        <div class="askcard" id="askcard">
+          <div class="ak" id="ak">Pick a stakeholder</div>
+          <div class="aq" id="aq">Tap a person on the left to see how the question changes.</div>
+          <div class="aw" id="aw"></div>
+        </div>
+        <div class="warn"><b>15 of 28 teams</b> asked technical questions to a business owner, like “If the system fails, do you have a backup?” She was the wrong person to ask, and the answer told them nothing.</div>
+      </div>
+    </div>
+  </div>
+  <div class="src">Technical-question finding from Bano et al., 2018. Stakeholder examples are ours.</div>
+</section>
+
+<!-- 12b INTAKE -->
+<section class="slide" id="s-intake" data-steps="2" aria-label="What our team leads ask">
+  <div class="hd"><span class="bsu">Ball State University</span><span class="rule"></span><span class="pg"></span></div>
+  <span class="tag">From our own team leads</span>
+  <div class="body">
+    <h2 class="h-m">Questions our leads already ask at intake. <span class="it red">Some teams are still blank.</span></h2>
+    <div class="intake">
+      <div class="ic" style="--c:var(--pm)"><h4>Project Management</h4><ul><li>When does it need to be completed?</li><li>Who is the best person for our PM to communicate with?</li></ul></div>
+      <div class="ic" style="--c:var(--design)"><h4>Design</h4><ul><li>Does this need to follow BSU brand guidelines? How “officially BSU” is this?</li><li>How should users feel when they visit the site?</li><li>What device will the average user use most?</li></ul></div>
+      <div class="ic" style="--c:var(--comm)"><h4>Comms &amp; Marketing</h4><ul><li>Who is your target audience?</li><li>What is your goal for this project?</li><li>What should people take away from it?</li><li>How formal is the tone?</li><li>If interviews are involved, who should we interview?</li></ul></div>
+      <div class="ic" style="--c:#D8D2E8"><h4>Accessibility</h4><ul><li>Is the product meant for the public?</li><li>Is it part of classroom or educational content?</li><li>What platforms will it be on?</li><li>Are there existing alternatives to the product?</li></ul></div>
+      <div class="ic empty" style="--c:var(--ux)"><h4>User Experience</h4><p class="ask">What would you ask?</p><ul class="seed"><li>Who uses this today, and can we talk to them?</li><li>What does someone do right before and after using it?</li></ul></div>
+      <div class="ic empty" style="--c:var(--dev)"><h4>Development</h4><p class="ask">What would you ask?</p><ul class="seed"><li>Does this connect to an existing system or login?</li><li>Who keeps it running after launch?</li></ul></div>
+      <div class="ic empty" style="--c:#E9D3B4"><h4>Fabrication</h4><p class="ask">What would you ask?</p><ul class="seed"><li>Where will the piece live, and how will people touch or use it?</li><li>Any size, material, or safety limits?</li></ul></div>
+      <div class="ic empty" style="--c:#BFD9CF"><h4>Video &amp; Media</h4><p class="ask">What would you ask?</p><ul class="seed"><li>Where will this be watched, and how long can it run?</li><li>Who appears on camera, and do we have permission?</li></ul></div>
+    </div>
+  </div>
+  <div class="hint" id="intakehint">Click: ask the room to fill the blanks</div>
+  <div class="src" style="left:auto;right:180px;text-align:right">Client intake questions submitted by Digital Corps team leads, November 2026.</div>
+</section>
+
+<!-- 13 FLOW -->
+<section class="slide" id="s-flow" data-steps="5" aria-label="The shape of a good interview">
+  <div class="hd"><span class="bsu">Ball State University</span><span class="rule"></span><span class="pg"></span></div>
+  <span class="tag">The shape of a good interview</span>
+  <div class="body">
+    <h2 class="h-m">Your goal is understanding, <span class="it red">not getting through your list.</span></h2>
+    <div class="track"><div class="line"></div><div class="fill" id="flowfill"></div>
+      <div class="dots"><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+    <div class="stages">
+      <div class="stg"><h4>Open</h4><p class="goal3">Build rapport. Say who you are and why you're here.</p><p class="line3">“Thanks for meeting. I'm on the dev team, and I'll be helping build this.”</p><p class="stat3">15 of 28 opened badly</p></div>
+      <div class="stg"><h4>Explore</h4><p class="goal3">Hear their story and how things work today.</p><p class="line3">“Walk me through the last time this happened.”</p></div>
+      <div class="stg"><h4>Probe</h4><p class="goal3">Follow the interesting answer.</p><p class="line3">“Usually? What happens when it doesn't?”</p><p class="line3">“Can you give me an example?”</p><p class="stat3">11 of 28 never probed</p></div>
+      <div class="stg"><h4>Confirm</h4><p class="goal3">Summarize back what you heard.</p><p class="line3">“Let me make sure I got this right…”</p><p class="stat3">19 of 28 ended without this</p></div>
+      <div class="stg"><h4>Close</h4><p class="goal3">Ask what you missed and who else to talk to.</p><p class="line3">“What should I have asked that I didn't?”</p><p class="line3">“Who else should we talk to?”</p></div>
+    </div>
+  </div>
+  <div class="src">Flow from CS439 Lecture 5, Interviews and Surveys. Statistics from Bano et al., 2018.</div>
+</section>
+
+<!-- 14 TOOLKIT -->
+<section class="slide" id="s-tools" data-steps="4" aria-label="Question toolkit">
+  <div class="hd"><span class="bsu">Ball State University</span><span class="rule"></span><span class="pg"></span></div>
+  <span class="tag">Question toolkit</span>
+  <div class="body">
+    <h2 class="h-m">Small changes, <span class="it red">very different answers.</span></h2>
+    <div class="swaps">
+      <div class="sw" data-step="1"><span class="kind">Closed → Open</span><span class="bad">“Do you use the search filter?”</span><span class="ar">→</span><span class="good">“Walk me through the last time you tried to find something on the site.”</span></div>
+      <div class="sw" data-step="2"><span class="kind">Leading → Neutral</span><span class="bad">“Don't you think a faster checkout would help?”</span><span class="ar">→</span><span class="good">“How do you feel about the checkout process today?”</span></div>
+      <div class="sw" data-step="3"><span class="kind">Solution → Need</span><span class="bad">“So you want a chatbot?”</span><span class="ar">→</span><span class="good">“What problem would a chatbot solve for you? When does it happen?”</span></div>
+    </div>
+    <div data-step="4">
+      <div class="sub" style="margin-top:22px">Phrases that keep it safe and respectful</div>
+      <div class="scripts">
+        <div><span>Asking permission</span>“Can I ask a clarifying question?”</div>
+        <div><span>Not promising</span>“Help me understand how that works.”</div>
+        <div><span>Checking yourself</span>“I want to make sure I heard that right…”</div>
+        <div><span>Avoiding jargon</span>“When you say ‘portal,’ what do you mean?”</div>
+      </div>
+    </div>
+  </div>
+  <div class="src">Examples adapted from CS439 Lecture 4, Requirements Elicitation.</div>
+</section>
+
+<!-- 15 NOTES -->
+<section class="slide" id="s-notes" data-steps="3" aria-label="Take notes on questions">
+  <div class="hd"><span class="bsu">Ball State University</span><span class="rule"></span><span class="pg"></span></div>
+  <span class="tag">Write it down</span>
+  <div class="body">
+    <h2 class="h-m">Write down the question, <span class="it red">not just the answer.</span></h2>
+    <div class="notes" style="margin-top:18px">
+      <div>
+        <div class="sheet">
+          <div class="th"><div>Question we asked</div><div>What we heard</div><div>Follow up / unclear</div></div>
+          <div class="tr" data-step="1"><div>Walk me through how people sign up today.</div><div>Google Form, then Maria copies it to a spreadsheet.</div><div class="fu">Who is Maria? Talk to her next.</div></div>
+          <div class="tr" data-step="1" style="transition-delay:.25s"><div>What happens when an event is full?</div><div>“We usually just turn people away.”</div><div class="fu">Usually? Is there a waitlist sometimes?</div></div>
+          <div class="tr" data-step="1" style="transition-delay:.5s"><div>How will you know this worked?</div><div>Fewer no-shows. They don't track it yet.</div><div class="fu">Assumption: we can measure no-shows.</div></div>
+        </div>
+        <div class="tips" data-step="3">
+          <div><b>In an email chain:</b> number your questions so none get buried.</div>
+          <div><b>In a meeting:</b> one person asks, one person writes. Then swap.</div>
+          <div><b>After:</b> send the client a short summary. It catches what you misheard.</div>
+        </div>
+      </div>
+      <div class="minutes" data-step="2">
+        <div class="mk2">From the study: one team's notes</div>
+        <p class="mq">Q: “What do you think is the better performance?”</p>
+        <p class="ma">Recorded answer: the owner hopes the new system can support online operations, such as request tracking.</p>
+        <p class="ma" style="margin-top:12px;color:var(--ink)"><b>A vague question got a vague answer, and it went straight into the notes.</b> The answer had nothing to do with performance.</p>
+        <p class="ma" style="margin-top:12px">Teams that asked vague questions or skipped key ones also wrote poor notes. Teams that did well wrote good ones.</p>
+      </div>
+    </div>
+  </div>
+  <div class="src">Minutes example and finding from Bano et al., 2018, Section V.B.</div>
+</section>
+
+<!-- 16 ACTIVITY -->
+<section class="slide" id="s-act" data-steps="0" aria-label="Interview Lab activity">
+  <div class="hd"><span class="bsu">Ball State University</span><span class="rule"></span><span class="pg"></span></div>
+  <span class="tag">Activity: Interview Lab</span>
+  <div class="body">
+    <div class="act">
+      <div>
+        <div class="roles">
+          <div class="rl r-in"><span class="cnt">2 per team</span><h4>Analyst pair</h4><p><b>Step 1:</b> sort what you know, assume, and need to discover. <b>Step 2:</b> plan questions and probes. Then interview, writing down each question you ask.</p><span class="paperk">Paper: Scenario card + worksheet</span></div>
+          <div class="rl r-cl"><span class="cnt">1 per team</span><h4>Stakeholder</h4><p>Plays the role on a private card. Gives examples when asked, but never lists every problem or suggests features.</p><span class="paperk">Paper: Stakeholder card (private)</span></div>
+          <div class="rl r-ju"><span class="cnt">Step 4</span><h4>Reveal &amp; compare</h4><p>The stakeholder shows the card. What did you discover? Which assumption held up? What did you miss, and what question would have found it?</p><span class="paperk">Worksheet, page 2</span></div>
+        </div>
+        <p class="rule3"><b>The stakeholder's rule:</b> if the interviewer doesn't ask about something, you don't have to tell them. <b>Analysts:</b> investigate. Don't write requirements or design a solution yet.</p>
+      </div>
+      <div class="timer" id="timer" data-ui>
+        <div class="phase" id="tphase">Step 3 · Interview</div>
+        <div class="clock" id="tclock">8:00</div>
+        <div class="phases">
+          <button data-ui data-sec="300" data-name="Steps 1–2 · Analyze &amp; plan">Plan <span>5:00</span></button>
+          <button data-ui data-sec="480" data-name="Step 3 · Interview" class="on">Interview <span>8:00</span></button>
+          <button data-ui data-sec="240" data-name="Step 4 · Reveal &amp; compare">Reveal <span>4:00</span></button>
+          <button data-ui data-sec="180" data-name="Debrief">Debrief <span>3:00</span></button>
+        </div>
+        <div class="tctl"><button data-ui id="tgo">Start</button><button data-ui id="treset">Reset</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="src">Activity adapted from CS439.2 Requirements Engineering in Practice, Fall 2026, Sugandha Malviya, Ball State University.</div>
+</section>
+
+<!-- 17 CLOSE -->
+<section class="slide" id="s-close" data-steps="1" aria-label="Next project">
+  <div class="hd"><span class="bsu">Ball State University</span><span class="rule"></span><span class="pg"></span></div>
+  <span class="tag">On your next project</span>
+  <svg class="wingc" viewBox="0 0 330 260" aria-hidden="true"><polygon points="0,0 170,105 320,12 320,120 120,244 120,188 0,112" fill="#BA0C2F"/></svg>
+  <div class="body">
+    <h2 class="h-l">Try three things.</h2>
+    <div class="three">
+      <div class="t3"><div class="n3">1</div><h4>Draft three questions before the meeting.</h4><p>At least one “Walk me through…” question. Ask for a project summary if you don't have one.</p></div>
+      <div class="t3"><div class="n3">2</div><h4>Ask one clarifying question.</h4><p>Just one. “Help me understand…” is always allowed, whatever team you're on.</p></div>
+      <div class="t3"><div class="n3">3</div><h4>Write it down, then summarize back.</h4><p>Note the question and the answer. End by confirming what you heard.</p></div>
+    </div>
+    <div class="invite" data-step="1"><span class="iq">Dev, Design, PM, Comm: you're invited into research.</span><span class="ik">Talk to the UX team</span></div>
+  </div>
+  <div class="src">Thank you. Questions?</div>
+</section>
+
+<div id="ui">
+  <button id="bprev" aria-label="Previous">←</button>
+  <button id="bnext" aria-label="Next">→</button>
+  <button id="bfs" aria-label="Full screen">Full screen</button>
+</div>
+<div id="prog"></div>
+</div>
+</div>
+
+<script>
+(function(){
+  const stage=document.getElementById('stage');
+  const slides=[...document.querySelectorAll('.slide')];
+  const N=slides.length;
+  let cur=0, step=0;
+  const nSteps=s=>+(s.dataset.steps||0);
+
+  function fit(){
+    const w=window.innerWidth-32, h=window.innerHeight-32;
+    const k=Math.max(.1,Math.min(w/1280,h/720));
+    stage.style.transform='scale('+k+')';
+  }
+  window.addEventListener('resize',fit); fit();
+
+  slides.forEach((s,i)=>{const p=s.querySelector('.pg'); if(p) p.textContent=String(i+1).padStart(2,'0');});
+
+  /* makeover data */
+  const MK={
+    1:{q:'“What is the impact of the project to your business?”',tags:['Too abstract','No time frame','Hard to answer'],why:'“Impact” could mean money, time, reputation, or nothing specific. The client had no way to estimate it.',b:'“Six months after launch, what would be different for your office if this worked?”'},
+    2:{q:'“Can you indicate the major constraints of the project?”',tags:['Jargon','Too broad','Formal and stiff'],why:'Clients don’t think in “constraints.” Name the kinds of limits you mean so they can recognize them.',b:'“Is there a date, budget, or existing system we have to work with? What happens if we miss that date?”'},
+    3:{q:'“Do you want some specific features on the website?”',tags:['Yes/no question','Asks for a solution','Skips the problem'],why:'It invites a wish list, or a one-word answer. You learn features before you learn the problem they solve.',b:'“Walk me through the last time someone tried to sign up on your current site. Where did they get stuck?”'},
+    4:{q:'“What are your expectations?”',tags:['Could mean anything','No shared meaning','Asked out of context'],why:'Expectations about cost? Design? Timeline? The client has to guess what you’re asking.',b:'“How will you know this project was a success? What would you look at to tell?”'}
+  };
+  const CX={
+    1:{k:'Department director',q:'“What made this a priority now, and how will your office judge it a year from now?”',w:'Sponsors care about goals, budget, and success. Skip the technical details.'},
+    2:{k:'Front-desk student worker',q:'“Walk me through what you do when someone shows up to an event that’s already full.”',w:'The person doing the work knows the workarounds and exceptions nobody else mentions.'},
+    3:{k:'Campus IT contact',q:'“What systems does this need to connect to, and are there login or data rules we have to follow?”',w:'This is the right place for technical questions.'},
+    4:{k:'Students who attend',q:'“Tell me about the last event you meant to go to but missed. What happened?”',w:'End users describe their experience, not the system. Ask about real moments.'}
+  };
+
+  const hooks={
+    's-today':(st,s)=>{s.classList.toggle('st2',st>=2)},
+    's-wf':(st,s)=>{
+      ['st1','st2','st3'].forEach((c,i)=>s.classList.toggle(c,st===i+1));
+      const cap=document.getElementById('wfcap');
+      cap.innerHTML= st===0?'This is how our UX team runs a project. UX already does almost all of the requirements work.'
+        : st===1?'Today, most other teams first meet the project down here, <b>after</b> the requirements are set.'
+        : '<b>The ask:</b> bring Dev, Design, PM, and Comm into <b>User / Subject Matter Research</b>, where requirements start.';
+    },
+    's-paper':(st,s)=>{ if(st>=1 && !s.dataset.counted){ s.dataset.counted=1; s.querySelectorAll('[data-count]').forEach(el=>countUp(el,+el.dataset.count)); } if(st===0){delete s.dataset.counted; s.querySelectorAll('[data-count]').forEach(el=>el.textContent='0');} },
+    's-guess':(st,s)=>{
+      const order=['rapport','ending','vague'];
+      ['pod3','pod2','pod1'].forEach((id,i)=>document.getElementById(id).classList.toggle('shown',st>=i+1));
+      s.querySelectorAll('.opt').forEach(o=>{const hit=order.indexOf(o.dataset.k); o.classList.toggle('hit',hit>-1&&st>hit); o.classList.toggle('miss',st>=3&&hit===-1);});
+    },
+    's-chart':(st,s)=>{s.querySelector('.chart').classList.toggle('in',st>=1)},
+    's-rare':(st,s)=>{s.classList.toggle('st1',st>=1); document.getElementById('rarehint').hidden=st>=1;},
+    's-make':(st,s)=>showMk(st),
+    's-intake':(st,s)=>{s.classList.toggle('st1',st===1);s.classList.toggle('st2',st>=2);const h=document.getElementById('intakehint');h.textContent=st===0?'Click: ask the room to fill the blanks':st===1?'Room quiet? Click for starter ideas':'';},
+    's-ctx':(st,s)=>showCx(st),
+    's-flow':(st,s)=>{
+      const st5=s.querySelectorAll('.stg'), d=s.querySelectorAll('.dots div');
+      st5.forEach((e,i)=>{e.classList.toggle('on',i<st); e.classList.toggle('cur',i===st-1)});
+      d.forEach((e,i)=>e.classList.toggle('on',i<st));
+      const f=document.getElementById('flowfill'); const full=1152-120;
+      f.style.width= st<=1?'0px': ((st-1)/4*full)+'px';
+    }
+  };
+
+  let mkShown=-1;
+  function showMk(i){
+    const panel=document.getElementById('mkpanel');
+    document.querySelectorAll('#s-make .pick').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    if(i===mkShown) return; mkShown=i;
+    document.getElementById('mkempty').hidden=i>0;
+    document.getElementById('mkfill').hidden=i===0;
+    panel.classList.remove('go');
+    if(!i) return;
+    const d=MK[i];
+    document.getElementById('mkq').textContent=d.q;
+    document.getElementById('mktags').innerHTML=d.tags.map(t=>'<span class="ctag">'+t+'</span>').join('');
+    document.getElementById('mkwhy').textContent=d.why;
+    document.getElementById('mkbetter').textContent=d.b;
+    void panel.offsetWidth; requestAnimationFrame(()=>panel.classList.add('go'));
+  }
+  let cxShown=0;
+  function showCx(i){
+    document.querySelectorAll('#s-ctx .pick').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+    if(i===cxShown) return; cxShown=i;
+    const card=document.getElementById('askcard');
+    card.classList.add('swap');
+    setTimeout(()=>{
+      if(i){document.getElementById('ak').textContent='Ask the '+CX[i].k.toLowerCase();document.getElementById('aq').textContent=CX[i].q;document.getElementById('aw').textContent=CX[i].w;}
+      else{document.getElementById('ak').textContent='Pick a stakeholder';document.getElementById('aq').textContent='Tap a person on the left to see how the question changes.';document.getElementById('aw').textContent='';}
+      card.classList.remove('swap');
+    },220);
+  }
+
+  function countUp(el,to){
+    const t0=performance.now(), dur=1100;
+    (function f(t){const p=Math.min(1,(t-t0)/dur); el.textContent=Math.round(to*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(f);})(t0);
+  }
+
+  function render(){
+    slides.forEach((s,i)=>s.classList.toggle('active',i===cur));
+    const s=slides[cur];
+    s.querySelectorAll('[data-step]').forEach(el=>el.classList.toggle('in',step>=+el.dataset.step));
+    if(hooks[s.id]) hooks[s.id](step,s);
+    const total=N-1; document.getElementById('prog').style.width=(cur/total*100)+'%';
+    try{history.replaceState(null,'','#s'+(cur+1));}catch(e){}
+  }
+  function next(){ if(step<nSteps(slides[cur])) step++; else if(cur<N-1){cur++;step=0;} render(); }
+  function prev(){ if(step>0) step--; else if(cur>0){cur--;step=nSteps(slides[cur]);} render(); }
+  function go(i){cur=Math.max(0,Math.min(N-1,i));step=0;render();}
+
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','PageDown',' ','Enter'].includes(e.key)){ if(e.key==='Enter'&&e.target.closest('button'))return; e.preventDefault(); next(); }
+    else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){ e.preventDefault(); prev(); }
+    else if(e.key==='Home') go(0); else if(e.key==='End') go(N-1);
+    else if(e.key==='f'||e.key==='F') fs();
+  });
+  stage.addEventListener('click',e=>{ if(e.target.closest('[data-ui],#ui,button,a')) return; next(); });
+  document.getElementById('bnext').onclick=next;
+  document.getElementById('bprev').onclick=prev;
+  function fs(){ try{ if(!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{}); else document.exitFullscreen(); }catch(e){} }
+  document.getElementById('bfs').onclick=fs;
+
+  document.querySelectorAll('.flip').forEach(c=>c.addEventListener('click',()=>c.classList.toggle('on')));
+  document.querySelectorAll('#s-make .pick').forEach(b=>b.addEventListener('click',()=>{step=+b.dataset.i;render();}));
+  document.querySelectorAll('#s-ctx .pick').forEach(b=>b.addEventListener('click',()=>{step=+b.dataset.i;render();}));
+
+  /* timer */
+  let left=480, total=480, tick=null;
+  const clock=document.getElementById('tclock'), tbox=document.getElementById('timer'), tgo=document.getElementById('tgo');
+  const fmt=x=>Math.floor(x/60)+':'+String(x%60).padStart(2,'0');
+  function stop(){clearInterval(tick);tick=null;tgo.textContent='Start';}
+  document.querySelectorAll('.phases button').forEach(b=>b.addEventListener('click',()=>{
+    stop(); document.querySelectorAll('.phases button').forEach(x=>x.classList.toggle('on',x===b));
+    total=left=+b.dataset.sec; document.getElementById('tphase').textContent=b.dataset.name; clock.textContent=fmt(left); tbox.classList.remove('done');
+  }));
+  tgo.addEventListener('click',()=>{
+    if(tick){stop();return;}
+    if(left<=0){left=total;}
+    tbox.classList.remove('done'); tgo.textContent='Pause';
+    tick=setInterval(()=>{left--; clock.textContent=fmt(Math.max(0,left)); if(left<=0){stop(); tbox.classList.add('done');}},1000);
+  });
+  document.getElementById('treset').addEventListener('click',()=>{stop();left=total;clock.textContent=fmt(left);tbox.classList.remove('done');});
+
+  const m=/^#s(\d+)$/.exec(location.hash); if(m) cur=Math.min(N-1,Math.max(0,+m[1]-1));
+  render();
+})();
+</script>
+
+</body></html>

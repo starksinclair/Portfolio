@@ -26,6 +26,7 @@ import { cvMeta } from "../data/cv";
 import type { Post } from "../data/posts";
 import type { Project } from "../data/projects";
 import { mentions, type Mention } from "../data/press";
+import type { Presentation } from "../data/presentations";
 
 /** Re-exported so pages building ItemLists need only one import. */
 export { SITE_URL };
@@ -42,6 +43,7 @@ export const ID = {
   project: (slug: string) => `${SITE_URL}/projects/${slug}#project`,
   mention: (id: string) => `${SITE_URL}/press#${id}`,
   cv: `${SITE_URL}/cv#document`,
+  presentation: (slug: string) => `${SITE_URL}/presentations/${slug}#talk`,
 };
 
 const ref = (id: string) => ({ "@id": id });
@@ -351,6 +353,56 @@ export function projectNode(project: Project) {
         }
       : {}),
     ...(project.thumbnail ? { image: project.thumbnail } : {}),
+  };
+}
+
+/**
+ * A talk.
+ *
+ * `PresentationDigitalDocument` is the deck; `about` points at the person who
+ * gave it only through `author`, because the subject of a talk is its topic,
+ * not its speaker. The deck's own URL goes in `encoding` so a crawler can tell
+ * the page about the talk apart from the file you project.
+ */
+export function presentationNode(p: Presentation) {
+  const url = `${SITE_URL}/presentations/${p.slug}`;
+  const file =
+    p.media.kind === "images" ? undefined : `${SITE_URL}${p.media.href}`;
+
+  return {
+    "@type": "PresentationDigitalDocument",
+    "@id": ID.presentation(p.slug),
+    url,
+    mainEntityOfPage: url,
+    name: p.title,
+    headline: p.title,
+    description: p.description,
+    author: ref(ID.person),
+    creator: ref(ID.person),
+    inLanguage: "en-US",
+    datePublished: p.date,
+    keywords: p.tags.join(", "),
+    about: p.takeaways.map((t) => ({ "@type": "Thing", name: t })),
+    ...(file
+      ? {
+          encoding: {
+            "@type": "MediaObject",
+            contentUrl: file,
+            encodingFormat: p.media.kind === "pdf" ? "application/pdf" : "text/html",
+          },
+        }
+      : {}),
+    ...(p.handouts?.length
+      ? {
+          hasPart: p.handouts.map((h) => ({
+            "@type": "DigitalDocument",
+            name: h.title,
+            description: h.description,
+            url: `${SITE_URL}${h.href}`,
+            encodingFormat: "application/pdf",
+          })),
+        }
+      : {}),
   };
 }
 

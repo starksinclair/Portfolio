@@ -25,6 +25,15 @@
       ]
     },
     {
+      "source": "/decks/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
+    {
       "source": "/og-image.png",
       "headers": [
         {
