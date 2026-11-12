@@ -43,6 +43,15 @@ if (!pages.length) {
   process.exit(1);
 }
 
+/* Decks under /decks are self-contained HTML files presented as they were
+   built, served verbatim. They are hosted artifacts, not pages of this site:
+   they have no canonical, no Open Graph and no place in the sitemap, and
+   rewriting them to satisfy these rules would change the thing being shown.
+   `/presentations/<slug>` is the page about each one, and that is checked. */
+const decks = [];
+for (let i = pages.length - 1; i >= 0; i--)
+  if (pages[i].url.startsWith("/decks/")) decks.push(...pages.splice(i, 1));
+
 /* 404.html is held out of every per-page check below. It is deliberately the
    one page with no canonical and no place in the sitemap, so running the
    indexable-page rules over it would report its correctness as failures. It
@@ -207,6 +216,16 @@ if (!notFound) {
   canonical
     ? fail("the 404 page has no canonical", "it is served at every missing URL")
     : pass("the 404 page has no canonical");
+}
+
+/* Every hosted deck must have a page introducing it, otherwise the file is on
+   the site with nothing linking to it or saying what it is. */
+for (const deck of decks) {
+  const slug = deck.url.slice("/decks/".length);
+  const page = pages.find((p) => p.url === `/presentations/${slug}`);
+  page
+    ? pass(`the ${slug} deck has a page`, page.url)
+    : fail(`the ${slug} deck has a page`, `no /presentations/${slug}`);
 }
 
 /* ── report ──────────────────────────────────────────────────────────── */

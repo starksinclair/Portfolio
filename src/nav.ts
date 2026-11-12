@@ -5,6 +5,7 @@
 
 import { projects } from "./data/projects";
 import { posts } from "./data/posts";
+import { presentations } from "./data/presentations";
 import { mentions } from "./data/press";
 
 export interface NavItem {
@@ -37,7 +38,10 @@ export const navGroups: NavGroup[] = [
   },
   {
     title: "Writing",
-    items: [{ label: "Blog", path: "/writing", count: posts.length }],
+    items: [
+      { label: "Blog", path: "/writing", count: posts.length },
+      { label: "Presentations", path: "/presentations", count: presentations.length },
+    ],
   },
   {
     title: "Record",

@@ -76,7 +76,7 @@ Social and search crawlers do not execute JavaScript. In a single-page app every
 
 `src/lib/routes.ts` is the route table: for every URL it defines the title, description, Open Graph
 type and schema.org graph. At build time `vite.config.ts` walks that table and emits **one real HTML
-file per route** (42 of them) with those tags in the head. The body and script tag are untouched, so
+file per route** (44 of them) with those tags in the head. The body and script tag are untouched, so
 the app still boots and takes over. This only changes what a non-rendering client sees. `cleanUrls`
 maps `/about` to `about.html`, so every route is a file the host serves directly.
 
@@ -100,6 +100,44 @@ It is typographic, set in the brand faces, with no gradients. Regenerate it afte
 
 Because the config imports the real site modules, `sitemap.xml`, `robots.txt`, the per-route HTML
 and the JSON-LD are all generated from the same source as the app and cannot drift from it.
+
+## Presentations
+
+`src/data/presentations.ts` is the list of talks. Each one gets a page at
+`/presentations/<slug>` describing the occasion, the audience and what the session is for, with the
+slides embedded.
+
+**Decks are never rebuilt in React.** A self-contained HTML deck goes into `public/decks/` and is
+served byte for byte as it was presented, at its own address:
+
+| URL | What it is |
+| --- | --- |
+| `/presentations/ask-better-questions` | The page about the talk. Indexed, in the sitemap. |
+| `/decks/ask-better-questions` | The deck itself, nothing else on screen. Projector-ready. |
+| `/decks/ask-better-questions#s9` | The deck, opened at slide 9. |
+
+That second URL is the one to paste into a calendar invite or hand to whoever is driving the
+projector. `cleanUrls` drops the `.html`, so it stays short.
+
+Retyping a deck into components would make it a *different* deck — different type rendering,
+different colours, different interactions — and a record of a talk that differs from the talk is not
+a record. So the site frames the deck instead of absorbing it. The frame is the part that follows
+this site's design; the slides keep theirs.
+
+The embed hands the iframe the full 1280×720 viewport the deck was authored against and scales the
+frame down to fit, rather than giving the deck a small window and hoping. Decks size themselves
+from `window.innerWidth`, which inside an iframe is the iframe, and this one centres a fixed stage —
+so in a narrower window the stage overflows and half of it is clipped away. Scaling the frame means
+the deck always believes it is on a projector.
+
+Decks carry `X-Robots-Tag: noindex` (set in `vercel.json`) so the bare file does not compete in
+search with the page that explains it, and `npm run seo:check` holds them out of the page rules
+while asserting every deck has a page introducing it.
+
+To add a talk: drop the deck in `public/decks/`, append an entry to `presentations.ts`. The route,
+the sitemap entry, the sidebar count, the JSON-LD and the prerendered HTML all follow from that one
+entry. `media` is a union — `deck`, `pdf` or `images` — so a talk that only exists as a PDF or as
+exported slides has somewhere to go.
 
 ## The CV
 
@@ -147,7 +185,7 @@ over a decade, and `npm run seo:check` fails if one reappears. Research terms
 belong in the prose and headings instead, which is where `/research` carries
 them.
 
-`npm run seo:check` reads `dist/` and asserts seventeen properties: unique titles
+`npm run seo:check` reads `dist/` and asserts eighteen properties: unique titles
 and descriptions, canonicals that match their own URL, complete Open Graph,
 JSON-LD that parses into a non-empty graph, a sitemap that matches the built
 pages exactly, internal links that resolve, the Scholar citation tags, alt

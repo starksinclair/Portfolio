@@ -16,6 +16,11 @@ import { profile, SITE_URL } from "../data/profile";
 import { projects, projectBySlug } from "../data/projects";
 import { posts, postBySlug } from "../data/posts";
 import { mentions, publications } from "../data/press";
+import {
+  presentations,
+  presentationsNewestFirst,
+  presentationBySlug,
+} from "../data/presentations";
 import { navOrder } from "../nav";
 import {
   graph,
@@ -27,6 +32,7 @@ import {
   mentionNode,
   itemListNode,
   cvDocumentNode,
+  presentationNode,
   ID,
   type Crumb,
 } from "./schema";
@@ -254,6 +260,35 @@ function staticRoutes(): RouteSeo[] {
       ]),
     },
     {
+      path: "/presentations",
+      title: "Presentations",
+      description:
+        "Talks and workshops, published with the slides as they were presented. Each deck has its own address so a link opens it directly.",
+      ogType: "website",
+      crumbs: [home, { name: "Presentations", path: "/presentations" }],
+      changefreq: "monthly",
+      priority: "0.7",
+      jsonLd: graph([
+        webPageNode({
+          path: "/presentations",
+          title: documentTitle("/presentations", "Presentations"),
+          description: "Talks and workshops, with the slides as they were presented.",
+          type: "CollectionPage",
+          crumbs: [home, { name: "Presentations", path: "/presentations" }],
+        }),
+        itemListNode({
+          id: `${SITE_URL}/presentations#list`,
+          name: "Presentations",
+          items: presentationsNewestFirst.map((p) => ({
+            id: ID.presentation(p.slug),
+            name: p.title,
+            url: `${SITE_URL}/presentations/${p.slug}`,
+          })),
+        }),
+        ...presentationsNewestFirst.map(presentationNode),
+      ]),
+    },
+    {
       path: "/press",
       title: "Press & recognition",
       description:
@@ -393,6 +428,35 @@ function projectRoutes(): RouteSeo[] {
   });
 }
 
+function presentationRoutes(): RouteSeo[] {
+  return presentations.map((talk) => {
+    const crumbs: Crumb[] = [
+      home,
+      { name: "Presentations", path: "/presentations" },
+      { name: talk.title, path: `/presentations/${talk.slug}` },
+    ];
+    return {
+      path: `/presentations/${talk.slug}`,
+      title: talk.title,
+      description: talk.description,
+      ogType: "article" as const,
+      crumbs,
+      lastmod: talk.date,
+      changefreq: "yearly",
+      priority: "0.6",
+      jsonLd: graph([
+        webPageNode({
+          path: `/presentations/${talk.slug}`,
+          title: documentTitle(`/presentations/${talk.slug}`, talk.title),
+          description: talk.description,
+          crumbs,
+        }),
+        presentationNode(talk),
+      ]),
+    };
+  });
+}
+
 function postRoutes(): RouteSeo[] {
   return posts.map((post) => {
     const crumbs: Crumb[] = [
@@ -468,7 +532,7 @@ export function allRoutes(): RouteSeo[] {
     .filter((r): r is RouteSeo => r !== undefined);
   const rest = statics.filter((r) => !ordered.includes(r));
 
-  return [...ordered, ...rest, ...projectRoutes(), ...postRoutes()];
+  return [...ordered, ...rest, ...projectRoutes(), ...postRoutes(), ...presentationRoutes()];
 }
 
 const routeIndex = new Map(allRoutes().map((r) => [r.path, r]));
@@ -482,5 +546,6 @@ export function routeSeo(path: string): RouteSeo | undefined {
 export function hasContent(path: string): boolean {
   if (path.startsWith("/projects/")) return !!projectBySlug(path.slice(10));
   if (path.startsWith("/writing/")) return !!postBySlug(path.slice(9));
+  if (path.startsWith("/presentations/")) return !!presentationBySlug(path.slice(15));
   return routeIndex.has(path);
 }
