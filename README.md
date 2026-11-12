@@ -108,7 +108,7 @@ and the JSON-LD are all generated from the same source as the app and cannot dri
 slides embedded.
 
 **Decks are never rebuilt in React.** A self-contained HTML deck goes into `public/decks/` and is
-served byte for byte as it was presented, at its own address:
+served as it was presented, at its own address:
 
 | URL | What it is |
 | --- | --- |
@@ -129,6 +129,10 @@ frame down to fit, rather than giving the deck a small window and hoping. Decks 
 from `window.innerWidth`, which inside an iframe is the iframe, and this one centres a fixed stage —
 so in a narrower window the stage overflows and half of it is clipped away. Scaling the frame means
 the deck always believes it is on a projector.
+
+The one thing a deck is edited for is `<html lang>`. Missing it is a serious axe violation and the
+fix changes no pixel, so a deck that arrives without one gets it rather than being published with a
+screen reader guessing its language. Nothing else about a deck is touched.
 
 Decks carry `X-Robots-Tag: noindex` (set in `vercel.json`) so the bare file does not compete in
 search with the page that explains it, and `npm run seo:check` holds them out of the page rules
